@@ -208,6 +208,20 @@ export default function PersonalDetails() {
           placeholder="Enter your Phone No. of Next of Kin "
         />
       </div>
+      {/*  */}
+      <div className="mb-">
+              <Label labelName="date-of-birth">Date of Birth of Next of Kin </Label>
+              
+
+              <FormControl
+                fieldName="DOB"
+                variant="DatePicker"
+                id="date-of-birth"
+                placeholder="Enter your Next of Kin Date of birth "
+                
+              />
+            </div>
+
     </SectionContainer>
   );
 }
