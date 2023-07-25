@@ -132,7 +132,7 @@ export default function PersonalDetails() {
         />
       </div>
       {/* Relationship with Next of Kin  */}
-      <div className="mb-6">
+      <div className="mb-10">
         <Label labelName="relationship-with-next-of-kin" required>
         Relationship with Next of Kin 
         </Label>
@@ -195,8 +195,21 @@ export default function PersonalDetails() {
           placeholder="Enter your relationship with Next of Kin"
         />
       </div>
-      {/* Next of kin Phone Number */}
+      
+      {/* Date of Birth of Next of Kin  */}
       <div className="mb-10">
+              <Label labelName="date-of-birth">Date of Birth of Next of Kin </Label>
+              
+              <FormControl
+                fieldName="DOB"
+                variant="DatePicker"
+                id="date-of-birth"
+                placeholder="Enter your Next of Kin Date of birth "
+                
+              />
+            </div>
+    {/* Next of kin Phone Number */}
+    <div className="mb-10">
         <Label labelName="Phone-number-of-Next-of-Kin" required>
           Phone number of Next of Kin
         </Label>
@@ -208,19 +221,16 @@ export default function PersonalDetails() {
           placeholder="Enter your Phone No. of Next of Kin "
         />
       </div>
-      {/*  */}
-      <div className="mb-">
-              <Label labelName="date-of-birth">Date of Birth of Next of Kin </Label>
-              
-
-              <FormControl
-                fieldName="DOB"
-                variant="DatePicker"
-                id="date-of-birth"
-                placeholder="Enter your Next of Kin Date of birth "
-                
-              />
-            </div>
+{/* Address of Next of Kin */}
+<div className="mb-10 ">
+        <Label labelName="street-address">Street Address</Label>
+        <FormControl
+          fieldName="line1"
+          variant="input"
+          id="street-address"
+          placeholder="house address, xyz."
+        />
+      </div>
 
     </SectionContainer>
   );
