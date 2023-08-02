@@ -103,7 +103,9 @@ export function NigerianFields() {
     return (
         <>
             <div className="mb-10">
-                <Label labelName="state">State</Label>
+                <Label labelName="state" required>
+                    State
+                </Label>
                 <FormControl
                     fieldName="state"
                     variant="select"
@@ -120,7 +122,9 @@ export function NigerianFields() {
             </div>
 
             <div className="mb-10">
-                <Label labelName="local-government">Local Government</Label>
+                <Label labelName="local-government" required>
+                    Local Government
+                </Label>
                 <FormControl
                     fieldName="localGovt"
                     variant="select"

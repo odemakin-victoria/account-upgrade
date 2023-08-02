@@ -11,6 +11,7 @@ function App() {
         <Route path={ROOT_ROUTE} element={<Landing />} />
         <Route path={CREATE_ACCOUNT_REQUEST} element={<AccountForm />} />
         <Route path={UPDATE_ACCOUNT_REQUEST} element={<UpdateRequest />} />
+
       </Routes>
     </BrowserRouter>
   );

@@ -2,7 +2,7 @@
 
 
 export type IFormInputProps = {
-    variant: 'input' | 'textarea' | 'select'|'image'|'DatePicker';
+    variant: 'input' | 'textarea' | 'select'|'image'|'DatePicker'|'AgeDatePicker';
     fieldName: string,
     removeImage?:(args:string)=>void
 

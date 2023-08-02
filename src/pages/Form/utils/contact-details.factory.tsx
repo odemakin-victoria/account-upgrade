@@ -20,7 +20,7 @@ export function DiasporaFields() {
   return (
     <>
       <div className="mb-10">
-        <Label labelName="country">Country</Label>
+        <Label labelName="country" required>Country</Label>
         <FormControl
           fieldName="country"
           variant="select"
@@ -37,8 +37,8 @@ export function DiasporaFields() {
         />
       </div>
 
-      <div className="mb-10">
-        <Label labelName="state">State</Label>
+      <div className="mb-10" >
+        <Label labelName="state" required>State</Label>
         <FormControl
           fieldName="state"
           variant="input"
@@ -49,26 +49,26 @@ export function DiasporaFields() {
       </div>
 
       <div className="mb-10">
-        <Label labelName="city">City</Label>
+        <Label labelName="city" required>City</Label>
         <FormControl
           fieldName="city"
           variant="input"
           id="city"
-          placeholder="city"
+          placeholder="City"
         />
       </div>
 
       <div className="mb-10">
-        <Label labelName="line2Address">Address Line 1</Label>
+        <Label labelName="line2Address" required>Address Line 1</Label>
         <FormControl
           fieldName="line1"
           variant="input"
           id="line2Address"
-          placeholder="house address, xyz."
+          placeholder="Address line 2"
         />
       </div>
       <div className="mb-10">
-        <Label labelName="line2Address">Address Line 2</Label>
+        <Label labelName="line2Address" >Address Line 2</Label>
         <FormControl
           fieldName="line2"
           variant="input"
@@ -78,7 +78,7 @@ export function DiasporaFields() {
       </div>
 
       <div className="mb-10">
-        <Label labelName="postalCode">Zip Code</Label>
+        <Label labelName="postalCode" required>Zip Code</Label>
         <FormControl
           fieldName="postalCode"
           variant="input"
@@ -103,7 +103,7 @@ export function NigerianFields() {
   return (
     <>
       <div className="mb-10">
-        <Label labelName="state">State</Label>
+        <Label labelName="state" required>State</Label>
         <FormControl
           fieldName="state"
           variant="select"
@@ -120,7 +120,7 @@ export function NigerianFields() {
       </div>
 
       <div className="mb-10">
-        <Label labelName="local-government">Local Government</Label>
+        <Label labelName="local-government" required>Local Government</Label>
         <FormControl
           fieldName="localGovt"
           variant="select"
@@ -135,18 +135,27 @@ export function NigerianFields() {
         />
       </div>
 
+      <div   className="mb-10">
+        <Label labelName="house-number" >House Number</Label>
+        <FormControl
+          fieldName="houseNumber"
+          variant="input"
+          id="house-number"
+          placeholder="Enter house number"
+        />
+      </div>
       <div className="mb-6 ">
-        <Label labelName="street-address">Street Address</Label>
+        <Label labelName="street-address">Street Name</Label>
         <FormControl
           fieldName="line1"
           variant="input"
           id="street-address"
-          placeholder="house address, xyz."
+          placeholder="Enter street name."
         />
       </div>
 
       <div className="mb-10">
-        <Label labelName="post-code">Post Code</Label>
+        <Label labelName="post-code">Postal Zip Code</Label>
         <FormControl
           fieldName="postalCode"
           variant="input"

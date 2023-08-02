@@ -139,7 +139,7 @@ function FileInput({
     )
 }
 
-function DatePicker({
+function AgeDatePicker({
     fieldName,
     placeholder,
 }: Omit<IFormInputProps, "onBlur" | "variant">) {
@@ -184,6 +184,80 @@ function DatePicker({
         </div>
     )
 }
+function DatePicker({
+    fieldName,
+    placeholder,
+}: Omit<IFormInputProps, "onBlur" | "variant">) {
+    const { control } = useFormContext()
+
+    const isAgeAboveThirteen = (dateString: string | number | Date) => {
+        // Calculate the age based on the provided date string
+        const dateOfBirth = new Date(dateString)
+        const today = new Date()
+        const age = today.getFullYear() - dateOfBirth.getFullYear()
+        const monthDiff = today.getMonth() - dateOfBirth.getMonth()
+        if (
+            monthDiff < 0 ||
+            (monthDiff === 0 && today.getDate() < dateOfBirth.getDate())
+        ) {
+            return age - 1
+        }
+        return age
+    }
+
+    return (
+        <div style={{ flex: 1 }}>
+            <Controller
+                control={control}
+                render={({ field: { value, ...rest }, fieldState }) => {
+                    const age = value ? isAgeAboveThirteen(value) : null
+                    const errorMessage =
+                        age !== null && age < 13
+                            ? "Next of kin must be 13 years and above"
+                            : null
+
+                    return (
+                        <div className="flex flex-col">
+                            <DatePickerInput
+                                allowDeselect
+                                {...rest}
+                                placeholder={placeholder}
+                                value={value ? new Date(value) : null}
+                                classNames={{
+                                    input: `bg-white text-sm mb-2 h-14 placeholder:text-gray-400 placeholder:font-normal transition-all ${
+                                        fieldState.error &&
+                                        fieldState.error.message
+                                            ? "border border-red-400"
+                                            : ""
+                                    }`,
+                                }}
+                            />
+
+                            {fieldState.error && fieldState.error?.message && (
+                                <p
+                                    className="text-red-400 text-base mt-4"
+                                    aria-label="error message"
+                                >
+                                    {fieldState.error?.message}
+                                </p>
+                            )}
+
+                            {errorMessage && (
+                                <p
+                                    className="text-red-400 text-base mt-4"
+                                    aria-label="error message"
+                                >
+                                    {errorMessage}
+                                </p>
+                            )}
+                        </div>
+                    )
+                }}
+                name={fieldName}
+            />
+        </div>
+    )
+}
 
 export default function FormControl(props: IFormInputProps) {
     const { variant, options = [], ...otherProps } = props
@@ -197,6 +271,8 @@ export default function FormControl(props: IFormInputProps) {
             return <FileInput {...otherProps} />
         case "DatePicker":
             return <DatePicker {...otherProps} />
+        case "AgeDatePicker":
+            return <AgeDatePicker {...otherProps} />
 
         default:
             return null

@@ -1,4 +1,5 @@
 import { FormProvider, useForm, useFormContext } from "react-hook-form"
+
 import PersonalDetails from "./sections/personal-details.update"
 import ContactDetailsUpdate from "./sections/contact-details.update"
 import UploadedDocumentUpdate from "./sections/uploaded-documents.update"
@@ -28,13 +29,17 @@ import {
 } from "../Form/utils/ModalHandler"
 import dayjs from "dayjs"
 import UsePageTitle from "@/utils/page-title.shared.hook"
-import { Tabs } from "@mantine/core"
 import { useClickOutside } from "@mantine/hooks"
+import PreviewPage from "./sections/preview-details.update"
 
+// const handleClick = () => {
+//     navigator("/UPDATE_ACCOUNT_REQUEST");
+//   };
 export default function UpdateRequest() {
     UsePageTitle("View Update Request | Optimus Bank")
 
     const [state, dispatch] = useReducer(formModalReducer, initialState)
+    const [currentPage, setCurrentPage] = useState("Personal Details")
     const response = useFormQuery()
 
     const methods = useForm({
@@ -59,6 +64,10 @@ export default function UpdateRequest() {
             isDiaspora: "no",
             line1: "",
             line2: "",
+            firstName: "",
+            lastName: "",
+            middleName: " ",
+            DOB: "",
             documents: [] || null,
         },
     })
@@ -104,6 +113,9 @@ export default function UpdateRequest() {
     const [showMenu, setShowMenu] = useState(false)
     const ref = useClickOutside(() => setShowMenu(false))
 
+    const [previewPage, setPreviewPage] = useState(false)
+    const [previewData, setPreviewData] = useState({})
+
     return (
         <>
             <FormProvider {...methods}>
@@ -145,7 +157,7 @@ export default function UpdateRequest() {
                                 to={CREATE_ACCOUNT_REQUEST}
                                 className="transition-all p-4 rounded hover:bg-blue-500 hover:text-white inline-flex items-center justify-center w-full md:w-fit"
                             >
-                                <span>Create Account Request</span>{" "}
+                                <span>Account Upgrade Request</span>{" "}
                                 <BsArrowRight className="ml-4" />
                             </Link>
                         </div>
@@ -161,48 +173,103 @@ export default function UpdateRequest() {
                         </div>
                     </section>
                     <div></div>
-                    <div className="lg:px-10 px-4 justify-between gap">
-                        <Tabs
-                            defaultValue="Personal Details"
-                            orientation="horizontal"
-                        >
-                            <div className="overflow-scroll md:overflow-auto">
-                                <Tabs.List className="font-sans mb-6">
-                                    <Tabs.Tab
-                                        className="font-sans text-lg"
-                                        value="Personal Details"
+                    <div className="lg:px-10 px-4 justify-between gap ">
+                        {!previewPage ? (
+                            <>
+                                <div className="flex">
+                                    <p
+                                        onClick={() =>
+                                            setCurrentPage("Personal Details")
+                                        }
+                                        className={`cursor-pointer p-2 ${
+                                            currentPage === "Personal Details"
+                                                ? "text-blue-500 border-b-4 border-blue-500"
+                                                : "text-gray-900"
+                                        }`}
                                     >
                                         Personal Details
-                                    </Tabs.Tab>
-                                    <Tabs.Tab
-                                        className="font-sans text-lg"
-                                        value="Contact Details"
+                                    </p>
+                                    <p
+                                        onClick={() =>
+                                            setCurrentPage("Contact Details")
+                                        }
+                                        className={`cursor-pointer p-2 ${
+                                            currentPage === "Contact Details"
+                                                ? "text-blue-500 border-b-4 border-blue-500"
+                                                : "text-gray-900"
+                                        }`}
                                     >
                                         Contact Details
-                                    </Tabs.Tab>
-                                    <Tabs.Tab
-                                        className="font-sans text-lg"
-                                        value="Uploaded Documents"
+                                    </p>
+                                    <p
+                                        onClick={() =>
+                                            setCurrentPage("Uploaded Documents")
+                                        }
+                                        className={`cursor-pointer p-2 ${
+                                            currentPage === "Uploaded Documents"
+                                                ? "text-blue-500 border-b-4 border-blue-500"
+                                                : "text-gray-900"
+                                        }`}
                                     >
                                         Uploaded Documents
-                                    </Tabs.Tab>
-                                </Tabs.List>
-                            </div>
+                                    </p>
+                                </div>
+                                <div>
+                                    {currentPage == "Personal Details" ? (
+                                        <PersonalDetails
+                                            isLoading={response.isLoading}
+                                            setCurrentPage={() => {
+                                                setCurrentPage(
+                                                    "Contact Details"
+                                                )
+                                            }}
+                                            returnData={(data) => {
 
-                            <Tabs.Panel value="Personal Details">
-                                <PersonalDetails
-                                    isLoading={response.isLoading}
-                                />
-                            </Tabs.Panel>
-                            <Tabs.Panel value="Contact Details">
-                                <ContactDetailsUpdate
-                                    isLoading={response.isLoading}
-                                />
-                            </Tabs.Panel>
-                            <Tabs.Panel value="Uploaded Documents">
-                                <UploadedDocumentUpdate />
-                            </Tabs.Panel>
-                        </Tabs>
+                                                setPreviewData((prev) => ({
+                                                    ...prev,
+                                                    ...data,
+                                                }))
+                                            }}
+                                        />
+                                    ) : currentPage == "Contact Details" ? (
+                                        <ContactDetailsUpdate
+                                            isLoading={response.isLoading}
+                                            setCurrentPage={() =>
+                                                setCurrentPage(
+                                                    "Uploaded Documents"
+                                                )
+                                            }
+                                            returnData={(data) => {
+
+                                                setPreviewData((prev) => ({
+                                                    ...prev,
+                                                    ...data,
+                                                }))
+                                            }}
+                                        />
+                                    ) : (
+                                        <UploadedDocumentUpdate
+                                            returnData={(data) => {
+                                                console.log(data, "the form")
+
+                                                setPreviewData((prev) => ({
+                                                    ...prev,
+                                                    ...data,
+                                                }))
+                                                setPreviewPage(true)
+                                                console.log(
+                                                    previewData,
+                                                    "the prev data in next"
+                                                )
+                                            }}
+                                        />
+                                    )}
+                                </div>
+                            </>
+                        ) : (
+                            <PreviewPage previewData={previewData} setPreviewPage = {setPreviewPage} />
+                        )}
+                        {/* <button onClick={handleNext}>Next</button> */}
                     </div>
                 </div>
             </FormProvider>
@@ -267,7 +334,6 @@ export function AccountOTPRequest({
             opened={isOpen}
             withCloseButton={false}
             centered
-        
             onClose={() => {}}
             styles={{
                 root: {
@@ -303,16 +369,7 @@ export function AccountOTPRequest({
                     placeholder="Enter your account number"
                 />
             </div>
-            <div className="mb-6">
-                <Label labelName="date-of-birth">Date of Birth</Label>
 
-                <FormControl
-                    fieldName="DOB"
-                    variant="DatePicker"
-                    id="date-of-birth"
-                    placeholder="Enter your Date of birth "
-                />
-            </div>
             <div className="flex items-center gap-4">
                 {/* {!isRequestingOTP && (
                     <Button
@@ -328,19 +385,23 @@ export function AccountOTPRequest({
                 <Button
                     variant="primary"
                     type="button"
-                    onClick={handleOtpRequest}
-                    disabled={isRequestingOTP}
+                    onClick={() => dispatch({ type: "CLOSE", payload: false })}
+                    className=" my-3 inline-block font-bold mb-5"
+                    // onClick={handleOtpRequest}
+                    // disabled={isRequestingOTP}
                 >
-                    {isRequestingOTP ? "Please wait..." : "Continue"}
+                    {" "}
+                    Continue
+                    {/* {isRequestingOTP ? "Please wait..." : "Continue"} */}
                 </Button>
             </div>
-            <p>
-                Need to create an account update request?{" "}
+            <p className="text-[15px]">
+                Need to Create an Account Upgrade Request?{" "}
                 <Link
                     to={CREATE_ACCOUNT_REQUEST}
-                    className="text-blue-500 my-3 inline-block font-bold"
+                    className="text-blue-500 my-3 inline font-bold"
                 >
-                    Click here.
+                    Click Here.
                 </Link>
             </p>
         </Modal>

@@ -33,7 +33,7 @@ export default function Landing() {
                     to={CREATE_ACCOUNT_REQUEST}
                     className="hover:translate-y-2 transition-all inline-flex flex-col shadow-lg hover:shadow-none bg-green-100 lg:py-10 lg:px-28 px-6 py-10 lg:w-[624px] lg:h-[359px] text-center rounded-lg"
                 >
-                    <h1 className="font-bold mt-auto text-xl lg:text-3xl  mb-4 leading-6">
+                    <h1 className="font-bold mt-auto text-xl lg:text-[28px] lg:leading-[36px] mb-4 leading-6">
                     Account Upgrade Request 
                     </h1>
                     <p>
@@ -44,12 +44,11 @@ export default function Landing() {
                     to={UPDATE_ACCOUNT_REQUEST}
                     className="hover:translate-y-2 transition-all inline-flex flex-col shadow-lg hover:shadow-none bg-blue-500 lg:px-28 px-6 py-10 lg:py-10 lg:w-[624px] lg:h-[359px] text-center text-white rounded-lg"
                 >
-                    <h1 className="font-bold mt-auto text-xl lg:text-3xl  mb-4">
-                        Update Account Request
+                    <h1 className="font-bold mt-auto text-xl lg:text-[28px] lg:leading-[36px]  mb-4">
+                    Account Update Request  
                     </h1>
                     <p className="leading-6">
-                        Keep info up to date, Update your account request for
-                        accuracy and personalized banking
+                    Keep your account information up to date.
                     </p>
                 </Link>
             </div>

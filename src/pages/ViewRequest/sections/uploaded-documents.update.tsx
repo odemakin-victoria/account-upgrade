@@ -1,86 +1,140 @@
-import { AccountDocumentRequest, AccountDocumentResponse } from "@/shared/types"
+import React, { useState } from "react"
+
 import dayjs from "dayjs"
 import { useFormContext } from "react-hook-form"
-import { AiOutlineEdit } from "react-icons/ai"
 import localizedFormat from "dayjs/plugin/localizedFormat"
-import { useDocumentUpdate } from "../hooks/queries.hooks"
-import { Label } from "@/shared/components"
-import { useState } from "react"
-import { mapItemName } from "@/utils/FormUtils.shared"
+import { FormControl, Label } from "@/shared/components"
+import { FiTrash2 } from "react-icons/fi"
+
 dayjs.extend(localizedFormat)
 
-export default function UploadedDocumentUpdate() {
-    const { getValues } = useFormContext()
-    const [files, setFiles] = useState<AccountDocumentRequest[]>([])
-    const upd = useDocumentUpdate()
+interface Document {
+    name: string
+    type: string
+    status: string
+    uploadDate: string
+    comments: string
+    file: File // Add the correct type for the file property
+}
 
-    const handleFileSelection = (
-        e: React.ChangeEvent<HTMLInputElement>,
-        documentId: string
-    ) => {
-        const file = e.target.files && e.target.files[0]
+type UploadedDocumentUpdateProps = {
+    returnData?: (data: any) => void
+}
 
-        if (!file) {
-            return
-        }
+export default function UploadedDocumentUpdate({
+    returnData,
+}: UploadedDocumentUpdateProps) {
+    const { setValue, watch } = useFormContext()
+    const [uploadedDocuments, setUploadedDocuments] = useState<Document[]>([])
 
-        const existingFileIndex = files.findIndex(
-            (c) => c.documentId === documentId
-        )
-        const isExistingFile = existingFileIndex > -1
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
 
-        if (isExistingFile) {
-            // File already exists, perform replace operation
-            const updatedFiles = [...files]
-            updatedFiles[existingFileIndex] = {
-                documentId,
-                documentName: file.name,
-                document: file,
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files
+            const fieldName = e.target.name
+            const documentType = watch("documentType")
+
+            const newDocument: Document = {
+                name: file[0].name,
+                type: documentType,
+                status: "pending",
+                uploadDate: dayjs().format("LLL"),
+                file: file[0],
+                comments: "",
             }
-            setFiles(updatedFiles)
-        } else {
-            // File doesn't exist, perform add operation
-            const newFile = {
-                documentId,
-                documentName: file.name,
-                document: file,
-            }
-            const filesInState = files ? [...files, newFile] : [newFile]
-            setFiles(filesInState)
-        }
+            setUploadedDocuments((prevDocs) => [...prevDocs, newDocument])
 
-        // Rest of your code for handling file selection
+            setValue(fieldName, {
+                name: file[0].name,
+                file: file[0],
+            })
+        }
     }
-
-    const createFormData = (files: AccountDocumentRequest[] | null) => {
-        const formData = new FormData()
-
-        files?.forEach((element, index) => {
-            formData.append(
-                `customerDocument[${index}].documentId`,
-                element.documentId
-            )
-            formData.append(
-                `customerDocument[${index}].document`,
-                element.document
-            )
-            formData.append(
-                `customerDocument[${index}].documentName`,
-                element.documentName ?? ""
-            )
-            formData.append(
-                `customerDocument[${index}].documentType`,
-                element.documentType ?? ""
-            )
+    function removeDocument(index: number) {
+        setUploadedDocuments((prevDocs) => {
+            const newDocs = [...prevDocs]
+            newDocs.splice(index, 1)
+            return newDocs
         })
-
-        return formData
     }
 
+    function removeImage(fieldName: string) {
+        setValue(`${fieldName}`, null)
+    }
+    const moveToNext = () => {
+        const data = {
+            uploadedDocuments: uploadedDocuments,
+        }
+        returnData && returnData(data)
+    }
     return (
         <div className="flex-1 ">
             <div className="flex gap-6 justify-between py-6 items-center text-xl">
-                <p className="font-bold">Uploaded Documents</p>
+                <p className="font-bold">Upload Documents</p>
+            </div>
+            <div className="flex ">
+                <div className="">
+                    <Label labelName="document-type">
+                        Choose type of Document
+                    </Label>
+                    <FormControl
+                        fieldName="documentType"
+                        variant="select"
+                        options={[
+                            {
+                                label: "Affidavit",
+                                value: "Affidavit",
+                            },
+                            {
+                                label: "Birth Certificate.",
+                                value: "Birth Certificate.",
+                            },
+                            {
+                                label: "Marriage Certificate",
+                                value: "Marriage Certificate",
+                            },
+                            {
+                                label: "Additional Documents",
+                                value: "Additional Documents",
+                            },
+                        ]}
+                        id="document-type"
+                        placeholder="Choosen a Document Type"
+                        className="mb-8 mr-64 "
+                    />
+                </div>
+                <div className="mb-8">
+                    <Label labelName="Upload Photo"></Label>
+                    <FormControl
+                        fieldName="customerPhoto"
+                        onChange={onChange}
+                        variant="image"
+                        accept=".pdf, .jpg, .jpeg, .png"
+                    />
+
+                    <div className="grid lg:grid-cols-3 grid-cols-1 gap-4 my-4">
+                        {watch("customerPhoto") && (
+                            <div
+                                className="bg-blue-200 w-fit border border-blue-300 items-center inline-flex"
+                                aria-label="upload-files"
+                            >
+                                <span
+                                    className="inline-flex px-3"
+                                    aria-label="uploaded-image-name"
+                                >
+                                    {watch("customerPhoto").name?.slice(0, 20)}
+                                </span>
+                                <button
+                                    className="p-4 bg-white inline-flex h-full justify-center items-center"
+                                    onClick={() => removeImage("customerPhoto")}
+                                >
+                                    <FiTrash2 className="text-red-400" />
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
 
             <div className="overflow-scroll md:overflow-auto bg-white gap-10 border border-[#EBEAEF] mb-6 ">
@@ -90,94 +144,47 @@ export default function UploadedDocumentUpdate() {
                             <th className="p-4 text-left">Document Name</th>
                             <th className="p-4 text-left">Document Type</th>
                             <th className="p-4 text-left">Status</th>
-                            <th className="p-4 text-left">Comment</th>
+                            <th className="p-4 text-left">Comments</th>
                             <th className="p-4 text-left">Upload Date</th>
-                            <th className="p-4 text-left"></th>
+                            <th className="p-4 text-left"> Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        {(
-                            getValues("documents") as AccountDocumentResponse[]
-                        ).map((item, index) => {
-                            return (
-                                <tr
-                                    key={item.documentId}
-                                    className={` ${
-                                        files.findIndex(
-                                            (c) =>
-                                                c.documentId === item.documentId
-                                        ) > -1
-                                            ? "bg-blue-100"
-                                            : ""
-                                    }`}
-                                >
-                                    <td className="p-4">
-                                        {files.find(
-                                            (d) =>
-                                                d.documentId == item.documentId
-                                        )?.documentName ?? item.documentName}
-                                    </td>
-                                    <td className="p-4">{mapItemName(item.documentType??"")}</td>
-                                    <td className="p-4">
-                                        <StatusPill
-                                            status={item.documentStatus}
-                                        />
-                                    </td>
-                                    <td className="p-4">
-                                        {item.documentComment ?? "---"}
-                                    </td>
-                                    <td className="p-4">
-                                        {dayjs(item.dateCreated).format("LL")}
-                                    </td>
-                                    <td>
-                                        {item.documentStatus.toLowerCase() !==
-                                            "accepted" && (
-                                            <div>
-                                                <Label
-                                                    labelName={`change document ${
-                                                        index + 1
-                                                    }`}
-                                                    className={`bg-blue-100 p-4 border border-blue-300 w-fit inline-block cursor-pointer`}
-                                                >
-                                                    <AiOutlineEdit />
-                                                </Label>
-
-                                                <input
-                                                    type="file"
-                                                    name=""
-                                                    id={`change document ${
-                                                        index + 1
-                                                    }`}
-                                                    hidden
-                                                    onChange={(e) =>
-                                                        handleFileSelection(
-                                                            e,
-                                                            item.documentId
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                        )}
-                                    </td>
-                                </tr>
-                            )
-                        })}
+                        {uploadedDocuments.map((document, index) => (
+                            <tr key={index}>
+                                <td className="p-4">{document.name}</td>
+                                <td className="p-4">{document.type}</td>
+                                <td className="p-4">
+                                    <StatusPill status={document.status} />
+                                </td>
+                                <td className="p-4">
+                                    {document.comments ?? "---"}
+                                </td>
+                                <td className="p-4">{document.uploadDate}</td>
+                                <td className="p-4">
+                                    <button
+                                        onClick={() => removeDocument(index)}
+                                        className="text-red-400"
+                                    >
+                                        <FiTrash2 />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
 
-            {files.length > 0 && (
-                <div className="flex gap-6 p-6 justify-end">
-                    <button
-                        type="button"
-                        className="bg-blue-500 text-white p-4 rounded-lg px-4 font-regular"
-                        onClick={() => upd.mutate(createFormData(files))}
-                    >
-                        {upd.isLoading ? "Please wait..." : "Update Documents"}
-                    </button>
-                </div>
-            )}
+            <div className="flex gap-6 p-6 justify-end">
+                <button
+                    type="button"
+                    className="bg-blue-500 text-white p-4 rounded-lg px-4 font-regular"
+                    onClick={moveToNext}
+                >
+                    Preview
+                </button>
+            </div>
         </div>
     )
 }
@@ -187,7 +194,7 @@ export function StatusPill({ status }: { status: string }) {
         status.toLowerCase() === "rejected"
             ? "bg-red-100 text-red-600 p-4 rounded-lg"
             : status.toLowerCase() === "pending"
-            ? "bg-yellow-100 text-yellow-600 p-4 rounded-lg"
+            ? "bg-yellow-100 text-yellow-600 p-4 rounded-lg font-bold"
             : status.toLowerCase() === "accepted"
             ? "bg-green-100 text-green-600 p-4 rounded-lg"
             : ""
