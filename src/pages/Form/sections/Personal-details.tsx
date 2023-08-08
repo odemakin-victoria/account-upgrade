@@ -1,7 +1,6 @@
 import { FormControl, Label } from "@/shared/components"
 import LabelDecor from "../components/label-decor"
 import SectionContainer from "../components/section"
-import PersonalDetailsFactory from "../utils/personal-details.factory"
 import { useState, ChangeEvent } from "react"
 import statesAndLga from "@/assets/data/statesAndLga.json"
 
@@ -126,9 +125,7 @@ export default function PersonalDetails() {
                 />
             </div>
             {/* State of Origin  */}
-            <div className="mb-10">
-                <PersonalDetailsFactory />
-            </div>
+            
             {/* Next of Kin  */}
             <div className="mb-10">
                 <div className="flex justify-between items-center mb-2">
@@ -219,7 +216,7 @@ export default function PersonalDetails() {
                 </Label>
 
                 <FormControl
-                    fieldName="DOB"
+                    fieldName="nextOfKinDOB"
                     variant="DatePicker"
                     id="date-of-birth"
                     placeholder="Enter your Next of Kin Date of birth "
@@ -309,7 +306,7 @@ export default function PersonalDetails() {
                         Local Government
                     </Label>
                     <FormControl
-                        fieldName="NextlocalGovt"
+                        fieldName="NextofKinLocalGovt"
                         variant="select"
                         id="local-government"
                         options={getLocalNames()?.map((item) => {

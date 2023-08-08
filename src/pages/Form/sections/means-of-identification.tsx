@@ -194,7 +194,7 @@ Uploaded your NIN Slip ?   </Label>
                 )}
 
                 <FormControl
-                    fieldName="proofOfIdentityImage"
+                    fieldName="proofOfNinImage"
                     onChange={onChangeForDiaspora}
                     variant="image"
                     multiple={watch("isDiaspora") === "yes"}
@@ -202,8 +202,8 @@ Uploaded your NIN Slip ?   </Label>
                 />
 
                 <div className="grid lg:grid-cols-3 grid-cols-1 gap-4 my-4">
-                    {watch("proofOfIdentityImage") &&
-                        watch("proofOfIdentityImage")?.map(
+                    {watch("proofOfNinImage") &&
+                        watch("proofOfNinImage")?.map(
                             (item: FileField) => {
                                 return (
                                     <div

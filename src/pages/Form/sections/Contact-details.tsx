@@ -271,7 +271,7 @@ export default function ContactDetails() {
             <div className="mb-10">
                 <Label labelName="Mobile-Number">Mobile Number</Label>
                 <FormControl
-                    fieldName="mobileNumber"
+                    fieldName="mobileNNumber"
                     variant="input"
                     id="Mobile-Number"
                     type="text"
@@ -283,7 +283,7 @@ export default function ContactDetails() {
                     Address Line 1
                 </Label>
                 <FormControl
-                    fieldName="line1"
+                    fieldName="TaxAddress1"
                     variant="input"
                     id="line2Address"
                     placeholder="Address line 2"
@@ -292,7 +292,7 @@ export default function ContactDetails() {
             <div className="mb-10">
                 <Label labelName="line2Address">Address Line 2</Label>
                 <FormControl
-                    fieldName="line2"
+                    fieldName="TaxAddress2"
                     variant="input"
                     id="line2Address"
                     placeholder="Address line 2"
@@ -303,7 +303,7 @@ export default function ContactDetails() {
                     Country
                 </Label>
                 <FormControl
-                    fieldName="country"
+                    fieldName="secondCountry"
                     variant="select"
                     id="country"
                     options={countries

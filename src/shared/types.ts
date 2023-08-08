@@ -60,8 +60,20 @@ export interface ContactAddress {
     state: string
     line1?: string
     line2?: string
+    employmentStatus:string
+    employerName:string
+    natureOfBusiness:string
+    numberOfYearsInEmployment:string
+    expectedAnnualIncome:string
+    countryOfTaxResidence:string
+    foreignTaxId:string
+    mobileNumber:string
+    TaxAddress1:string
+    TaxAddress2:string
+    secondCountry:string
     dateCreated?: Date
     dateLastModified?: Date
+
 }
 
 
@@ -78,10 +90,18 @@ export interface ContactAddressUpdate extends ContactAddress {
  */
 export interface Customer {
     customerId: string
+    title:string
     maritalStatus: string
     motherMaidenName: string
     nextOfKinName: string
+    relationshipWithNextOfKin: string
+    nextOfKinDOB:string
     nextOfKinPhone: string
+    nextOfKinHouseNumber: string
+    nextOfKinStreetName: string
+    nextOfKinState:string
+    NextofKinLocalGovt:string
+    nextOfKinPostalCode:string
     dateCreated: Date
     dateLastModified: Date
 }
@@ -120,15 +140,35 @@ export type TFormRequest = {
     customerPhoto: FileField
     proofOfIdentityImage: FileField[] | null
     proofOfAddressImage: FileField[] | null
+    proofOfNinImage:FileField[] | null
     signature: FileField
     acceptedTerms: boolean
     diasporaDocs: FileField[] | null
     accountNumber: string
     bvn: string
+    title:string
     maritalStatus: string
     motherMaidenName: string
     nextOfKinName: string
+    relationshipWithNextOfKin: string
+    nextOfKinDOB:string
     nextOfKinPhone: string
+    nextOfKinHouseNumber: string
+    nextOfKinStreetName:string
+    nextOfKinState:string
+    NextofKinLocalGovt:string
+    employmentStatus:string
+    employerName:string
+    natureOfBusiness:string
+    nextOfKinPostalCode:string
+    numberOfYearsInEmployment:string
+    expectedAnnualIncome:string
+    countryOfTaxResidence:string
+    foreignTaxId:string
+    mobileNumber:string
+    TaxAddress1:string
+    TaxAddress2: string
+    secondCountry:string
     line1?: string
     line2?: string
     postalCode: string | null
