@@ -23,15 +23,15 @@ export interface PreviewDataProps {
     postalCode: string
     line1: string
     line2: string
-    uploadedDocuments: Document[]
+    Documents: Document[]
 }
 
 const PreviewPage: React.FC<{
     previewData: PreviewDataProps
     setPreviewPage: (val: boolean) => void
-}> = ({ previewData, setPreviewPage }) => {
+    openOTPModal: ()=>void
+}> = ({ previewData, setPreviewPage, openOTPModal}) => {
     console.log(previewData, "the preview data")
-
 
     const handleBackToForm = () => {
         setPreviewPage(false)
@@ -104,7 +104,7 @@ const PreviewPage: React.FC<{
                     Uploaded Documents:
                 </h2>
                 <ul>
-                    {previewData.uploadedDocuments.map((document, index) => (
+                    {previewData.Documents.map((document, index) => (
                         <li key={index}>
                             <p className="mb-2">Name: {document.name}</p>
                             <p className="mb-2">Type: {document.type}</p>
@@ -129,7 +129,7 @@ const PreviewPage: React.FC<{
                         Back to Form
                     </button>
                     <button
-                        onClick={handleBackToForm}
+                        onClick={openOTPModal}
                         className="bg-blue-500 text-white py-2 px-4 rounded-lg"
                     >
                         Submit

@@ -12,17 +12,20 @@ export interface ApiResponse<T> {
  */
 export interface AccountRequestResponse {
     accountNumber: string
+    RequestType:string
     updateStatus: string
     bvn: string | null
-    customer: Customer
+    PersonalDetails: PersonalDetails
+    NextOfKin:NextOfKin
+    EmployeeStatus:EmployeeStatus
     contactAddress: ContactAddress
-    accountDocuments: AccountDocument[]
+    Documents: Document[]
 }
 
 /**
  * Represents an account document.
  */
-export interface AccountDocument {
+export interface Document {
     documentName?: string
     documentType?: string
     documentStatus: string
@@ -32,7 +35,7 @@ export interface AccountDocument {
 /**
  * Represents an account document with additional response-specific properties.
  */
-export interface AccountDocumentResponse extends AccountDocument {
+export interface AccountDocumentResponse extends Document {
     documentId: string
     dateCreated: string
     dateLastModified: string
@@ -60,11 +63,6 @@ export interface ContactAddress {
     state: string
     line1?: string
     line2?: string
-    employmentStatus:string
-    employerName:string
-    natureOfBusiness:string
-    numberOfYearsInEmployment:string
-    expectedAnnualIncome:string
     countryOfTaxResidence:string
     foreignTaxId:string
     mobileNumber:string
@@ -88,24 +86,43 @@ export interface ContactAddressUpdate extends ContactAddress {
 /**
  * Represents the customer personal information.
  */
-export interface Customer {
+export interface PersonalDetails {
     customerId: string
     title:string
     maritalStatus: string
     motherMaidenName: string
-    nextOfKinName: string
-    relationshipWithNextOfKin: string
-    nextOfKinDOB:string
-    nextOfKinPhone: string
-    nextOfKinHouseNumber: string
-    nextOfKinStreetName: string
-    nextOfKinState:string
-    NextofKinLocalGovt:string
-    nextOfKinPostalCode:string
+    FirstName: string
+    LastName:string
+    MiddleName:string
+    DOB:string
     dateCreated: Date
     dateLastModified: Date
 }
-
+/**
+ * Represents the next of kin personal information.
+ */
+export interface NextOfKin {
+    FullNameOfKin: string
+    RelationshipOfKin: string
+    DobOfKin:string
+    PhoneNumberOfKin: string
+    HouseNumberOfKin: string
+    StateOfKin: string
+    StreetNameOfKin:string
+    LocalGovernmentOfKin:string
+    PostalZipCodeOfKin:string
+    dateCreated: Date
+    dateLastModified: Date
+}
+export interface EmployeeStatus {
+    Status: string
+    EmployersName: string
+    NatureOfBusiness: string
+    NumberofYears: string
+    AnnualIncome: string
+    dateCreated?: Date
+    dateLastModified?: Date
+}
 /**
  * Enumerates the types of documents.
  */
@@ -149,20 +166,24 @@ export type TFormRequest = {
     title:string
     maritalStatus: string
     motherMaidenName: string
-    nextOfKinName: string
-    relationshipWithNextOfKin: string
-    nextOfKinDOB:string
-    nextOfKinPhone: string
-    nextOfKinHouseNumber: string
-    nextOfKinStreetName:string
-    nextOfKinState:string
-    NextofKinLocalGovt:string
-    employmentStatus:string
-    employerName:string
-    natureOfBusiness:string
-    nextOfKinPostalCode:string
-    numberOfYearsInEmployment:string
-    expectedAnnualIncome:string
+    FullNameOfKin: string
+    RelationshipOfKin: string
+    DobOfKin:string
+    PhoneNumberOfKin: string
+    HouseNumberOfKin: string
+    StateOfKin: string
+    StreetNameOfKin:string
+    LocalGovernmentOfKin:string
+    PostalZipCodeOfKin:string
+    RequestType:string
+    FirstName: string
+    LastName:string
+    MiddleName:string
+    Status: string
+    EmployersName: string
+    NatureOfBusiness: string
+    NumberofYears: string
+    AnnualIncome: string
     countryOfTaxResidence:string
     foreignTaxId:string
     mobileNumber:string

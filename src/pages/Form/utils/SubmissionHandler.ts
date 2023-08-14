@@ -1,9 +1,15 @@
 import { TFormRequest } from "@/shared/types"
-import { ICustomer, IContactAddress } from "../types"
+import {
+    PersonalDetails,
+    IContactAddress,
+    NextOfKin,
+    EmployeeStatus,
+    RequestType
+} from "../types"
 import { formUtils } from "./FormUtils"
 import { FileHandler } from "./FileHandler"
 
-type AccountDocument = {
+type Document = {
     documentType: string
     document: File | null
     documentName: string | null
@@ -22,14 +28,50 @@ export class submissionHandler {
         }
     }
 
-    private mapCustomerDetails(data: TFormRequest): ICustomer {
-        const customer: ICustomer = {
+    private mapCustomerDetails(data: TFormRequest): PersonalDetails {
+        const PersonalDetails: PersonalDetails = {
+            title: data.title,
             maritalStatus: data.maritalStatus,
             motherMaidenName: data.motherMaidenName,
-            nextOfKinName: data.nextOfKinName,
-            nextOfKinPhone: data.nextOfKinPhone,
+            FirstName: data.FirstName,
+            LastName: data.LastName,
+            MiddleName: data.MiddleName
+           
         }
-        return customer
+        return PersonalDetails
+    }
+    private mapRequestType(data: TFormRequest): RequestType {
+        const RequestType: RequestType = {
+            RequestType: data.RequestType
+           
+        }
+        return RequestType
+    }
+
+    private mapNextOfKinDetails(data: TFormRequest): NextOfKin {
+        const NextOfKin: NextOfKin = {
+            FullNameOfKin: data.FullNameOfKin,
+            RelationshipOfKin: data.RelationshipOfKin,
+            DobOfKin: data.DobOfKin,
+            PhoneNumberOfKin: data.PhoneNumberOfKin,
+            HouseNumberOfKin: data.HouseNumberOfKin,
+            StateOfKin: data.StateOfKin,
+            StreetNameOfKin: data.StreetNameOfKin,
+            LocalGovernmentOfKin: data.LocalGovernmentOfKin,
+            PostalZipCodeOfKin: data.PostalZipCodeOfKin,
+        }
+        return NextOfKin
+    }
+
+    private mapEmployeeStatus(data: TFormRequest): EmployeeStatus {
+        const EmployeeStatus: EmployeeStatus = {
+            Status: data.Status,
+            EmployersName: data.EmployersName,
+            NatureOfBusiness: data.NatureOfBusiness,
+            NumberofYears: data.NumberofYears,
+            AnnualIncome: data.AnnualIncome,
+        }
+        return EmployeeStatus
     }
 
     private mapContactAddress(data: TFormRequest): Partial<IContactAddress> {
@@ -41,6 +83,13 @@ export class submissionHandler {
             country: data.country,
             postalCode: data.postalCode || undefined,
             state: data.state,
+
+            // countryOfTaxResidence: data.countryOfTaxResidence,
+            foreignTaxId: data.foreignTaxId,
+            mobileNumber: data.mobileNumber,
+            TaxAddress1: data.TaxAddress1,
+            TaxAddress2: data.TaxAddress2,
+            secondCountry: data.secondCountry,
         }
         return contactAddress
     }
@@ -55,14 +104,14 @@ export class submissionHandler {
         })
     }
 
-    private prepareAccountDocuments(data: TFormRequest): AccountDocument[] {
-        const accountDocuments: AccountDocument[] = []
+    private prepareAccountDocuments(data: TFormRequest): Document[] {
+        const Documents: Document[] = []
 
-        formUtils.addIfNotNull(accountDocuments, data, "customerPhoto")
-        formUtils.addIfNotNull(accountDocuments, data, "signature")
+        formUtils.addIfNotNull(Documents, data, "customerPhoto")
+        formUtils.addIfNotNull(Documents, data, "signature")
 
         data.proofOfAddressImage?.forEach((item) => {
-            accountDocuments.push({
+            Documents.push({
                 documentType: "PROOFOFADDRESS",
                 document: item?.file ?? null,
                 documentName: item?.name ?? null,
@@ -71,7 +120,7 @@ export class submissionHandler {
         })
 
         data.proofOfIdentityImage?.forEach((item) => {
-            accountDocuments.push({
+            Documents.push({
                 documentType: "IDENTIFICATION",
                 document: item?.file ?? null,
                 documentName: item?.name ?? null,
@@ -80,7 +129,7 @@ export class submissionHandler {
         })
 
         data.diasporaDocs?.forEach((item) => {
-            accountDocuments.push({
+            Documents.push({
                 documentType: "DIASPORA",
                 document: item?.file ?? null,
                 documentName: item?.name ?? null,
@@ -88,26 +137,26 @@ export class submissionHandler {
             })
         })
 
-        return accountDocuments
+        return Documents
     }
 
-    private mapAccountDocuments(accountDocuments: AccountDocument[]) {
-        accountDocuments.forEach((document, index) => {
+    private mapAccountDocuments(Documents: Document[]) {
+        Documents.forEach((document, index) => {
             this.formData.append(
-                `AccountDocuments[${index}].DocumentType`,
+                `Documents[${index}].DocumentType`,
                 document.documentType.toUpperCase() ?? ""
             )
             this.formData.append(
-                `AccountDocuments[${index}].document`,
+                `Documents[${index}].document`,
                 document.document as File
             )
             this.formData.append(
-                `AccountDocuments[${index}].documentName`,
+                `Documents[${index}].documentName`,
                 (document.documentName as string) || "unknown"
             )
 
             this.formData.append(
-                `AccountDocuments[${index}].FileExtension`,
+                `Documents[${index}].FileExtension`,
                 (document.fileExt as string) || "unknown"
             )
         })
@@ -139,14 +188,19 @@ export class submissionHandler {
 
         this.prepareFormData(dataToSend)
 
-        const customer = this.mapCustomerDetails(data)
+        const PersonalDetails = this.mapCustomerDetails(data)
+        const NextOfKin = this.mapNextOfKinDetails(data)
+        const EmployeeStatus = this.mapEmployeeStatus(data)
         const contactAddress = this.mapContactAddress(data)
+        const mapRequestType = this.mapRequestType(data)
 
-        this.appendObjectValuesToFormData(customer, "Customer")
+        this.appendObjectValuesToFormData(PersonalDetails, "PersonalDetails")
+        this.appendObjectValuesToFormData(NextOfKin, "NextOfKin")
+        this.appendObjectValuesToFormData(EmployeeStatus, "EmployeeStatus")
         this.appendObjectValuesToFormData(contactAddress, "ContactAddress")
-
-        const accountDocuments = this.prepareAccountDocuments(data)
-        this.mapAccountDocuments(accountDocuments)
+        this.appendObjectValuesToFormData(mapRequestType, "RequestType")
+        const Documents = this.prepareAccountDocuments(data)
+        this.mapAccountDocuments(Documents)
 
         return this.formData
     }

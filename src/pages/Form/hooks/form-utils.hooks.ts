@@ -25,28 +25,32 @@ export default function useFormUtils({ step }: { step: number }) {
             methods.reset({
                 accountNumber: data?.accountNumber,
                 bvn: data?.bvn || "",
-                title: data?.customer?.title,
-                maritalStatus: data?.customer?.maritalStatus,
+                RequestType: data?.RequestType,
+                title: data?.PersonalDetails?.title,
+                maritalStatus: data?.PersonalDetails?.maritalStatus,
                 localGovt: data?.contactAddress?.localGovt,
                 line1: data?.contactAddress?.line1,
                 line2: data?.contactAddress?.line2,
-                nextOfKinName: data?.customer?.nextOfKinName,
-                relationshipWithNextOfKin:
-                    data?.customer?.relationshipWithNextOfKin,
-                nextOfKinDOB: data?.customer?.nextOfKinDOB,
-                nextOfKinPhone: data?.customer?.nextOfKinPhone,
-                nextOfKinHouseNumber: data?.customer?.nextOfKinHouseNumber,
-                nextOfKinStreetName: data?.customer?.nextOfKinStreetName,
-                nextOfKinState: data?.customer?.nextOfKinState,
-                NextofKinLocalGovt: data?.customer?.NextofKinLocalGovt,
-                nextOfKinPostalCode: data?.customer?.nextOfKinPostalCode,
-                employmentStatus: data?.contactAddress?.employmentStatus,
-                employerName: data?.contactAddress?.employerName,
-                natureOfBusiness: data?.contactAddress?.natureOfBusiness,
-                numberOfYearsInEmployment:
-                    data?.contactAddress?.numberOfYearsInEmployment,
-                expectedAnnualIncome:
-                    data?.contactAddress?.expectedAnnualIncome,
+                FirstName: data?.PersonalDetails?.FirstName,
+                LastName: data?.PersonalDetails?.LastName,
+                MiddleName: data?.PersonalDetails?.MiddleName,
+                FullNameOfKin: data?.NextOfKin?.FullNameOfKin,
+                RelationshipOfKin:
+                    data?.NextOfKin?.RelationshipOfKin,
+                    DobOfKin: data?.NextOfKin?.DobOfKin,
+                    PhoneNumberOfKin: data?.NextOfKin?.PhoneNumberOfKin,
+                    HouseNumberOfKin: data?.NextOfKin?.HouseNumberOfKin,
+                    StateOfKin: data?.NextOfKin?.StateOfKin,
+                    PostalZipCodeOfKin: data?.NextOfKin?.PostalZipCodeOfKin,
+                    StreetNameOfKin: data?.NextOfKin?.StreetNameOfKin,
+                    LocalGovernmentOfKin: data?.NextOfKin?.LocalGovernmentOfKin,
+                    Status: data?.EmployeeStatus?.Status,
+                    EmployersName: data?.EmployeeStatus?.EmployersName,
+                    NatureOfBusiness: data?.EmployeeStatus?.NatureOfBusiness,
+                    NumberofYears:
+                    data?.EmployeeStatus?.NumberofYears,
+                    AnnualIncome:
+                    data?.EmployeeStatus?.AnnualIncome,
                 countryOfTaxResidence:
                     data?.contactAddress?.countryOfTaxResidence,
                 foreignTaxId: data?.contactAddress?.foreignTaxId,
@@ -55,34 +59,34 @@ export default function useFormUtils({ step }: { step: number }) {
                 TaxAddress2: data?.contactAddress?.TaxAddress2,
                 secondCountry: data?.contactAddress?.secondCountry,
 
-                motherMaidenName: data.customer?.motherMaidenName,
+                motherMaidenName: data.PersonalDetails?.motherMaidenName,
                 country: data.contactAddress?.country ?? "",
                 isDiaspora:
                     data?.contactAddress!.country.toLowerCase() === "nigeria"
                         ? "no"
                         : "yes",
                 proofOfAddressImage: formUtils.filterAccountDocuments(
-                    data.accountDocuments,
+                    data.Documents,
                     "PROOFOFADRESS"
                 ),
                 proofOfIdentityImage: formUtils.filterAccountDocuments(
-                    data.accountDocuments,
+                    data.Documents,
                     "IDENTIFICATION"
                 ),
                 proofOfNinImage: formUtils.filterAccountDocuments(
-                    data.accountDocuments,
+                    data.Documents,
                     "IDENTIFICATION"
                 ),
                 signature: formUtils.findItemByName(
-                    data.accountDocuments,
+                    data.Documents,
                     "SIGNATURE"
                 ),
                 customerPhoto: formUtils.findItemByName(
-                    data.accountDocuments,
+                    data.Documents,
                     "CUSTOMERPHOTO"
                 ),
                 diasporaDocs: formUtils.filterAccountDocuments(
-                    data.accountDocuments,
+                    data.Documents,
                     "DIASPORA"
                 ),
             })

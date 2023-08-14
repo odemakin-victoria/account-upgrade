@@ -12,15 +12,22 @@ export default function PersonalDetails() {
     const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
         setIsGrayedOut(e.target.checked)
     }
-    const { getValues, watch } = useFormContext()
+    const { getValues, watch, formState } = useFormContext()
     function getLocalNames() {
-        if (!watch("state")) return
+        console.log("state", watch("StateOfKin"))
+
+        if (!watch("StateOfKin")) return
+       
+
         const lga = statesAndLga
-            .filter((item) => item.state.name === getValues("state"))
+            .filter((item) => item.state.name === getValues("StateOfKin"))
             .flat()[0]?.state.locals
+
+
 
         return lga
     }
+    console.log(formState.errors)
 
     return (
         <SectionContainer>
@@ -30,9 +37,7 @@ export default function PersonalDetails() {
             </h2>
             {/* Title */}
             <div className="mb-10">
-                <Label labelName="title" required>
-                    Title
-                </Label>
+                <Label labelName="title">Title</Label>
 
                 <FormControl
                     fieldName="title"
@@ -78,9 +83,7 @@ export default function PersonalDetails() {
 
             {/* Martial status */}
             <div className="mb-10">
-                <Label labelName="marital-status" required>
-                    Marital Status
-                </Label>
+                <Label labelName="marital-status">Marital Status</Label>
 
                 <FormControl
                     fieldName="maritalStatus"
@@ -113,9 +116,7 @@ export default function PersonalDetails() {
             </div>
             {/* Mother's madien name */}
             <div className="mb-10">
-                <Label labelName="Mother-Maiden-Name" required>
-                    Mother Maiden Name
-                </Label>
+                <Label labelName="Mother-Maiden-Name">Mother Maiden Name</Label>
                 <FormControl
                     fieldName="motherMaidenName"
                     variant="input"
@@ -125,20 +126,18 @@ export default function PersonalDetails() {
                 />
             </div>
             {/* State of Origin  */}
-            
+
             {/* Next of Kin  */}
             <div className="mb-10">
                 <div className="flex justify-between items-center mb-2">
-                    <Label labelName="Name-of-Next-of-Kin" required>
-                        Next of Kin
-                    </Label>
+                    <Label labelName="Name-of-Next-of-Kin">Next of Kin</Label>
                     <p className="text-xs text-gray-500 mb-2">
                         An alternate contact person in case you are unreachable
                         or unavailable.
                     </p>
                 </div>
                 <FormControl
-                    fieldName="nextOfKinName"
+                    fieldName="FullNameOfKin"
                     variant="input"
                     id="Name-of-Next-of-Kin"
                     type="text"
@@ -147,12 +146,12 @@ export default function PersonalDetails() {
             </div>
             {/* Relationship with Next of Kin  */}
             <div className="mb-10">
-                <Label labelName="relationship-with-next-of-kin" required>
+                <Label labelName="relationship-with-next-of-kin">
                     Relationship with Next of Kin
                 </Label>
 
                 <FormControl
-                    fieldName="relationshipWithNextOfKin"
+                    fieldName="RelationshipOfKin"
                     variant="select"
                     options={[
                         {
@@ -211,12 +210,12 @@ export default function PersonalDetails() {
 
             {/* Date of Birth of Next of Kin  */}
             <div className="mb-10">
-                <Label labelName="date-of-birth" required>
+                <Label labelName="date-of-birth">
                     Date of Birth of Next of Kin{" "}
                 </Label>
 
                 <FormControl
-                    fieldName="nextOfKinDOB"
+                    fieldName="DobOfKin"
                     variant="DatePicker"
                     id="date-of-birth"
                     placeholder="Enter your Next of Kin Date of birth "
@@ -224,11 +223,11 @@ export default function PersonalDetails() {
             </div>
             {/* Next of kin Phone Number */}
             <div className="mb-10">
-                <Label labelName="Phone-number-of-Next-of-Kin" required>
+                <Label labelName="Phone-number-of-Next-of-Kin">
                     Phone number of Next of Kin
                 </Label>
                 <FormControl
-                    fieldName="nextOfKinPhone"
+                    fieldName="PhoneNumberOfKin"
                     variant="input"
                     id="Phone-number-of-Next-of-Kin"
                     type="text"
@@ -259,7 +258,7 @@ export default function PersonalDetails() {
                         House Number
                     </Label>
                     <FormControl
-                        fieldName="nextOfKinHouseNumber"
+                        fieldName="HouseNumberOfKin"
                         variant="input"
                         id="next-of-kin-house-number"
                         placeholder="Enter house number"
@@ -273,7 +272,7 @@ export default function PersonalDetails() {
                         Street Name
                     </Label>
                     <FormControl
-                        fieldName="nextOfKinStreetName"
+                        fieldName="StreetNameOfKin"
                         variant="input"
                         id="next-of-kin-street-name"
                         placeholder="Enter street name."
@@ -286,7 +285,7 @@ export default function PersonalDetails() {
                         State
                     </Label>
                     <FormControl
-                        fieldName="nextOfKinState"
+                        fieldName="StateOfKin"
                         variant="select"
                         id="next-of-kin-state"
                         options={statesAndLga?.map((item) => {
@@ -306,7 +305,7 @@ export default function PersonalDetails() {
                         Local Government
                     </Label>
                     <FormControl
-                        fieldName="NextofKinLocalGovt"
+                        fieldName="LocalGovernmentOfKin"
                         variant="select"
                         id="local-government"
                         options={getLocalNames()?.map((item) => {
@@ -326,7 +325,7 @@ export default function PersonalDetails() {
                         Postal Zip Code
                     </Label>
                     <FormControl
-                        fieldName="nextOfKinPostalCode"
+                        fieldName="PostalZipCodeOfKin"
                         variant="input"
                         id="next-of-kin-postal-zip-code"
                         placeholder="Enter postal zip code"

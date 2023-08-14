@@ -1,6 +1,6 @@
 import  { useState } from "react"
 import { FormControl, Label } from "@/shared/components"
-import { useCustomerUpdate } from "../hooks/queries.hooks"
+// import { useCustomerUpdate } from "../hooks/queries.hooks"
 import { useFormContext } from "react-hook-form"
 import { Skeleton } from "@mantine/core"
 
@@ -17,18 +17,20 @@ export default function PersonalDetails({
 }: PersonalDetailsProps) {
     const { getValues } = useFormContext()
     const [errorMessage, setErrorMessage] = useState("")
-    const upd = useCustomerUpdate()
+    // const upd = useCustomerUpdate()
 
     const moveToNext = () => {
-        const firstName = getValues("firstName")
-        const lastName = getValues("lastName")
+        const FirstName = getValues("FirstName")
+        const LastName = getValues("LastName")
+        const MiddleName = getValues("MiddleName")
         const motherMaidenName = getValues("motherMaidenName")
         const DOB = getValues("DOB")
         const maritalStatus = getValues("maritalStatus")
 
         if (
-            !firstName ||
-            !lastName ||
+            !FirstName ||
+            !LastName ||
+            !MiddleName||
             !motherMaidenName ||
             !DOB ||
             !maritalStatus
@@ -41,9 +43,9 @@ export default function PersonalDetails({
         setErrorMessage("") // Clear the error message if there was one
 
         const data = {
-            firstName: firstName,
+            firstName: FirstName,
             middleName: getValues("middleName"),
-            lastName: lastName,
+            lastName: LastName,
             maritalStatus: maritalStatus,
             motherMaidenName: motherMaidenName,
             DOB: DOB,
@@ -77,7 +79,7 @@ export default function PersonalDetails({
                         First Name{" "}
                     </Label>
                     <FormControl
-                        fieldName="firstName"
+                        fieldName="FirstName"
                         variant="input"
                         id="First-Name"
                         type="text"
@@ -89,7 +91,7 @@ export default function PersonalDetails({
                     <Label labelName="Middle-Name">Middle Name </Label>
                     <Skeleton visible={isLoading}>
                         <FormControl
-                            fieldName="middleName"
+                            fieldName="MiddleName"
                             variant="input"
                             id="Middle-Name"
                             type="text"
@@ -104,7 +106,7 @@ export default function PersonalDetails({
                     </Label>
                     <Skeleton visible={isLoading}>
                         <FormControl
-                            fieldName="lastName"
+                            fieldName="LastName"
                             variant="input"
                             id="Last-Name"
                             type="text"
@@ -200,7 +202,8 @@ export default function PersonalDetails({
                     className="bg-blue-500 text-white p-4 rounded-lg px-4 w-full lg:w-fit"
                     onClick={moveToNext}
                 >
-                    {upd.isLoading ? "Please wait..." : "Next"}
+                    Next
+                    {/* {upd.isLoading ? "Please wait..." : "Next"} */}
                 </button>
             </div>
         </div>

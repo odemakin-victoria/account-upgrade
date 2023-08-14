@@ -4,8 +4,6 @@ import { NotificationManager } from "@/utils/ResponseHandler.shared"
 import { AxiosError } from "axios"
 import dayjs from "dayjs"
 
-
-
 /**
  * Class representing an OTP Validator.
  */
@@ -34,19 +32,19 @@ export class OTPValidator {
         try {
             rest.callback(true)
 
-            const result = await axiosInstance.post(
-                "/CustomerValidation/ValidateOTP",
-                {
-                    accountNumber: accountNumber,
-                    DOB: dayjs(dob).format("YYYY-MM-DDTHH:mm:ss"),
-                    token: token,
-                }
-            )
+            const result = await axiosInstance.post("/api/ValidateOTP", {
+                accountNumber: accountNumber,
+                DOB: dayjs(dob).format("YYYY-MM-DDTHH:mm:ss"),
+                token: token,
+            })
 
             return result.data
         } catch (error) {
             // Handle error
-            NotificationManager.showErrorNotification((error as AxiosError<ApiResponse<unknown>>).response?.data.responseMessage);
+            NotificationManager.showErrorNotification(
+                (error as AxiosError<ApiResponse<unknown>>).response?.data
+                    .responseMessage
+            )
         } finally {
             rest.callback(false)
         }
@@ -70,18 +68,18 @@ export class OTPValidator {
     }) {
         try {
             rest.callback(true)
-            const res = await axiosInstance.post(
-                "/CustomerValidation/SendOTP",
-                {
-                    accountNumber,
-                    DOB: dayjs(DOB).format("YYYY-MM-DDTHH:mm:ss"),
-                }
-            )
+            const res = await axiosInstance.post("/api/SendOTP", {
+                accountNumber,
+                DOB: dayjs(DOB).format("YYYY-MM-DDTHH:mm:ss"),
+            })
 
             return res.data
         } catch (error) {
-            NotificationManager.showErrorNotification((error as AxiosError<ApiResponse<unknown>>).response?.data.responseMessage);
-        }finally {
+            NotificationManager.showErrorNotification(
+                (error as AxiosError<ApiResponse<unknown>>).response?.data
+                    .responseMessage
+            )
+        } finally {
             rest.callback(false)
         }
     }

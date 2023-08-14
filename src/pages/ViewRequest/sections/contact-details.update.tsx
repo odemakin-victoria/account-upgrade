@@ -3,7 +3,7 @@ import { FormControl, Label } from "@/shared/components"
 import statesAndLga from "@/assets/data/statesAndLga.json"
 import { useFormContext } from "react-hook-form"
 import { Skeleton, Switch } from "@mantine/core"
-import { useContactDetailsUpdate } from "../hooks/queries.hooks"
+// import { useContactDetailsUpdate } from "../hooks/queries.hooks"
 import countries from "@/assets/data/countnries.json"
 
 type ContactDetailsProps = {
@@ -57,7 +57,7 @@ export function DiasporaFields({
     returnData?: (data: any) => void
 }) {
     const { getValues, setValue } = useFormContext()
-    const upd = useContactDetailsUpdate()
+    // const upd = useContactDetailsUpdate()
     const moveToNext = () => {
         const data = {
             country: getValues("country"),
@@ -167,7 +167,7 @@ export function DiasporaFields({
                     className="bg-blue-500 text-white p-4 rounded-lg px-4 w-full lg:w-fit"
                     onClick={moveToNext}
                 >
-                    {upd.isLoading ? "Please wait..." : "Next"}
+                    {isLoading ? "Please wait..." : "Next"}
                 </button>
             </div>
         </div>
@@ -193,7 +193,7 @@ export function NigerianFields({
 
         return lga
     }
-    const upd = useContactDetailsUpdate()
+    // const upd = useContactDetailsUpdate()
     const moveToNext = () => {
         const data = {
             state: getValues("state"),
@@ -299,7 +299,7 @@ export function NigerianFields({
                     className="bg-blue-500 text-white p-4 rounded-lg px-4 w-full lg:w-fit"
                     onClick={moveToNext}
                 >
-                    {upd.isLoading ? "Please wait..." : "Next"}
+                    {isLoading ? "Please wait..." : "Next"}
                 </button>
             </div>
         </div>

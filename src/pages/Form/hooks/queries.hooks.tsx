@@ -7,7 +7,7 @@ import { ApiResponse } from "@/shared/types"
 // Mutations
 export const useFormRequest = () => {
     const onSubmit = async (values: FormData) => {
-        const data = await axiosInstance.post(`/account-update-request`, values)
+        const data = await axiosInstance.post(`/api/account-request`, values)
         return data.data
     }
 

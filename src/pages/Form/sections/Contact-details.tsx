@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useFormContext } from "react-hook-form"
 import LabelDecor from "../components/label-decor"
 import SectionContainer from "../components/section"
@@ -10,35 +10,28 @@ export default function ContactDetails() {
     const { setValue, watch } = useFormContext()
 
     const [isDiaspora, setIsDiaspora] = useState("no")
-    const [isStudent, setIsStudent] = useState(false);
-      
-
-
+    const [isStudent, setIsStudent] = useState(false)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        setValue("isDiaspora", e.target.value);
-        setIsDiaspora(e.target.value);
-    
+        e.preventDefault()
+        setValue("isDiaspora", e.target.value)
+        setIsDiaspora(e.target.value)
+
         // Check if "Student" is selected and set the corresponding state.
         if (e.target.value === "yes") {
-          setIsStudent(true);
+            setIsStudent(true)
         } else {
-          setIsStudent(false);
+            setIsStudent(false)
         }
-      };
-    
+    }
 
-    
+    useEffect(() => {
+        setIsDiaspora(watch("isDiaspora"))
+        setIsStudent(watch("EmployeeStatus") === "Student")
+    }, [watch("isDiaspora"), watch("EmployeeStatus")])
 
-      useEffect(() => {
-        setIsDiaspora(watch("isDiaspora"));
-        setIsStudent(watch("employmentStatus") === "Student");
-      }, [watch("isDiaspora"), watch("employmentStatus")]);
-    
-
-//   const isUnemployedOrRetired =
-//     watch("employmentStatus") === "Unemployed" || watch("employmentStatus") === "Retired";
+    //   const isUnemployedOrRetired =
+    //     watch("employmentStatus") === "Unemployed" || watch("employmentStatus") === "Retired";
 
     return (
         <SectionContainer>
@@ -102,142 +95,141 @@ export default function ContactDetails() {
             <ContactDetailsFactory />
             {/* Employment status */}
             <div className="mb-6">
-            <Label labelName="marital-status" required>
-              Employment Status
-            </Label>
+                <Label labelName="marital-status">Employment Status</Label>
 
-            <FormControl
-              fieldName="employmentStatus"
-              variant="select"
-              options={[
-                {
-                  label: "Paid Employment",
-                  value: "Paid Employment",
-                },
-                {
-                  label: "Self Employed",
-                  value: "Self Employed",
-                },
-                {
-                  label: "Unemployed",
-                  value: "Unemployed",
-                },
-                {
-                  label: "Retired",
-                  value: "Retired",
-                },
-                {
-                  label: "Student",
-                  value: "Student",
-                },
-              ]}
-              id="employment-status"
-              placeholder="Enter your Employment Status"
-            />
-          </div>
+                <FormControl
+                    fieldName="Status"
+                    variant="select"
+                    options={[
+                        {
+                            label: "Paid Employment",
+                            value: "Paid Employment",
+                        },
+                        {
+                            label: "Self Employed",
+                            value: "Self Employed",
+                        },
+                        {
+                            label: "Unemployed",
+                            value: "Unemployed",
+                        },
+                        {
+                            label: "Retired",
+                            value: "Retired",
+                        },
+                        {
+                            label: "Student",
+                            value: "Student",
+                        },
+                    ]}
+                    id="employment-status"
+                    placeholder="Enter your Employment Status"
+                />
+            </div>
 
-          {/* Employer's Name */}
-          <div className="mb-10">
+            {/* Employer's Name */}
+            <div className="mb-10">
                 <Label labelName="Employer-Name" required>
-                  Employer's Name /School Name
+                    Employer's Name /School Name
                 </Label>
                 <FormControl
-                  fieldName="employerName"
-                  variant="input"
-                  id="Employer-Name"
-                  type="text"
-                  placeholder="Enter your Employer's Name "
+                    fieldName="EmployersName"
+                    variant="input"
+                    id="Employer-Name"
+                    type="text"
+                    placeholder="Enter your Employer's Name "
                 />
-              </div>
+            </div>
 
-      
-            
-          {!isStudent && (
-            <>
-              {/* Nature of Business */}
-              <div className="mb-10">
-                <Label labelName="Nature-of-Business">
-                  Nature of Business/ Occupation
-                </Label>
-                <FormControl
-                  fieldName="natureOfBusiness"
-                  variant="input"
-                  id="Nature-of-Business"
-                  type="text"
-                  placeholder="Enter your Nature of Business "
-                />
-              </div>
+            {!isStudent && (
+                <>
+                    {/* Nature of Business */}
+                    <div className="mb-10">
+                        <Label labelName="Nature-of-Business">
+                            Nature of Business/ Occupation
+                        </Label>
+                        <FormControl
+                            fieldName="NatureOfBusiness"
+                            variant="input"
+                            id="Nature-of-Business"
+                            type="text"
+                            placeholder="Enter your Nature of Business "
+                        />
+                    </div>
 
-              {/* Number of Years in Employment */}
-              <div className="mb-10">
-                <Label labelName="number-of-years-in-employment">
-                  Number of Years in Employment{" "}
-                </Label>
+                    {/* Number of Years in Employment */}
+                    <div className="mb-10">
+                        <Label labelName="number-of-years-in-employment">
+                            Number of Years in Employment{" "}
+                        </Label>
 
-                <FormControl
-                  fieldName="numberOfYearsInEmployment"
-                  variant="select"
-                  options={[
-                    {
-                      label: "Less than 1 year",
-                      value: "Less than 1 year",
-                    },
-                    { label: "1 to 5 years", value: "1 to 5 years" },
-                    {
-                      label: "Above 5 years to 10 years",
-                      value: "Above 5 years to 10 years",
-                    },
-                    {
-                      label: "Above 10 years",
-                      value: "Above 10 years",
-                    },
-                  ]}
-                  id="number-of-years-in-employment"
-                  placeholder="Enter your number of years in Employment"
-                />
-              </div>
+                        <FormControl
+                            fieldName="NumberofYears"
+                            variant="select"
+                            options={[
+                                {
+                                    label: "Less than 1 year",
+                                    value: "Less than 1 year",
+                                },
+                                {
+                                    label: "1 to 5 years",
+                                    value: "1 to 5 years",
+                                },
+                                {
+                                    label: "Above 5 years to 10 years",
+                                    value: "Above 5 years to 10 years",
+                                },
+                                {
+                                    label: "Above 10 years",
+                                    value: "Above 10 years",
+                                },
+                            ]}
+                            id="number-of-years-in-employment"
+                            placeholder="Enter your number of years in Employment"
+                        />
+                    </div>
 
-              {/* Expected Annual Income */}
-              <div className="mb-10">
-                <Label labelName="expected-annual-income">
-                  Expected Annual Income
-                </Label>
+                    {/* Expected Annual Income */}
+                    <div className="mb-10">
+                        <Label labelName="expected-annual-income">
+                            Expected Annual Income
+                        </Label>
 
-                <FormControl
-                  fieldName="expectedAnnualIncome"
-                  variant="select"
-                  options={[
-                    {
-                      label: "Less than 50,000",
-                      value: "Less than 50,000",
-                    },
-                    { label: "50,000 to 250,000", 
-                    value: "50,000 to 250,000" },
-                    {
-                      label: "250,000  to 500,000",
-                      value: "250000  to 500,000",
-                    },
-                    {
-                      label: "500,000 to 1,000,000",
-                      value: "500,000 to 1,000,000",
-                    },
-                    {
-                        label: "1,000,000 To less Than 5,000,000",
-                        value: "Above 10 years",
-                      },
-                      {
-                        label: "5,000,000 to 10,000,000",
-                        value: "5,000,000 to 10,000,000",
-                      },
-                  ]}
-                  id="expected-annual-income"
-                  placeholder="Enter your expected annual Income"
-                />
-              </div>
-            </>
-          )}
-
-        
+                        <FormControl
+                            fieldName="AnnualIncome"
+                            variant="select"
+                            options={[
+                                {
+                                    label: "Less than 50,000",
+                                    value: "Less than 50,000",
+                                },
+                                {
+                                    label: "50,000 to 250,000",
+                                    value: "50,000 to 250,000",
+                                },
+                                {
+                                    label: "250,000  to 500,000",
+                                    value: "250000  to 500,000",
+                                },
+                                {
+                                    label: "500,000 to 1,000,000",
+                                    value: "500,000 to 1,000,000",
+                                },
+                                {
+                                    label: "1,000,000 To less Than 5,000,000",
+                                    value: "Above 10 years",
+                                },
+                                {
+                                    label: "5,000,000 to 10,000,000",
+                                    value: "5,000,000 to 10,000,000",
+                                },
+                            ]}
+                            id="expected-annual-income"
+                            placeholder="Enter your expected annual Income"
+                        />
+                    </div>
+                </>
+            )}
 
             {/* Citizenship */}
             <div className="mb-10">

@@ -1,11 +1,12 @@
 export interface CustomerUpdateRequest {
     customerId: string
+    title:string
     maritalStatus: string
     motherMaidenName: string
-    firstName: string
-    lastName: string
-    middleName: string
-    DOB: string
+    FirstName: string
+    LastName:string
+    MiddleName:string
+    DOB:string
     isDiaspora: string
     country: string
     state: string

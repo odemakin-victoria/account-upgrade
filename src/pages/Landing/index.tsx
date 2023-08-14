@@ -5,7 +5,7 @@ import {
 } from "../routes-config"
 
 export default function Landing() {
-   
+    
 
     return (
         <div
@@ -28,27 +28,29 @@ export default function Landing() {
             </div>
 
             <div className="flex w-full lg:px-52 px-6 gap-10 md:flex-row flex-col">
-              
                 <Link
                     to={CREATE_ACCOUNT_REQUEST}
+                    
                     className="hover:translate-y-2 transition-all inline-flex flex-col shadow-lg hover:shadow-none bg-green-100 lg:py-10 lg:px-28 px-6 py-10 lg:w-[624px] lg:h-[359px] text-center rounded-lg"
                 >
                     <h1 className="font-bold mt-auto text-xl lg:text-[28px] lg:leading-[36px] mb-4 leading-6">
-                    Account Upgrade Request 
+                        Account Upgrade Request
                     </h1>
                     <p>
-                    Initiate an upgrade request to your account securely and conveniently.
+                        Initiate an upgrade request to your account securely and
+                        conveniently.
                     </p>
                 </Link>
                 <Link
                     to={UPDATE_ACCOUNT_REQUEST}
+                    
                     className="hover:translate-y-2 transition-all inline-flex flex-col shadow-lg hover:shadow-none bg-blue-500 lg:px-28 px-6 py-10 lg:py-10 lg:w-[624px] lg:h-[359px] text-center text-white rounded-lg"
                 >
                     <h1 className="font-bold mt-auto text-xl lg:text-[28px] lg:leading-[36px]  mb-4">
-                    Account Update Request  
+                        Account Update Request
                     </h1>
                     <p className="leading-6">
-                    Keep your account information up to date.
+                        Keep your account information up to date.
                     </p>
                 </Link>
             </div>

@@ -1,4 +1,4 @@
-import { AccountDocument, TFormRequest, FileField } from "@/shared/types"
+import { Document, TFormRequest, FileField } from "@/shared/types"
 import { FileHandler } from "./FileHandler"
 
 type documentKeys =
@@ -6,12 +6,13 @@ type documentKeys =
     | "proofOfAddressImage"
     | "customerPhoto"
     | "proofOfIdentityImage"
+    | "proofOfNinImage"
 
 export class formUtils {
     /**
      * Finds an item in the array of AccountDocuments based on the given search term.
      */
-    static findItemByName(arr: AccountDocument[], searchTerm: string) {
+    static findItemByName(arr: Document[], searchTerm: string) {
         const foundItem = arr?.find((item) => item.documentType === searchTerm)
         if (foundItem?.documentName) {
             const { documentName } = foundItem
@@ -24,12 +25,12 @@ export class formUtils {
     /**
      * Filters the array of AccountDocuments based on the given filter term.
      */
-    static filterAccountDocuments(arr: AccountDocument[], filterTerm: string) {
+    static filterAccountDocuments(arr: Document[], filterTerm: string) {
         return arr
             ?.filter(
-                (item: AccountDocument) => item.documentType === filterTerm
+                (item: Document) => item.documentType === filterTerm
             )
-            .map((item: AccountDocument) => {
+            .map((item: Document) => {
                 return {
                     file: null,
                     name: item.documentName,
@@ -57,8 +58,11 @@ export class formUtils {
                         ? "PROOFOFADRESS"
                         : key === "customerPhoto"
                         ? "CUSTOMERPHOTO"
+                        : key === "proofOfNinImage"
+                        ? "IDENTIFICATION"
                         : key === "proofOfIdentityImage"
                         ? "IDENTIFICATION"
+    
                         : key === "signature" && "SIGNATURE",
                 // @ts-ignore
 

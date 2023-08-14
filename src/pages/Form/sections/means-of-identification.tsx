@@ -75,19 +75,15 @@ export default function MeansofIdentification() {
                 <LabelDecor text="4" />
                 Means of Identification
             </h2>
-{/* Upload ID */}
+            {/* Upload ID */}
             <div className="mb-10">
-                <Label
-                    labelName="Upload-id"
-                    aria-describedby="label-hint"
-                    required
-                >
+                <Label labelName="Upload-id" aria-describedby="label-hint">
                     Upload National ID
                 </Label>
                 {watch("isDiaspora") === "no" ? (
                     <p id="label-hint" aria-hidden="true">
-                        Pleae upload your ID, PVC, International Passport, Driver's
-                        License
+                        Pleae upload your ID, PVC, International Passport,
+                        Driver's License
                     </p>
                 ) : (
                     <>
@@ -157,15 +153,18 @@ export default function MeansofIdentification() {
             </div>
             {/* Upload NIN Slip */}
             <div className="mb-10">
-                <Label
-                    labelName="Upload-id"
-                    aria-describedby="label-hint"
-                    
-                >
-Uploaded your NIN Slip ?   </Label>
+                <Label labelName="Upload-id" aria-describedby="label-hint">
+                    Uploaded your NIN Slip ?{" "}
+                </Label>
                 {watch("isDiaspora") === "no" ? (
-                    <p id="label-hint" aria-hidden="true" className="mb-4 text-base font-normal leading-normal">
-                    Please provide your virtual NIN Below (Dial *346*3*YOUR NIN* 1301388 # or Download the NIMC App to generate your virtual NIN. Our Enterprise Code is 1301388)
+                    <p
+                        id="label-hint"
+                        aria-hidden="true"
+                        className="mb-4 text-base font-normal leading-normal"
+                    >
+                        Please provide your virtual NIN Below (Dial *346*3*YOUR
+                        NIN* 1301388 # or Download the NIMC App to generate your
+                        virtual NIN. Our Enterprise Code is 1301388)
                     </p>
                 ) : (
                     <>
@@ -203,39 +202,36 @@ Uploaded your NIN Slip ?   </Label>
 
                 <div className="grid lg:grid-cols-3 grid-cols-1 gap-4 my-4">
                     {watch("proofOfNinImage") &&
-                        watch("proofOfNinImage")?.map(
-                            (item: FileField) => {
-                                return (
-                                    <div
-                                        className="bg-blue-200 w-fit border border-blue-300 items-center inline-flex"
-                                        aria-label="upload-files"
+                        watch("proofOfNinImage")?.map((item: FileField) => {
+                            return (
+                                <div
+                                    className="bg-blue-200 w-fit border border-blue-300 items-center inline-flex"
+                                    aria-label="upload-files"
+                                >
+                                    <span
+                                        className="inline-flex px-3"
+                                        aria-label="uploaded-image-name"
                                     >
-                                        <span
-                                            className="inline-flex px-3"
-                                            aria-label="uploaded-image-name"
-                                        >
-                                            {item?.name?.slice(0, 20)}
-                                        </span>
-                                        <button
-                                            className="p-4 bg-white inline-flex h-full justify-center items-center"
-                                            onClick={() =>
-                                                removeImageMultiple(
-                                                    "proofOfIdentityImage",
-                                                    item?.name
-                                                )
-                                            }
-                                        >
-                                            <FiTrash2 className="text-red-400" />
-                                        </button>
-                                    </div>
-                                )
-                            }
-                        )}
+                                        {item?.name?.slice(0, 20)}
+                                    </span>
+                                    <button
+                                        className="p-4 bg-white inline-flex h-full justify-center items-center"
+                                        onClick={() =>
+                                            removeImageMultiple(
+                                                "proofOfNinImage",
+                                                item?.name
+                                            )
+                                        }
+                                    >
+                                        <FiTrash2 className="text-red-400" />
+                                    </button>
+                                </div>
+                            )
+                        })}
                 </div>
             </div>
 
-
-{/* Upload Utility bill */}
+            {/* Upload Utility bill */}
             <div className="mb-10">
                 <Label
                     labelName="Upload-id-2"
@@ -317,7 +313,8 @@ Uploaded your NIN Slip ?   </Label>
             {/* Upload Passport  */}
             <div className="mb-10">
                 <Label labelName="Upload Photo" required>
-Capture Selfie/ Upload Passport Photo                </Label>
+                    Capture Selfie/ Upload Passport Photo{" "}
+                </Label>
                 <FormControl
                     fieldName="customerPhoto"
                     onChange={onChange}

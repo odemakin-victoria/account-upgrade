@@ -25,7 +25,7 @@ export default function UploadedDocumentUpdate({
     returnData,
 }: UploadedDocumentUpdateProps) {
     const { setValue, watch } = useFormContext()
-    const [uploadedDocuments, setUploadedDocuments] = useState<Document[]>([])
+    const [Documents, setUploadedDocuments] = useState<Document[]>([])
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
@@ -64,7 +64,7 @@ export default function UploadedDocumentUpdate({
     }
     const moveToNext = () => {
         const data = {
-            uploadedDocuments: uploadedDocuments,
+            Documents: Documents,
         }
         returnData && returnData(data)
     }
@@ -151,7 +151,7 @@ export default function UploadedDocumentUpdate({
                     </thead>
 
                     <tbody>
-                        {uploadedDocuments.map((document, index) => (
+                        {Documents.map((document, index) => (
                             <tr key={index}>
                                 <td className="p-4">{document.name}</td>
                                 <td className="p-4">{document.type}</td>
