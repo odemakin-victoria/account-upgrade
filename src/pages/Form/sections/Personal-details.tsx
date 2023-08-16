@@ -37,7 +37,7 @@ export default function PersonalDetails() {
             </h2>
             {/* Title */}
             <div className="mb-10">
-                <Label labelName="title">Title</Label>
+                <Label labelName="title" required>Title</Label>
 
                 <FormControl
                     fieldName="title"
@@ -78,12 +78,13 @@ export default function PersonalDetails() {
                     ]}
                     id="title"
                     placeholder="Select your Title"
+                 
                 />
             </div>
 
             {/* Martial status */}
             <div className="mb-10">
-                <Label labelName="marital-status">Marital Status</Label>
+                <Label labelName="marital-status" required>Marital Status</Label>
 
                 <FormControl
                     fieldName="maritalStatus"
@@ -116,7 +117,7 @@ export default function PersonalDetails() {
             </div>
             {/* Mother's madien name */}
             <div className="mb-10">
-                <Label labelName="Mother-Maiden-Name">Mother Maiden Name</Label>
+                <Label labelName="Mother-Maiden-Name" required>Mother Maiden Name</Label>
                 <FormControl
                     fieldName="motherMaidenName"
                     variant="input"
@@ -130,7 +131,7 @@ export default function PersonalDetails() {
             {/* Next of Kin  */}
             <div className="mb-10">
                 <div className="flex justify-between items-center mb-2">
-                    <Label labelName="Name-of-Next-of-Kin">Next of Kin</Label>
+                    <Label labelName="Name-of-Next-of-Kin" required>Next of Kin</Label>
                     <p className="text-xs text-gray-500 mb-2">
                         An alternate contact person in case you are unreachable
                         or unavailable.
@@ -146,7 +147,7 @@ export default function PersonalDetails() {
             </div>
             {/* Relationship with Next of Kin  */}
             <div className="mb-10">
-                <Label labelName="relationship-with-next-of-kin">
+                <Label labelName="relationship-with-next-of-kin" required>
                     Relationship with Next of Kin
                 </Label>
 
@@ -210,7 +211,7 @@ export default function PersonalDetails() {
 
             {/* Date of Birth of Next of Kin  */}
             <div className="mb-10">
-                <Label labelName="date-of-birth">
+                <Label labelName="date-of-birth" required>
                     Date of Birth of Next of Kin{" "}
                 </Label>
 
@@ -222,8 +223,8 @@ export default function PersonalDetails() {
                 />
             </div>
             {/* Next of kin Phone Number */}
-            <div className="mb-10">
-                <Label labelName="Phone-number-of-Next-of-Kin">
+            <div className="mb-10" >
+                <Label labelName="Phone-number-of-Next-of-Kin" required>
                     Phone number of Next of Kin
                 </Label>
                 <FormControl
@@ -281,7 +282,7 @@ export default function PersonalDetails() {
             )}
             {!isGrayedOut && (
                 <div className="mb-10">
-                    <Label labelName="next-of-kin-state" required>
+                    <Label labelName="next-of-kin-state" >
                         State
                     </Label>
                     <FormControl

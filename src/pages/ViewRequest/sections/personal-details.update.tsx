@@ -43,9 +43,9 @@ export default function PersonalDetails({
         setErrorMessage("") // Clear the error message if there was one
 
         const data = {
-            firstName: FirstName,
-            middleName: getValues("middleName"),
-            lastName: LastName,
+            FirstName: FirstName,
+            MiddleName: MiddleName,
+            LastName: LastName,
             maritalStatus: maritalStatus,
             motherMaidenName: motherMaidenName,
             DOB: DOB,

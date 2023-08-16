@@ -1,5 +1,3 @@
-import React from "react"
-
 export interface Document {
     name: string
     type: string

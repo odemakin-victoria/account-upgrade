@@ -6,6 +6,9 @@ import LabelDecor from "../components/label-decor"
 import SectionContainer from "../components/section"
 import SignatureCanvas from "./Signature"
 
+
+
+
 export default function MeansofIdentification() {
     const { setValue, watch, getValues } = useFormContext()
 

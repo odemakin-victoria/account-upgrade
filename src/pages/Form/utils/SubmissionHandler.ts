@@ -1,7 +1,7 @@
 import { TFormRequest } from "@/shared/types"
 import {
     PersonalDetails,
-    IContactAddress,
+    ContactAddress,
     NextOfKin,
     EmployeeStatus,
     RequestType
@@ -74,8 +74,8 @@ export class submissionHandler {
         return EmployeeStatus
     }
 
-    private mapContactAddress(data: TFormRequest): Partial<IContactAddress> {
-        const contactAddress: Partial<IContactAddress> = {
+    private mapContactAddress(data: TFormRequest): Partial<ContactAddress> {
+        const contactAddress: Partial<ContactAddress> = {
             line1: data.line1,
             line2: data.line2,
             city: data.city,
@@ -127,6 +127,8 @@ export class submissionHandler {
                 fileExt: FileHandler.getFileExtension(item?.file?.name),
             })
         })
+      
+
 
         data.diasporaDocs?.forEach((item) => {
             Documents.push({
@@ -176,6 +178,9 @@ export class submissionHandler {
             "signature",
             "maritalStatus",
             "motherMaidenName",
+            "FirstName",
+            "MiddleName",
+            "LastName",
             "nextOfKinName",
             "nextOfKinPhone",
             "line1",

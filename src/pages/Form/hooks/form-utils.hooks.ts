@@ -81,6 +81,7 @@ export default function useFormUtils({ step }: { step: number }) {
                     data.Documents,
                     "SIGNATURE"
                 ),
+                
                 customerPhoto: formUtils.findItemByName(
                     data.Documents,
                     "CUSTOMERPHOTO"

@@ -95,7 +95,7 @@ export default function ContactDetails() {
             <ContactDetailsFactory />
             {/* Employment status */}
             <div className="mb-6">
-                <Label labelName="marital-status">Employment Status</Label>
+                <Label labelName="Employer-status" required >Employment Status</Label>
 
                 <FormControl
                     fieldName="Status"

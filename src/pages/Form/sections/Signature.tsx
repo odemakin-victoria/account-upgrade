@@ -117,7 +117,7 @@ export function SignatureCanvas() {
   }
   return (
     <div className="mb-10">
-      <Label labelName="Signature">Signature</Label>
+      <Label labelName="Signature" required>Signature</Label>
       <div className="border border-dashed border-x-gray-100  bg-gray-50 p-4">
         <canvas
           className="bg-white"

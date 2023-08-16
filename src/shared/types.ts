@@ -12,12 +12,12 @@ export interface ApiResponse<T> {
  */
 export interface AccountRequestResponse {
     accountNumber: string
-    RequestType:string
+    RequestType: string
     updateStatus: string
     bvn: string | null
     PersonalDetails: PersonalDetails
-    NextOfKin:NextOfKin
-    EmployeeStatus:EmployeeStatus
+    NextOfKin: NextOfKin
+    EmployeeStatus: EmployeeStatus
     contactAddress: ContactAddress
     Documents: Document[]
 }
@@ -46,7 +46,7 @@ export interface AccountDocumentResponse extends Document {
  */
 export interface AccountDocumentRequest {
     documentId: string
-    document: File,
+    document: File
     documentName?: string
     documentType?: string
 }
@@ -63,17 +63,15 @@ export interface ContactAddress {
     state: string
     line1?: string
     line2?: string
-    countryOfTaxResidence:string
-    foreignTaxId:string
-    mobileNumber:string
-    TaxAddress1:string
-    TaxAddress2:string
-    secondCountry:string
+    countryOfTaxResidence: string
+    foreignTaxId: string
+    mobileNumber: string
+    TaxAddress1: string
+    TaxAddress2: string
+    secondCountry: string
     dateCreated?: Date
     dateLastModified?: Date
-
 }
-
 
 /**
  * Represents an updated contact address.
@@ -82,19 +80,18 @@ export interface ContactAddressUpdate extends ContactAddress {
     contactAddressId: string
 }
 
-
 /**
  * Represents the customer personal information.
  */
 export interface PersonalDetails {
     customerId: string
-    title:string
+    title: string
     maritalStatus: string
     motherMaidenName: string
     FirstName: string
-    LastName:string
-    MiddleName:string
-    DOB:string
+    LastName: string
+    MiddleName: string
+    DOB: string
     dateCreated: Date
     dateLastModified: Date
 }
@@ -104,13 +101,13 @@ export interface PersonalDetails {
 export interface NextOfKin {
     FullNameOfKin: string
     RelationshipOfKin: string
-    DobOfKin:string
+    DobOfKin: string
     PhoneNumberOfKin: string
     HouseNumberOfKin: string
     StateOfKin: string
-    StreetNameOfKin:string
-    LocalGovernmentOfKin:string
-    PostalZipCodeOfKin:string
+    StreetNameOfKin: string
+    LocalGovernmentOfKin: string
+    PostalZipCodeOfKin: string
     dateCreated: Date
     dateLastModified: Date
 }
@@ -132,6 +129,7 @@ export enum DocumentType {
     Identification = "IDENTIFICATION",
     Proofofadress = "PROOFOFADRESS",
     Signature = "SIGNATURE",
+    extraDocument = 'EXTRADOCUMENTS'
 }
 
 /**
@@ -147,7 +145,7 @@ export enum DocumentStatus {
  */
 export type FileField = {
     name: string | null
-    file: File  | null
+    file: File | null
 } | null
 
 /**
@@ -155,41 +153,42 @@ export type FileField = {
  */
 export type TFormRequest = {
     customerPhoto: FileField
+    extraDocument:FileField
     proofOfIdentityImage: FileField[] | null
     proofOfAddressImage: FileField[] | null
-    proofOfNinImage:FileField[] | null
+    proofOfNinImage: FileField[] | null
     signature: FileField
     acceptedTerms: boolean
     diasporaDocs: FileField[] | null
     accountNumber: string
     bvn: string
-    title:string
+    title: string
     maritalStatus: string
     motherMaidenName: string
     FullNameOfKin: string
     RelationshipOfKin: string
-    DobOfKin:string
+    DobOfKin: string
     PhoneNumberOfKin: string
     HouseNumberOfKin: string
     StateOfKin: string
-    StreetNameOfKin:string
-    LocalGovernmentOfKin:string
-    PostalZipCodeOfKin:string
-    RequestType:string
+    StreetNameOfKin: string
+    LocalGovernmentOfKin: string
+    PostalZipCodeOfKin: string
+    RequestType: string
     FirstName: string
-    LastName:string
-    MiddleName:string
+    LastName: string
+    MiddleName: string
     Status: string
     EmployersName: string
     NatureOfBusiness: string
     NumberofYears: string
     AnnualIncome: string
-    countryOfTaxResidence:string
-    foreignTaxId:string
-    mobileNumber:string
-    TaxAddress1:string
+    countryOfTaxResidence: string
+    foreignTaxId: string
+    mobileNumber: string
+    TaxAddress1: string
     TaxAddress2: string
-    secondCountry:string
+    secondCountry: string
     line1?: string
     line2?: string
     postalCode: string | null
@@ -200,4 +199,3 @@ export type TFormRequest = {
     isDiaspora: "yes" | "no"
     DOB: string
 }
-

@@ -7,6 +7,8 @@ type documentKeys =
     | "customerPhoto"
     | "proofOfIdentityImage"
     | "proofOfNinImage"
+    | "extraDocument"
+
 
 export class formUtils {
     /**
@@ -60,6 +62,8 @@ export class formUtils {
                         ? "CUSTOMERPHOTO"
                         : key === "proofOfNinImage"
                         ? "IDENTIFICATION"
+                        : key === "extraDocument"
+                        ? "EXTRADOCUMENTS"
                         : key === "proofOfIdentityImage"
                         ? "IDENTIFICATION"
     

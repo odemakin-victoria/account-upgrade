@@ -81,6 +81,7 @@ export enum DocumentType {
     Identification = "IDENTIFICATION",
     Proofofadress = "PROOFOFADRESS",
     Signature = "SIGNATURE",
+    extraDocument = 'EXTRADOCUMENTS'
 }
 
 /**
