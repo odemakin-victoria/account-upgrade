@@ -120,13 +120,13 @@ export default function useFormUtils({ step }: { step: number }) {
 
 
 
-// export function mapItemName(itemName:string) {
-//     const mapping:{[key:string]:string} = {
-//       IDENTIFICATION: 'National ID',
-//       PROOFOFADDRESS: 'Proof of Address',
-//       SIGNATURE: 'Signature',
-//       CUSTOMERPHOTO: 'Photo'
-//     };
+export function mapItemName(itemName:string) {
+    const mapping:{[key:string]:string} = {
+      IDENTIFICATION: 'National ID',
+      PROOFOFADDRESS: 'Proof of Address',
+      SIGNATURE: 'Signature',
+      CUSTOMERPHOTO: 'Photo'
+    };
   
-//     return mapping[itemName] || itemName;
-//   }
+    return mapping[itemName] || itemName;
+  }

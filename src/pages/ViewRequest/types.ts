@@ -15,4 +15,6 @@ export interface CustomerUpdateRequest {
     postalCode: string
     line1: string
     line2: string
+  
+    Documents: Document[]
 }

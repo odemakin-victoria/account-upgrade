@@ -84,6 +84,8 @@ export default function UpdateRequest() {
 
     useEffect(() => {
         var data = response.data?.data
+
+        console.log(data)
        
         if (response.isSuccess) {
             methods.reset({
@@ -104,7 +106,10 @@ export default function UpdateRequest() {
                         ? "no"
                         : "yes",
                 postalCode: data?.contactAddress?.postalCode,
-                // documents: data?.Documents as any,
+                proofOfIdentityImage: data.documents,
+                proofOfAddressImage: data.documents,
+                proofOfNinImage: data.documents,
+                customerPhoto: data.documents
                 // contactAddressId: data?.contactAddress?.contactAddressId,
                 // customerId: data?.PersonalDetails?.customerId,
                 // state: data?.contactAddress.state,
