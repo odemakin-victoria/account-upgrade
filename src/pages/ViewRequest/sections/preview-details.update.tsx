@@ -91,7 +91,7 @@ export interface PreviewDataProps {
     postalCode: string
     line1: string
     line2: string
-    uploadedDocuments: FileField[];
+    Documents: Document[]
 }
 
 const PreviewPage: React.FC<{
@@ -197,33 +197,60 @@ const PreviewPage: React.FC<{
                     Uploaded Documents:
                 </h2>
                 <div className="mb-8">
-                {previewData.uploadedDocuments && previewData.uploadedDocuments.map((document, index) => (
-        <div key={index} className="mb-2">
-            {document && (
-                <>
-                    <p className="mb-2">
-                        Document Name: {document.name || 'N/A'}
-                    </p>
-                    <p className="mb-2">
-                        Document Type: {document.file ? document.file.type : 'N/A'}
-                    </p>
-                </>
-            )}
-        </div>
-    ))}
+                {previewData.Documents && previewData.Documents.length > 0 ? (
+                        <div>
+                            {previewData.Documents.map((document, index) => (
+                                <div key={index} className="mb-4">
+                                    <p className="font-semibold">
+                                        Document Type: {document.documentType}
+                                    </p>
+                                    <p>Status: {document.documentStatus}</p>
+                                    {document.documentComment && (
+                                        <p>Comment: {document.documentComment}</p>
+                                    )}
+                                    {/* You can customize the display of other document details here */}
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <p>No documents uploaded.</p>
+                    )}
                 </div>
+               
+                {/* <div className="mb-8">
+                {previewData.Documents ? (
+        previewData.Documents.map((document, index) => (
+            <div key={index} className="mb-4">
+                <p className="font-semibold">
+                    Document Type: {document.documentType}
+                </p>
+                <p>Status: {document.documentStatus}</p>
+                {document.documentComment && (
+                    <p>Comment: {document.documentComment}</p>
+                )}
+
+                {/* Display Document Name */}
+                {/* <p>Document Name: {document.documentName || "N/A"}</p> */}
+
+                {/* You can customize the display of other document details here */}
+            {/* </div>
+        ))
+    ) : (
+        <p>No documents uploaded.</p>
+    )}
+                </div>  */}
 
                 {/* Back to Form Button */}
                 <div className="flex gap-4 mt-8">
                     <button
                         onClick={handleBackToForm}
-                        className="bg-blue-500 text-white py-8 px-4 rounded-lg"
+                        className="bg-blue-500 text-white py-4 px-4 rounded-lg"
                     >
                         Back to Form
                     </button>
                     <button
                         onClick={openOTPModal}
-                        className="bg-blue-500 text-white py-2 px-4 rounded-lg"
+                        className="bg-blue-500 text-white py-4 px-4 rounded-lg"
                     >
                         Submit
                     </button>

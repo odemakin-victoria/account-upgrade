@@ -172,6 +172,14 @@ export default function PersonalDetails() {
                             value: "Daugther",
                         },
                         {
+                            label: "Sister",
+                            value: "Sister",
+                        },
+                        {
+                            label: "Brother",
+                            value: "Brother",
+                        },
+                        {
                             label: "Aunt",
                             value: "Aunt",
                         },

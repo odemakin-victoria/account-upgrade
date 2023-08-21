@@ -4,6 +4,7 @@ import {
     ContactAddress,
     NextOfKin,
     EmployeeStatus,
+    Citizenship,
     RequestType
 } from "../types"
 import { formUtils } from "./FormUtils"
@@ -73,6 +74,18 @@ export class submissionHandler {
         }
         return EmployeeStatus
     }
+    private mapCitizenship(data: TFormRequest): Citizenship {
+        const Citizenship: Citizenship = {
+            ForeignTaxId: data.ForeignTaxId,
+            CountryTaxResidence: data.CountryTaxResidence,
+            MobileNumber: data.MobileNumber,
+            AddressLine1: data.AddressLine1,
+            AddressLine2: data.AddressLine2,
+            Country: data.Country,
+        }
+        return Citizenship
+    }
+
 
     private mapContactAddress(data: TFormRequest): Partial<ContactAddress> {
         const contactAddress: Partial<ContactAddress> = {
@@ -83,13 +96,6 @@ export class submissionHandler {
             country: data.country,
             postalCode: data.postalCode || undefined,
             state: data.state,
-
-            // countryOfTaxResidence: data.countryOfTaxResidence,
-            foreignTaxId: data.foreignTaxId,
-            mobileNumber: data.mobileNumber,
-            TaxAddress1: data.TaxAddress1,
-            TaxAddress2: data.TaxAddress2,
-            secondCountry: data.secondCountry,
         }
         return contactAddress
     }
@@ -120,6 +126,14 @@ export class submissionHandler {
         })
 
         data.proofOfIdentityImage?.forEach((item) => {
+            Documents.push({
+                documentType: "IDENTIFICATION",
+                document: item?.file ?? null,
+                documentName: item?.name ?? null,
+                fileExt: FileHandler.getFileExtension(item?.file?.name),
+            })
+        })
+        data.proofOfNinImage?.forEach((item) => {
             Documents.push({
                 documentType: "IDENTIFICATION",
                 document: item?.file ?? null,
@@ -175,6 +189,7 @@ export class submissionHandler {
         formUtils.deleteFromObject(dataToSend as unknown as TFormRequest, [
             "proofOfIdentityImage",
             "proofOfAddressImage",
+            "proofOfNinImage",
             "signature",
             "maritalStatus",
             "motherMaidenName",
@@ -196,6 +211,7 @@ export class submissionHandler {
         const PersonalDetails = this.mapCustomerDetails(data)
         const NextOfKin = this.mapNextOfKinDetails(data)
         const EmployeeStatus = this.mapEmployeeStatus(data)
+        const Citizenship = this.mapCitizenship(data)
         const contactAddress = this.mapContactAddress(data)
         const mapRequestType = this.mapRequestType(data)
 
@@ -203,6 +219,7 @@ export class submissionHandler {
         this.appendObjectValuesToFormData(NextOfKin, "NextOfKin")
         this.appendObjectValuesToFormData(EmployeeStatus, "EmployeeStatus")
         this.appendObjectValuesToFormData(contactAddress, "ContactAddress")
+        this.appendObjectValuesToFormData(Citizenship, "Citizenship")
         this.appendObjectValuesToFormData(mapRequestType, "RequestType")
         const Documents = this.prepareAccountDocuments(data)
         this.mapAccountDocuments(Documents)

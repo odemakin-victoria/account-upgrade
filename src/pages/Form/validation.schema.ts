@@ -20,7 +20,7 @@ export const otpRequestSchema = yup.object().shape({
         .string()
         .required("Required")
         .min(5, "Invalid Account Number"),
-    DOB: yup.string().required("Required"),
+    // DOB: yup.string().required("Required"),
     // proofOfIdentityImage:yup.object({
     //     file:yup.mixed().required("Required")
     // }).required("Required"),

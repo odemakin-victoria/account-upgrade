@@ -34,6 +34,16 @@ export interface EmployeeStatus {
     dateCreated?: Date
     dateLastModified?: Date
 }
+export interface Citizenship {
+    ForeignTaxId: string
+    CountryTaxResidence: string
+    MobileNumber: string
+    AddressLine1: string
+    AddressLine2: string
+    Country: string
+    dateCreated?: Date
+    dateLastModified?: Date
+}
 export interface RequestType {
     RequestType:string
 }

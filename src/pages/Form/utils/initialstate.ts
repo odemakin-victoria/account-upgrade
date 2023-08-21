@@ -23,11 +23,11 @@ export const FormInitialState: TFormRequest = {
     StateOfKin: "",
     LocalGovernmentOfKin: "",
     PostalZipCodeOfKin: " ",
-    RequestType:" ",
+    RequestType: " ",
     FirstName: " ",
-    LastName:" ",
-    MiddleName:" ",
-  
+    LastName: " ",
+    MiddleName: " ",
+
 
     acceptedTerms: false,
     city: "",
@@ -43,10 +43,12 @@ export const FormInitialState: TFormRequest = {
     NatureOfBusiness: "",
     NumberofYears: "",
     AnnualIncome: "",
+    ForeignTaxId: "",
+    CountryTaxResidence: "",
+    MobileNumber: " ",
+    AddressLine1: "",
+    AddressLine2: "",
+    extraDocument: null,
     countryOfTaxResidence: "",
-    foreignTaxId: "",
-    mobileNumber: "",
-    TaxAddress1: "",
-    TaxAddress2: "",
-    secondCountry: "",
+    Country: ""
 }

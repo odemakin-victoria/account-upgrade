@@ -279,7 +279,7 @@ export default function ContactDetails() {
                 />
             </div>
             <div className="mb-10">
-                <Label labelName="line2Address" required>
+                <Label labelName="line2Address">
                     Address Line 1
                 </Label>
                 <FormControl
@@ -299,7 +299,7 @@ export default function ContactDetails() {
                 />
             </div>
             <div className="mb-10">
-                <Label labelName="country" required>
+                <Label labelName="country" >
                     Country
                 </Label>
                 <FormControl

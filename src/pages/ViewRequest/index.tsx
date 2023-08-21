@@ -27,7 +27,7 @@ import {
     formModalReducer,
     initialState,
 } from "../Form/utils/ModalHandler"
-import dayjs from "dayjs"
+// import dayjs from "dayjs"
 import UsePageTitle from "@/utils/page-title.shared.hook"
 import { useClickOutside } from "@mantine/hooks"
 import PreviewPage from "./sections/preview-details.update"
@@ -120,7 +120,7 @@ export default function UpdateRequest() {
 
     const otpMethods = useForm({
         defaultValues: {
-            DOB: "",
+            // DOB: "",
             token: "",
             accountNumber: "",
         },
@@ -338,7 +338,7 @@ export function AccountOTPRequest({
     const handleOtpRequest = async () => {
         const res = await OTPValidator.sendOTP({
             accountNumber: getValues("accountNumber"),
-            DOB: dayjs(getValues("DOB")).format("YYYY-MM-DDTHH:mm:ss"),
+            // DOB: dayjs(getValues("DOB")).format("YYYY-MM-DDTHH:mm:ss"),
             callback: (w) => {
                 setisRequestingOTP(w)
             },
@@ -394,7 +394,7 @@ export function AccountOTPRequest({
                     placeholder="Enter your account number"
                 />
             </div>
-            <div className="mb-6">
+            {/* <div className="mb-6">
                 <Label labelName="date-of-birth">Date of Birth</Label>
 
                 <FormControl
@@ -403,7 +403,7 @@ export function AccountOTPRequest({
                     id="date-of-birth"
                     placeholder="Enter your Date of birth "
                 />
-            </div>
+            </div> */}
             <div className="flex items-center gap-4">
                 {/* {!isRequestingOTP && (
                     <Button
@@ -469,7 +469,7 @@ export function AccountOTPRequestValidation({
         const result = await OTPValidator.validateOtp({
             token: Object.values(otp).join(""),
             accountNumber: getValues("accountNumber"),
-            dob: dayjs(getValues("DOB")).format("YYYY-MM-DDTHH:mm:ss"),
+            // dob: dayjs(getValues("DOB")).format("YYYY-MM-DDTHH:mm:ss"),
             callback: (e) => setIsValidatingOtp(e),
         })
 

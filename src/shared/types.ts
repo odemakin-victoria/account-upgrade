@@ -120,6 +120,16 @@ export interface EmployeeStatus {
     dateCreated?: Date
     dateLastModified?: Date
 }
+export interface Citizenship {
+    ForeignTaxId: string
+    CountryTaxResidence: string
+    MobileNumber: string
+    AddressLine1: string
+    AddressLine2: string
+    Country: string
+    dateCreated?: Date
+    dateLastModified?: Date
+}
 /**
  * Enumerates the types of documents.
  */
@@ -184,11 +194,12 @@ export type TFormRequest = {
     NumberofYears: string
     AnnualIncome: string
     countryOfTaxResidence: string
-    foreignTaxId: string
-    mobileNumber: string
-    TaxAddress1: string
-    TaxAddress2: string
-    secondCountry: string
+    ForeignTaxId: string
+    CountryTaxResidence: string
+    MobileNumber: string
+    AddressLine1: string
+    AddressLine2: string
+    Country: string
     line1?: string
     line2?: string
     postalCode: string | null

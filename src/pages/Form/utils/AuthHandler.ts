@@ -2,7 +2,7 @@ import { axiosInstance } from "@/config/api"
 import { ApiResponse } from "@/shared/types"
 import { NotificationManager } from "@/utils/ResponseHandler.shared"
 import { AxiosError } from "axios"
-import dayjs from "dayjs"
+// import dayjs from "dayjs"
 
 /**
  * Class representing an OTP Validator.
@@ -15,7 +15,7 @@ export class OTPValidator {
      * @param {Object} params - The parameters for validation.
      * @param {string} params.otp - The OTP code.
      * @param {string} params.accountNumber - The account number.
-     * @param {string} params.dob - The date of birth.
+    // @param {string} params.dob - The date of birth.
      * @param {string} params.token - The token.
      * @returns {Promise<ApiResponse<unknown>>} - The result of the validation.
      */
@@ -24,17 +24,17 @@ export class OTPValidator {
         ...rest
     }: {
         accountNumber: string
-        dob: string
+        // dob: string
         token: string
         callback: (bool: boolean) => void
     }) {
-        const { accountNumber, dob } = rest
+        const { accountNumber } = rest
         try {
             rest.callback(true)
 
             const result = await axiosInstance.post("/api/ValidateOTP", {
                 accountNumber: accountNumber,
-                DOB: dayjs(dob).format("YYYY-MM-DDTHH:mm:ss"),
+                // DOB: dayjs(dob).format("YYYY-MM-DDTHH:mm:ss"),
                 token: token,
             })
 
@@ -59,18 +59,18 @@ export class OTPValidator {
      */
     static async sendOTP({
         accountNumber,
-        DOB,
+        // DOB,
         ...rest
     }: {
         accountNumber: string
-        DOB: string
+        // DOB: string
         callback: (bool: boolean) => void
     }) {
         try {
             rest.callback(true)
             const res = await axiosInstance.post("/api/SendOTP", {
                 accountNumber,
-                DOB: dayjs(DOB).format("YYYY-MM-DDTHH:mm:ss"),
+                // DOB: dayjs(DOB).format("YYYY-MM-DDTHH:mm:ss"),
             })
 
             return res.data
