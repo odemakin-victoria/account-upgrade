@@ -162,6 +162,7 @@ export type FileField = {
  * Represents the form request for submitting account information.
  */
 export type TFormRequest = {
+    Documents: FileField[] | null
     customerPhoto: FileField
     extraDocument:FileField
     proofOfIdentityImage: FileField[] | null

@@ -51,13 +51,11 @@ export default function useFormUtils({ step }: { step: number }) {
                     data?.EmployeeStatus?.NumberofYears,
                     AnnualIncome:
                     data?.EmployeeStatus?.AnnualIncome,
-                countryOfTaxResidence:
-                    data?.contactAddress?.countryOfTaxResidence,
-                foreignTaxId: data?.contactAddress?.foreignTaxId,
-                mobileNumber: data?.contactAddress?.mobileNumber,
-                TaxAddress1: data?.contactAddress?.TaxAddress1,
-                TaxAddress2: data?.contactAddress?.TaxAddress2,
-                secondCountry: data?.contactAddress?.secondCountry,
+                    ForeignTaxId: data?.Citizenship?.ForeignTaxId,
+                    MobileNumber: data?.Citizenship?.MobileNumber,
+                    AddressLine1: data?.Citizenship?.AddressLine1,
+                    AddressLine2: data?.Citizenship?.AddressLine2,
+                    CountryTaxResidence: data?.Citizenship?.Country,
 
                 motherMaidenName: data.PersonalDetails?.motherMaidenName,
                 country: data.contactAddress?.country ?? "",

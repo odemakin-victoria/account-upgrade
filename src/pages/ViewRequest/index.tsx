@@ -30,7 +30,7 @@ import {
 // import dayjs from "dayjs"
 import UsePageTitle from "@/utils/page-title.shared.hook"
 import { useClickOutside } from "@mantine/hooks"
-import PreviewPage from "./sections/preview-details.update"
+import PreviewPage  from "./sections/preview-details.update"
 
 import { submissionHandler } from "../../pages/Form/utils/SubmissionHandler"
 import { TFormRequest } from "@/shared/types"
@@ -41,6 +41,8 @@ import { formValidationSchema } from "../Form/validation.schema"
 // const handleClick = () => {
 //     navigator("/UPDATE_ACCOUNT_REQUEST");
 //   };
+
+
 export default function UpdateRequest() {
     UsePageTitle("View Update Request | Optimus Bank")
 
@@ -135,7 +137,23 @@ export default function UpdateRequest() {
     const ref = useClickOutside(() => setShowMenu(false))
 
     const [previewPage, setPreviewPage] = useState(false)
-    const [previewData, setPreviewData] = useState({})
+    const [previewData, setPreviewData] = useState({
+    //     FirstName: "",
+    // middleName: " ",
+    // LastName: " ",
+    // maritalStatus: '',
+    // motherMaidenName: " ",
+    // DOB: " ",
+    // isDiaspora: " ",
+    // country: " ",
+    // state: " ",
+    // localGovt: ' ',
+    // city: " ",
+    // postalCode: " ",
+    // line1: " ",
+    // line2: " ",
+    // Documents: Document[]
+    });
 
     return (
         <>
@@ -185,7 +203,7 @@ export default function UpdateRequest() {
                     </header>{" "}
                     <section className="px-10 flex justify-between items-center mb-10 flex-wrap lg:flex-nowrap gap-6 mt-36">
                         <div className="flex flex-col md:flex-row flex-wrap gap-6 md:gap-0 md:items-center">
-                            <h1 className="mr-6 text-xl lg:text-2xl">
+                            <h1 className="ml-48 md:m-auto text-xl lg:text-2xl">
                                 Account Update Request
                             </h1>
                             <span className="bg-[#FEFFB8]  p-4 rounded-lg font-medium w-fit">
@@ -245,10 +263,10 @@ export default function UpdateRequest() {
                                                 )
                                             }}
                                             returnData={(data) => {
-                                                setPreviewData((prev) => ({
-                                                    ...prev,
+                                                setPreviewData((prevData) => ({
+                                                    ...prevData,
                                                     ...data,
-                                                }))
+                                                }));
                                             }}
                                         />
                                     ) : currentPage == "Contact Details" ? (
@@ -260,10 +278,10 @@ export default function UpdateRequest() {
                                                 )
                                             }
                                             returnData={(data) => {
-                                                setPreviewData((prev) => ({
-                                                    ...prev,
+                                                setPreviewData((prevData) => ({
+                                                    ...prevData,
                                                     ...data,
-                                                }))
+                                                }));
                                             }}
                                         />
                                     ) : (
@@ -271,7 +289,7 @@ export default function UpdateRequest() {
                                             returnData={(data) => {
                                                 console.log(data, "the form")
 
-                                                setPreviewData((prev) => ({
+                                                setPreviewData((prev: any) => ({
                                                     ...prev,
                                                     ...data,
                                                 }))
@@ -287,7 +305,7 @@ export default function UpdateRequest() {
                             </>
                         ) : (
                             <PreviewPage
-                                previewData={previewData}
+                            previewData={previewData}
                                 setPreviewPage={setPreviewPage}
                                 openOTPModal={openOTPModalHandler}
                             />
@@ -309,7 +327,7 @@ export default function UpdateRequest() {
                 />
                 <AccountOTPRequestValidation
                     isOpen={state.openValidateModal}
-                    data={previewData}
+                    data={previewData as unknown as TFormRequest} 
                     dispatch={(action) =>
                         dispatch({ type: action.type, payload: action.payload })
                     }
@@ -481,6 +499,7 @@ export function AccountOTPRequestValidation({
             var formData = formHandler.createRequest({
                 ...data,
                 RequestType: "update",
+                
                 accountNumber: getValues("accountNumber"),
             })
     

@@ -204,6 +204,7 @@ export class submissionHandler {
             "localGovt",
             "state",
             "DOB",
+            
         ])
 
         this.prepareFormData(dataToSend)

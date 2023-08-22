@@ -1,3 +1,5 @@
+import motif from "../../../shared/assets/images/background.jpg";
+
 export interface Document {
     documentName?: string
     documentType?: string
@@ -77,6 +79,7 @@ export type TFormRequest = {
 }
 
 export interface PreviewDataProps {
+    previewData: PreviewDataProps;
     FirstName: string
     middleName: string
     LastName: string
@@ -95,7 +98,7 @@ export interface PreviewDataProps {
 }
 
 const PreviewPage: React.FC<{
-    previewData: PreviewDataProps
+    previewData: any,
     setPreviewPage: (val: boolean) => void
     openOTPModal: () => void
 }> = ({ previewData, setPreviewPage, openOTPModal }) => {
@@ -108,23 +111,30 @@ const PreviewPage: React.FC<{
 
     return (
         <div>
-            <div className="container mx-auto px-16 py-8 bg-white shadow-lg rounded-lg w-3/4">
+            <div className="container mx-auto  py-8 bg-white shadow-lg rounded-lg w-3/4">
+            <img
+            src={motif}
+            alt="Form Header"
+            className="w-full h-full object-cover mt-[-28px]"
+        />
+        <div className="px-16">
+
                 <h1 className="text-4xl font-bold my-8 text-blue-500 text-center">
                     {" "}
                     Summary
                 </h1>
                 {/* Display Personal Details */}
                 <h2 className="text-xl font-bold mb-2">Personal Details:</h2>
-                <p className="mb-2">First Name: {previewData?.FirstName}</p>
-                <p className="mb-2">Middle Name: {previewData.middleName}</p>
-                <p className="mb-2">Last Name: {previewData.LastName}</p>
-                <p className="mb-2">
+                <p className="mb-2 pb-2 border-b border-gray-200 ">First Name: {previewData?.FirstName}</p>
+                <p className="mb-2 pb-2 border-b border-gray-200">Middle Name: {previewData.middleName}</p>
+                <p className="mb-2 pb-2 border-b border-gray-200">Last Name: {previewData.LastName}</p>
+                <p className="mb-2 pb-2 border-b border-gray-200">
                     Marital Status: {previewData.maritalStatus}
                 </p>
-                <p className="mb-2">
+                <p className="mb-2 pb-2 border-b border-gray-200">
                     Mother Maiden Name: {previewData.motherMaidenName}
                 </p>
-                <p className="mb-2">
+                <p className="mb-2 pb-2 border-b border-gray-200">
                     Date of Birth:{" "}
                     {new Date(previewData.DOB).toLocaleDateString()}
                 </p>
@@ -138,20 +148,20 @@ const PreviewPage: React.FC<{
                     // Show specific contact details when isDiaspora is "NO"
                     <>
                         {previewData.state && (
-                            <p className="mb-2">State: {previewData.state}</p>
+                            <p className="mb-2 pb-2 border-b border-gray-200">State: {previewData.state}</p>
                         )}
                         {previewData.localGovt && (
-                            <p className="mb-2">
+                            <p className="mb-2 pb-2 border-b border-gray-200">
                                 Local Government: {previewData.localGovt}
                             </p>
                         )}
                         {previewData.line1 && (
-                            <p className="mb-2">
+                            <p className="mb-2 pb-2 border-b border-gray-200">
                                 Address Line 1: {previewData.line1}
                             </p>
                         )}
                         {previewData.postalCode && (
-                            <p className="mb-2">
+                            <p className="mb-2 pb-2 border-b border-gray-200">
                                 Postal Code: {previewData.postalCode}
                             </p>
                         )}
@@ -160,33 +170,33 @@ const PreviewPage: React.FC<{
                     // Show all contact details when isDiaspora is not "NO"
                     <>
                         {previewData.country && (
-                            <p className="mb-2">
+                            <p className="mb-2 pb-2 border-b border-gray-200">
                                 Country: {previewData.country}
                             </p>
                         )}
                         {previewData.localGovt && (
-                            <p className="mb-2">
+                            <p className="mb-2 pb-2 border-b border-gray-200">
                                 Local Government: {previewData.localGovt}
                             </p>
                         )}
                         {previewData.state && (
-                            <p className="mb-2">State: {previewData.state}</p>
+                            <p className="mb-2 pb-2 border-b border-gray-200">State: {previewData.state}</p>
                         )}
                         {previewData.city && (
-                            <p className="mb-2">City: {previewData.city}</p>
+                            <p className="mb-2 pb-2 border-b border-gray-200">City: {previewData.city}</p>
                         )}
                         {previewData.postalCode && (
-                            <p className="mb-2">
+                            <p className="mb-2 pb-2 border-b border-gray-200">
                                 Postal Code: {previewData.postalCode}
                             </p>
                         )}
                         {previewData.line1 && (
-                            <p className="mb-2">
+                            <p className="mb-2 pb-2 border-b border-gray-200">
                                 Address Line 1: {previewData.line1}
                             </p>
                         )}
                         {previewData.line2 && (
-                            <p className="mb-2">
+                            <p className="mb-2 pb-2 border-b border-gray-200">
                                 Address Line 2: {previewData.line2}
                             </p>
                         )}
@@ -197,48 +207,35 @@ const PreviewPage: React.FC<{
                     Uploaded Documents:
                 </h2>
                 <div className="mb-8">
-                {previewData.Documents && previewData.Documents.length > 0 ? (
-                        <div>
-                            {previewData.Documents.map((document, index) => (
-                                <div key={index} className="mb-4">
-                                    <p className="font-semibold">
-                                        Document Type: {document.documentType}
-                                    </p>
-                                    <p>Status: {document.documentStatus}</p>
-                                    {document.documentComment && (
-                                        <p>Comment: {document.documentComment}</p>
-                                    )}
-                                    {/* You can customize the display of other document details here */}
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <p>No documents uploaded.</p>
-                    )}
+                {previewData.proofOfIdentityImage.map((item: { file: File, name: string }, index: number) => (
+            <div key={index} className="mb-4">
+              <p className="font-semibold pb-2 border-b border-gray-200">
+                Document Type: Marriage Certificate
+              </p>
+              <p>File Name: {item.name}</p>
+            </div>
+          ))}
+
+          {previewData.proofOfNinImage.map((item: { file: File, name: string }, index: number) => (
+            <div key={index} className="mb-4">
+              <p className="font-semibold pb-2 border-b border-gray-200">
+                Document Type: Birth Certificate/ Affidavit
+              </p>
+              <p>File Name: {item.name}</p>
+            </div>
+          ))}
+
+          {previewData.proofOfAddressImage.map((item: { file: File, name: string }, index: number) => (
+            <div key={index} className="mb-4">
+              <p className="font-semibold pb-2 border-b border-gray-200">
+                Document Type: Additional Documents
+              </p>
+              <p>File Name: {item.name}</p>
+            </div>
+          ))}
                 </div>
                
-                {/* <div className="mb-8">
-                {previewData.Documents ? (
-        previewData.Documents.map((document, index) => (
-            <div key={index} className="mb-4">
-                <p className="font-semibold">
-                    Document Type: {document.documentType}
-                </p>
-                <p>Status: {document.documentStatus}</p>
-                {document.documentComment && (
-                    <p>Comment: {document.documentComment}</p>
-                )}
 
-                {/* Display Document Name */}
-                {/* <p>Document Name: {document.documentName || "N/A"}</p> */}
-
-                {/* You can customize the display of other document details here */}
-            {/* </div>
-        ))
-    ) : (
-        <p>No documents uploaded.</p>
-    )}
-                </div>  */}
 
                 {/* Back to Form Button */}
                 <div className="flex gap-4 mt-8">
@@ -255,12 +252,15 @@ const PreviewPage: React.FC<{
                         Submit
                     </button>
                 </div>
+        </div>
+
+                <img
+            src={motif}
+            alt="Form Header"
+            className="w-full h-full object-cover mt-20 mb-[-30px]"
+        />
                 <div
-                    className="w-full h-16 mt-8 bg-cover rounded-lg bg-repeat"
-                    style={{
-                        background: `url(https://forms.zohopublic.com/optimusbankhr/downloadlogoperma?filepath=/optimusbankhr/zf-customthemes-zf/1683535029165_title__2_.jpg)`,
-                        backgroundSize: "stretch",
-                    }}
+                   
                 >
                     {/* Content inside the div if needed */}
                 </div>

@@ -15,7 +15,7 @@ export const FormInitialState: TFormRequest = {
     motherMaidenName: "",
     FullNameOfKin: "",
     PhoneNumberOfKin: "",
-
+    Documents: [],
     RelationshipOfKin: "",
     DobOfKin: "",
     HouseNumberOfKin: "",
