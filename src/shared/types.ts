@@ -17,8 +17,9 @@ export interface AccountRequestResponse {
     bvn: string | null
     PersonalDetails: PersonalDetails
     NextOfKin: NextOfKin
-    EmployeeStatus: EmployeeStatus
+    employeeStatus: EmployeeStatus
     contactAddress: ContactAddress
+    citizenship:Citizenship
     Documents: Document[]
 }
 
@@ -58,17 +59,14 @@ export interface ContactAddress {
     contactAddressId: string
     country: string
     city: string
-    postalCode?: string
-    localGovt: string
+    zipCode?: string
+    houseNumber:string
+    localGovernment: string
     state: string
-    line1?: string
-    line2?: string
-    countryOfTaxResidence: string
-    foreignTaxId: string
-    mobileNumber: string
-    TaxAddress1: string
-    TaxAddress2: string
-    secondCountry: string
+    addressLine1?: string
+    addressLine2?: string
+    streetAddress?: string
+    
     dateCreated?: Date
     dateLastModified?: Date
 }
@@ -91,7 +89,7 @@ export interface PersonalDetails {
     FirstName: string
     LastName: string
     MiddleName: string
-    DOB: string
+    dateOfBirth: string
     dateCreated: Date
     dateLastModified: Date
 }
@@ -101,7 +99,7 @@ export interface PersonalDetails {
 export interface NextOfKin {
     FullNameOfKin: string
     RelationshipOfKin: string
-    DobOfKin: string
+    dobOfKin: string
     PhoneNumberOfKin: string
     HouseNumberOfKin: string
     StateOfKin: string
@@ -112,8 +110,8 @@ export interface NextOfKin {
     dateLastModified: Date
 }
 export interface EmployeeStatus {
-    Status: string
-    EmployersName: string
+    status: string
+    employersName: string
     NatureOfBusiness: string
     NumberofYears: string
     AnnualIncome: string
@@ -121,12 +119,12 @@ export interface EmployeeStatus {
     dateLastModified?: Date
 }
 export interface Citizenship {
-    ForeignTaxId: string
-    CountryTaxResidence: string
-    MobileNumber: string
-    AddressLine1: string
-    AddressLine2: string
-    Country: string
+    foreignTaxId: string
+    countryTaxResidence: string
+    mobileNumber: string
+Line1: string
+Line2: string
+    country: string
     dateCreated?: Date
     dateLastModified?: Date
 }
@@ -158,11 +156,33 @@ export type FileField = {
     file: File | null
 } | null
 
+
+// files for preview 
+
+
+export interface PreviewDataProps {
+    previewData: PreviewDataProps;
+    FirstName: string
+    MiddleName: string
+    LastName: string
+    maritalStatus: string
+    motherMaidenName: string
+    dateOfBirth: string
+    isDiaspora: string
+    country: string
+    state: string
+    localGovernment: string
+    city: string
+    zipCode: string
+    addressLine1: string
+    streetAddress: string
+    addressLine2: string
+    Documents: Document[]
+}
 /**
  * Represents the form request for submitting account information.
  */
 export type TFormRequest = {
-    Documents: FileField[] | null
     customerPhoto: FileField
     extraDocument:FileField
     proofOfIdentityImage: FileField[] | null
@@ -174,11 +194,12 @@ export type TFormRequest = {
     accountNumber: string
     bvn: string
     title: string
+   
     maritalStatus: string
     motherMaidenName: string
     FullNameOfKin: string
     RelationshipOfKin: string
-    DobOfKin: string
+    dobOfKin: string
     PhoneNumberOfKin: string
     HouseNumberOfKin: string
     StateOfKin: string
@@ -189,25 +210,25 @@ export type TFormRequest = {
     FirstName: string
     LastName: string
     MiddleName: string
-    Status: string
-    EmployersName: string
-    NatureOfBusiness: string
-    NumberofYears: string
-    AnnualIncome: string
+    status: string
+    employersName: string
+    natureOfBusiness: string
+    numberofYears: string
+    annualIncome: string
     countryOfTaxResidence: string
-    ForeignTaxId: string
-    CountryTaxResidence: string
-    MobileNumber: string
-    AddressLine1: string
-    AddressLine2: string
-    Country: string
-    line1?: string
-    line2?: string
-    postalCode: string | null
-    localGovt: string
+    foreignTaxId: string
+    countryTaxResidence: string
+    mobileNumber: string
+    zipCode: string | null
+    localGovernment: string
+    addressLine1: string
+    addressLine2: string
+  
     city: string
-    state: string
+    houseNumber:string
+    streetAddress:string
     country: string
+    state: string
     isDiaspora: "yes" | "no"
-    DOB: string
+    dateOfBirth: string
 }

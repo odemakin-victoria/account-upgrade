@@ -9,7 +9,7 @@ export const formValidationSchema = yup.object().shape({
     motherMaidenName: yup.string().required("Required"),
     FullNameOfKin: yup.string().required("Required"),
     PhoneNumberOfKin: yup.string().required("Required"),
-    proofOfIdentityImage: yup.mixed().required("Required"),
+    signature: yup.mixed().required("Required"),
     customerPhoto: yup.mixed().required("Required"),
     proofOfAddressImage: yup.mixed().required("Required"),
     acceptedTerms: yup.mixed().required("Required"),

@@ -4,6 +4,7 @@ import { ReactNode, useState } from "react"
 import { BsArrowRight } from "react-icons/bs"
 import { HiOutlineMenuAlt3 } from "react-icons/hi"
 import { Link } from "react-router-dom"
+import headerOptimusLogo from "@/shared/assets/images/Optimus_Logo.svg";
 
 export default function Layout({ children }: { children: ReactNode }) {
     const [showMenu, setShowMenu] = useState(false)
@@ -21,8 +22,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                     <header className="w-full bg-white md:px-14 px-6 py-6 md:fixed h-24 z-50 flex items-center justify-between relative">
                 <nav>
                     <img
-                        src="https://optimusbank.com/assets/images/header/Optimus_Logo.svg"
-                        alt="optimus_bank_logo"
+                        src={headerOptimusLogo}
+                        alt="optimus_bank_Logo"
                     />
                 </nav>
 

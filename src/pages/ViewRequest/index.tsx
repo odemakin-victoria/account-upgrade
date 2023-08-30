@@ -6,10 +6,7 @@ import UploadedDocumentUpdate from "./sections/uploaded-documents.update"
 import { useFormQuery } from "./hooks/queries.hooks"
 import { useEffect, useReducer, useState } from "react"
 import { Link } from "react-router-dom"
-import {
-    CREATE_ACCOUNT_REQUEST,
-  
-} from "../routes-config"
+import { CREATE_ACCOUNT_REQUEST } from "../routes-config"
 import { BsArrowRight } from "react-icons/bs"
 import { HiOutlineMenuAlt3 } from "react-icons/hi"
 import {
@@ -30,7 +27,7 @@ import {
 // import dayjs from "dayjs"
 import UsePageTitle from "@/utils/page-title.shared.hook"
 import { useClickOutside } from "@mantine/hooks"
-import PreviewPage  from "./sections/preview-details.update"
+import PreviewPage from "./sections/preview-details.update"
 
 import { submissionHandler } from "../../pages/Form/utils/SubmissionHandler"
 import { TFormRequest } from "@/shared/types"
@@ -38,10 +35,11 @@ import { useFormRequest } from "./hooks/queries.hooks"
 import { FormInitialState } from "../Form/utils/initialstate"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { formValidationSchema } from "../Form/validation.schema"
+import headerOptimusLogo from "@/shared/assets/images/Optimus_Logo.svg"
+
 // const handleClick = () => {
 //     navigator("/UPDATE_ACCOUNT_REQUEST");
 //   };
-
 
 export default function UpdateRequest() {
     UsePageTitle("View Update Request | Optimus Bank")
@@ -49,7 +47,6 @@ export default function UpdateRequest() {
     const [state, dispatch] = useReducer(formModalReducer, initialState)
     const [currentPage, setCurrentPage] = useState("Personal Details")
     const response = useFormQuery()
- 
 
     // const methods = useForm({
     //     defaultValues: {
@@ -87,36 +84,36 @@ export default function UpdateRequest() {
     useEffect(() => {
         var data = response.data?.data
 
-        console.log(data)
-       
+
+
         if (response.isSuccess) {
             methods.reset({
                 accountNumber: data?.accountNumber,
                 bvn: data?.bvn ?? undefined,
                 maritalStatus: data?.PersonalDetails?.maritalStatus,
-                localGovt: data?.contactAddress?.localGovt,
-                line1: data?.contactAddress?.line1 ?? undefined,
-                line2: data?.contactAddress?.line2 ?? undefined,
+                localGovernment: data?.contactAddress?.localGovernment,
+                addressLine1: data?.contactAddress?.addressLine1 ?? undefined,
+                addressLine2: data?.contactAddress?.addressLine2 ?? undefined,
                 FirstName: data?.PersonalDetails?.FirstName,
                 LastName: data?.PersonalDetails?.LastName,
                 MiddleName: data?.PersonalDetails?.MiddleName,
-                DOB: data?.PersonalDetails?.DOB,
+                dateOfBirth: data?.PersonalDetails?.dateOfBirth,
                 motherMaidenName: data?.PersonalDetails?.motherMaidenName,
                 country: data?.contactAddress?.country ?? "",
                 isDiaspora:
                     data?.contactAddress!.country.toLowerCase() === "nigeria"
                         ? "no"
                         : "yes",
-                postalCode: data?.contactAddress?.postalCode,
+                        zipCode: data?.contactAddress?.zipCode,
                 proofOfIdentityImage: data.documents,
                 proofOfAddressImage: data.documents,
                 proofOfNinImage: data.documents,
-                customerPhoto: data.documents
+                customerPhoto: data.documents,
                 // contactAddressId: data?.contactAddress?.contactAddressId,
                 // customerId: data?.PersonalDetails?.customerId,
                 // state: data?.contactAddress.state,
             })
-            console.log(data," VIEW REQUEST DATA")
+    
         }
     }, [response.isSuccess])
 
@@ -138,22 +135,22 @@ export default function UpdateRequest() {
 
     const [previewPage, setPreviewPage] = useState(false)
     const [previewData, setPreviewData] = useState({
-    //     FirstName: "",
-    // middleName: " ",
-    // LastName: " ",
-    // maritalStatus: '',
-    // motherMaidenName: " ",
-    // DOB: " ",
-    // isDiaspora: " ",
-    // country: " ",
-    // state: " ",
-    // localGovt: ' ',
-    // city: " ",
-    // postalCode: " ",
-    // line1: " ",
-    // line2: " ",
-    // Documents: Document[]
-    });
+        // FirstName: "",
+        // middleName: " ",
+        // LastName: " ",
+        // maritalStatus: '',
+        // motherMaidenName: " ",
+        // DOB: " ",
+        // isDiaspora: " ",
+        // country: " ",
+        // state: " ",
+        // localGovt: ' ',
+        // city: " ",
+        // postalCode: " ",
+        // line1: " ",
+        // line2: " ",
+
+    })
 
     return (
         <>
@@ -168,7 +165,7 @@ export default function UpdateRequest() {
                     <header className="w-full bg-white md:px-14 px-6 py-6 md:fixed h-24 z-50 flex items-center justify-between relative">
                         <nav className=" ">
                             <img
-                                src="https://optimusbank.com/assets/images/header/Optimus_Logo.svg"
+                                src={headerOptimusLogo}
                                 alt="optimus_bank_logo"
                             />
                         </nav>
@@ -266,7 +263,7 @@ export default function UpdateRequest() {
                                                 setPreviewData((prevData) => ({
                                                     ...prevData,
                                                     ...data,
-                                                }));
+                                                }))
                                             }}
                                         />
                                     ) : currentPage == "Contact Details" ? (
@@ -281,23 +278,19 @@ export default function UpdateRequest() {
                                                 setPreviewData((prevData) => ({
                                                     ...prevData,
                                                     ...data,
-                                                }));
+                                                }))
                                             }}
                                         />
                                     ) : (
                                         <UploadedDocumentUpdate
                                             returnData={(data) => {
-                                                console.log(data, "the form")
 
                                                 setPreviewData((prev: any) => ({
                                                     ...prev,
                                                     ...data,
                                                 }))
                                                 setPreviewPage(true)
-                                                console.log(
-                                                    previewData,
-                                                    "the prev data in next"
-                                                )
+                                               
                                             }}
                                         />
                                     )}
@@ -305,7 +298,7 @@ export default function UpdateRequest() {
                             </>
                         ) : (
                             <PreviewPage
-                            previewData={previewData}
+                                previewData={previewData}
                                 setPreviewPage={setPreviewPage}
                                 openOTPModal={openOTPModalHandler}
                             />
@@ -327,7 +320,7 @@ export default function UpdateRequest() {
                 />
                 <AccountOTPRequestValidation
                     isOpen={state.openValidateModal}
-                    data={previewData as unknown as TFormRequest} 
+                    data={previewData as unknown as TFormRequest}
                     dispatch={(action) =>
                         dispatch({ type: action.type, payload: action.payload })
                     }
@@ -376,7 +369,6 @@ export function AccountOTPRequest({
             opened={isOpen}
             withCloseButton={false}
             centered
-        
             onClose={() => {}}
             styles={{
                 root: {
@@ -459,11 +451,10 @@ export function AccountOTPRequest({
 export function AccountOTPRequestValidation({
     isOpen,
     dispatch,
-    data
+    data,
 }: {
-
     isOpen: boolean
-    data:TFormRequest
+    data: TFormRequest
     dispatch: ({
         type,
         payload,
@@ -476,7 +467,6 @@ export function AccountOTPRequestValidation({
     const { getValues, reset } = useFormContext()
     const form = useFormRequest()
     const [otp, setOtp] = useState<Object | null>(null)
-
 
     const handleOTPValidation = async () => {
         if (!otp) {
@@ -494,15 +484,15 @@ export function AccountOTPRequestValidation({
         if (result.responseCode == "200") {
             setIsValidatingOtp(false)
             dispatch({ type: "CLOSE", payload: false })
-            console.log(data, "the data")
+            
             var formHandler = new submissionHandler()
             var formData = formHandler.createRequest({
                 ...data,
                 RequestType: "update",
-                
+
                 accountNumber: getValues("accountNumber"),
             })
-    
+
             form.mutate(formData)
             // navigate(
             //     `${UPDATE_ACCOUNT_REQUEST}?accNo=${getValues(
@@ -539,7 +529,7 @@ export function AccountOTPRequestValidation({
                 className="mb-10 text-gray-500"
                 aria-label="An otp has been sent to the phone number associated with this account"
             >
-                An OTP was sent to your phone number at{" "}
+                An OTP was sent to the email address or phone number associated with this account{" "}
                 <span className="font-bold">{getValues("accountNumber")}</span>
             </p>
 

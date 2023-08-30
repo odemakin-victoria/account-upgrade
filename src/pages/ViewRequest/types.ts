@@ -6,15 +6,15 @@ export interface CustomerUpdateRequest {
     FirstName: string
     LastName:string
     MiddleName:string
-    DOB:string
+    dateOfBirth:string
     isDiaspora: string
     country: string
     state: string
-    localGovt: string
+    localGovernment: string
     city: string
-    postalCode: string
-    line1: string
-    line2: string
+    zipCode: string
+    addressLine1: string
+    addressLine2: string
   
     Documents: Document[]
 }

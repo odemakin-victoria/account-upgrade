@@ -3,7 +3,7 @@ import {
     CREATE_ACCOUNT_REQUEST,
     UPDATE_ACCOUNT_REQUEST,
 } from "../routes-config"
-
+import headerOptimusLogo from "@/shared/assets/images/Optimus_Logo.svg";
 export default function Landing() {
     
 
@@ -19,9 +19,10 @@ export default function Landing() {
 
             <div className="mb-20 justify-self-center items-center text-center w-fit">
                 <img
-                    src="https://optimusbank.com/assets/images/header/Optimus_Logo.svg"
+                    src={headerOptimusLogo}
+                    alt="optimus-logo"
                     className="mx-auto mb-6"
-                    alt=""
+                  
                 />
                 <h1 className="font-medium">Welcome</h1>
                 <p className="text-xl">What would you like to do today?</p>

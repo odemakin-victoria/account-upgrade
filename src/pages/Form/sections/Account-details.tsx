@@ -1,8 +1,26 @@
+import { useState, ChangeEvent } from 'react';
 import { FormControl, Label } from "@/shared/components";
 import LabelDecor from "../components/label-decor";
 import SectionContainer from "../components/section";
 
 export default function AccountDetails() {
+  const [accountNumber, setAccountNumber] = useState('');
+  const [bvn, setBvn] = useState('');
+
+  const handleAccountNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const input = event.target.value;
+    if (/^\d{1,10}$/.test(input)) {
+      setAccountNumber(input);
+    }
+  };
+
+  const handleBvnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const input = event.target.value;
+    if (/^\d{1,11}$/.test(input)) {
+      setBvn(input);
+    }
+  };
+
   return (
     <SectionContainer>
       <h2 className="text-lg mb-8 heading">
@@ -19,7 +37,9 @@ export default function AccountDetails() {
           id="account-number"
           placeholder="Enter your Account Number"
           className="focus:shadow-lg"
-          maxLength={12}
+          maxLength={10}
+          value={accountNumber}
+          onChange={handleAccountNumberChange}
         />
       </div>
 
@@ -30,7 +50,10 @@ export default function AccountDetails() {
           variant="input"
           id="bvn"
           type="text"
-          placeholder="Enter your Bvn"
+          placeholder="Enter your BVN"
+          maxLength={11}
+          value={bvn}
+          onChange={handleBvnChange}
         />
       </div>
     </SectionContainer>

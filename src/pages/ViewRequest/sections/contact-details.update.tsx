@@ -63,9 +63,10 @@ export function DiasporaFields({
             country: getValues("country"),
             state: getValues("state"),
             city: getValues("city"),
-            postalCode: getValues("postalCode"),
-            line1: getValues("line1"),
-            line2: getValues("line2"),
+            zipCode: getValues("zipCode"),
+            addressLine1: getValues("addressLine1"),
+            addressLine2: getValues("addressLine2"),
+      
         }
         returnData && returnData(data)
         setCurrentPage()
@@ -115,7 +116,7 @@ export function DiasporaFields({
                 <div className="">
                     <Label labelName="state">State</Label>
                     <FormControl
-                        fieldName="diasporaState"
+                        fieldName="state"
                         variant="input"
                         id="state"
                         type="text"
@@ -135,7 +136,7 @@ export function DiasporaFields({
                 <div className="">
                     <Label labelName="postalCode">Zip Code</Label>
                     <FormControl
-                        fieldName="postalCode"
+                        fieldName="zipCode"
                         variant="input"
                         id="street-address"
                         placeholder="Enter your location zipcode"
@@ -145,7 +146,7 @@ export function DiasporaFields({
                 <div className="">
                     <Label labelName="line2Address">Address Line 1</Label>
                     <FormControl
-                        fieldName="line1"
+                        fieldName="addressLine1"
                         variant="input"
                         id="line2Address"
                         placeholder="house address, xyz."
@@ -154,7 +155,7 @@ export function DiasporaFields({
                 <div className="">
                     <Label labelName="line2Address">Address Line 2</Label>
                     <FormControl
-                        fieldName="line2"
+                        fieldName="addressLine2"
                         variant="input"
                         id="line2Address"
                         placeholder="Address line 2"
@@ -197,9 +198,9 @@ export function NigerianFields({
     const moveToNext = () => {
         const data = {
             state: getValues("state"),
-            localGovt: getValues("localGovt"),
-            line1: getValues("line1"),
-            postalCode: getValues("postalCode"),
+            localGovernment: getValues("localGovernment"),
+            streetAddress: getValues("streetAddress"),
+            zipCode: getValues("zipCode"),
         }
         returnData && returnData(data)
 
@@ -228,7 +229,7 @@ export function NigerianFields({
             </div>
             <div className="grid md:grid-cols-2 bg-white gap-10 p-6  border border-[#EBEAEF]">
                 <div className="">
-                    <Label labelName="state" required>State</Label>
+                    <Label labelName="state" >State</Label>
                     <Skeleton visible={isLoading}>
                         {" "}
                         <FormControl
@@ -251,7 +252,7 @@ export function NigerianFields({
                     <Skeleton visible={isLoading}>
                         {" "}
                         <FormControl
-                            fieldName="localGovt"
+                            fieldName="localGovernment"
                             variant="select"
                             id="local-government"
                             options={getLocalNames()?.map((item) => {
@@ -270,7 +271,7 @@ export function NigerianFields({
                     <Skeleton visible={isLoading}>
                         {" "}
                         <FormControl
-                            fieldName="line1"
+                            fieldName="streetAddress"
                             variant="input"
                             id="street-address"
                             placeholder="house address, xyz."
@@ -283,7 +284,7 @@ export function NigerianFields({
                     <Skeleton visible={isLoading}>
                         {" "}
                         <FormControl
-                            fieldName="postalCode"
+                            fieldName="zipCode"
                             variant="input"
                             id="post-code"
                             type="text"

@@ -83,7 +83,7 @@ export default function UploadedDocumentUpdate({
                 </Label>
                
                     <p id="label-hint" aria-hidden="true" className="mt-6 mb-2">
-                        Please upload your Marriage Certification if required or needed for the update 
+                        Please upload your Marriage Certification if required or needed for the update ( The maximum file size for each document upload is 2MB.)
                     </p>
                 
                 
@@ -137,7 +137,7 @@ export default function UploadedDocumentUpdate({
                         aria-hidden="true"
                         className="mb-4 text-base font-normal leading-normal"
                     >
-                        Please provide your Affidavit or your Birth Certificate if required or needed for the update.
+                        Please provide your Affidavit or your Birth Certificate if required or needed for the update  ( The maximum file size for each document upload is 2MB).
                     </p>
                 
               
@@ -187,7 +187,7 @@ export default function UploadedDocumentUpdate({
 
                 
                     <p id="label-hint" aria-hidden="true">
-                    Please provide any other Additional Documents if required or needed for the update.
+                    Please provide any other Additional Documents if required or needed for the update( The maximum file size for each document upload is 2MB).
                     </p>
                 
                 <FormControl

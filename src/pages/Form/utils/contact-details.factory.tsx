@@ -69,7 +69,7 @@ export function DiasporaFields() {
                     Address Line 1
                 </Label>
                 <FormControl
-                    fieldName="line1"
+                    fieldName="addressLine1"
                     variant="input"
                     id="line2Address"
                     placeholder="Address line 2"
@@ -78,7 +78,7 @@ export function DiasporaFields() {
             <div className="mb-10">
                 <Label labelName="line2Address">Address Line 2</Label>
                 <FormControl
-                    fieldName="line2"
+                    fieldName="addressLine2"
                     variant="input"
                     id="line2Address"
                     placeholder="Address line 2"
@@ -90,7 +90,7 @@ export function DiasporaFields() {
                     Zip Code
                 </Label>
                 <FormControl
-                    fieldName="postalCode"
+                    fieldName="zipCode"
                     variant="input"
                     id="street-address"
                     placeholder="Enter your location zipcode"
@@ -136,7 +136,7 @@ export function NigerianFields() {
                     Local Government
                 </Label>
                 <FormControl
-                    fieldName="localGovt"
+                    fieldName="localGovernment"
                     variant="select"
                     id="local-government"
                     options={getLocalNames()?.map((item) => {
@@ -161,7 +161,7 @@ export function NigerianFields() {
             <div className="mb-6 ">
                 <Label labelName="street-address">Street Name</Label>
                 <FormControl
-                    fieldName="line1"
+                    fieldName="streetAddress"
                     variant="input"
                     id="street-address"
                     placeholder="Enter street name."
@@ -171,7 +171,7 @@ export function NigerianFields() {
             <div className="mb-10">
                 <Label labelName="post-code">Postal Zip Code</Label>
                 <FormControl
-                    fieldName="postalCode"
+                    fieldName="zipCode"
                     variant="input"
                     id="post-code"
                     type="text"

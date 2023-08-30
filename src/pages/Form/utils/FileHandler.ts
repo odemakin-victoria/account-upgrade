@@ -1,6 +1,6 @@
 export class FileHandler {
     static getFileExtension(filename?: string): string {
-        console.log(filename)
+       
         if (!filename || filename.trim() === '') {
           return '';
         }

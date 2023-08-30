@@ -12,9 +12,9 @@ export default function PersonalDetails() {
     const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
         setIsGrayedOut(e.target.checked)
     }
-    const { getValues, watch, formState } = useFormContext()
+    const { getValues, watch } = useFormContext()
     function getLocalNames() {
-        console.log("state", watch("StateOfKin"))
+      
 
         if (!watch("StateOfKin")) return
        
@@ -27,7 +27,7 @@ export default function PersonalDetails() {
 
         return lga
     }
-    console.log(formState.errors)
+  
 
     return (
         <SectionContainer>
@@ -224,7 +224,7 @@ export default function PersonalDetails() {
                 </Label>
 
                 <FormControl
-                    fieldName="DobOfKin"
+                    fieldName="dobOfKin"
                     variant="DatePicker"
                     id="date-of-birth"
                     placeholder="Enter your Next of Kin Date of birth "
@@ -310,7 +310,7 @@ export default function PersonalDetails() {
             )}
             {!isGrayedOut && (
                 <div className="mb-10">
-                    <Label labelName="next-of-kin-local-government" required>
+                    <Label labelName="next-of-kin-local-government" >
                         Local Government
                     </Label>
                     <FormControl

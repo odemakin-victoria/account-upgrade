@@ -20,7 +20,7 @@ export default function AccountForm() {
     const form = useFormRequest()
 
     const handleSubmit = async (data: TFormRequest) => {
-        console.log(data, "the data")
+        
         var formHandler = new submissionHandler()
         var formData = formHandler.createRequest({
             ...data,

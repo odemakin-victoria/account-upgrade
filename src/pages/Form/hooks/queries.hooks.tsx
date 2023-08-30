@@ -17,7 +17,7 @@ export const useFormRequest = () => {
         {
             onSuccess: () => {
                 NotificationManager.showSuccessNotification(
-                    "Account Update Request submitted successfully"
+                    "Account Upgrade Request submitted successfully"
                 )
             },
             onError: (data) => {

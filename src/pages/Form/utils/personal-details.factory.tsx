@@ -61,7 +61,7 @@ export function DiasporaFields() {
             <div className="mb-10">
                 <Label labelName="line2Address">Address Line 1</Label>
                 <FormControl
-                    fieldName="line1"
+                    fieldName="addressLine1"
                     variant="input"
                     id="line2Address"
                     placeholder="house address, xyz."
@@ -70,7 +70,7 @@ export function DiasporaFields() {
             <div className="mb-10">
                 <Label labelName="line2Address">Address Line 2</Label>
                 <FormControl
-                    fieldName="line2"
+                    fieldName="addressLine2"
                     variant="input"
                     id="line2Address"
                     placeholder="Address line 2"
@@ -78,7 +78,7 @@ export function DiasporaFields() {
             </div>
 
             <div className="mb-10">
-                <Label labelName="postalCode">Zip Code</Label>
+                <Label labelName="zipCode">Zip Code</Label>
                 <FormControl
                     fieldName="postalCode"
                     variant="input"
@@ -126,7 +126,7 @@ export function NigerianFields() {
                     Local Government
                 </Label>
                 <FormControl
-                    fieldName="localGovt"
+                    fieldName="localGovernment"
                     variant="select"
                     id="local-government"
                     options={getLocalNames()?.map((item) => {

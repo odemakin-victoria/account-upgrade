@@ -86,11 +86,11 @@ export default function MeansofIdentification() {
                 {watch("isDiaspora") === "no" ? (
                     <p id="label-hint" aria-hidden="true">
                         Pleae upload your ID, PVC, International Passport,
-                        Driver's License
+                        Driver's License ( The maximum file size for each document upload is 2MB.)
                     </p>
                 ) : (
                     <>
-                        <p> Any of the below is acceptable:</p>
+                        <p> Any of the below is acceptable ( The maximum file size for each document upload is 2MB.)</p>
                         <ol
                             id="label-hint"
                             aria-hidden="true"
@@ -167,11 +167,11 @@ export default function MeansofIdentification() {
                     >
                         Please provide your virtual NIN Below (Dial *346*3*YOUR
                         NIN* 1301388 # or Download the NIMC App to generate your
-                        virtual NIN. Our Enterprise Code is 1301388)
+                        virtual NIN. Our Enterprise Code is 1301388)( The maximum file size for each document upload is 2MB.)
                     </p>
                 ) : (
                     <>
-                        <p> Any of the below is acceptable:</p>
+                        <p> Any of the below is acceptable ( The maximum file size for each document upload is 2MB.)</p>
                         <ol
                             id="label-hint"
                             aria-hidden="true"
@@ -241,16 +241,16 @@ export default function MeansofIdentification() {
                     aria-describedby="label-hint"
                     required
                 >
-                    Utility Bill/Proof of Address
+                    Utility Bill/Proof of Address 
                 </Label>
 
                 {watch("isDiaspora") === "no" ? (
                     <p id="label-hint" aria-hidden="true">
-                        This should be issued within the last 3 months.
+                        This should be issued within the last 3 months ( The maximum file size for each document upload is 2MB.).
                     </p>
                 ) : (
                     <>
-                        <p> Any of the below is acceptable:</p>
+                        <p> Any of the below is acceptable ( The maximum file size for each document upload is 2MB.)</p>
 
                         <ol
                             id="label-hint"
@@ -318,6 +318,9 @@ export default function MeansofIdentification() {
                 <Label labelName="Upload Photo" required>
                     Capture Selfie/ Upload Passport Photo{" "}
                 </Label>
+
+                <p> Any of the below is acceptable ( The maximum file size for each document upload is 2MB.)</p>
+
                 <FormControl
                     fieldName="customerPhoto"
                     onChange={onChange}

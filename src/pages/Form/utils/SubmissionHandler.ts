@@ -35,6 +35,7 @@ export class submissionHandler {
             maritalStatus: data.maritalStatus,
             motherMaidenName: data.motherMaidenName,
             FirstName: data.FirstName,
+            dateOfBirth:data.dateOfBirth,
             LastName: data.LastName,
             MiddleName: data.MiddleName
            
@@ -53,7 +54,7 @@ export class submissionHandler {
         const NextOfKin: NextOfKin = {
             FullNameOfKin: data.FullNameOfKin,
             RelationshipOfKin: data.RelationshipOfKin,
-            DobOfKin: data.DobOfKin,
+            dobOfKin: data.dobOfKin,
             PhoneNumberOfKin: data.PhoneNumberOfKin,
             HouseNumberOfKin: data.HouseNumberOfKin,
             StateOfKin: data.StateOfKin,
@@ -66,22 +67,23 @@ export class submissionHandler {
 
     private mapEmployeeStatus(data: TFormRequest): EmployeeStatus {
         const EmployeeStatus: EmployeeStatus = {
-            Status: data.Status,
-            EmployersName: data.EmployersName,
-            NatureOfBusiness: data.NatureOfBusiness,
-            NumberofYears: data.NumberofYears,
-            AnnualIncome: data.AnnualIncome,
+            status: data.status,
+            employersName: data.employersName,
+            natureOfBusiness: data.natureOfBusiness,
+            numberofYears: data.numberofYears,
+            annualIncome: data.annualIncome,
         }
         return EmployeeStatus
     }
     private mapCitizenship(data: TFormRequest): Citizenship {
         const Citizenship: Citizenship = {
-            ForeignTaxId: data.ForeignTaxId,
-            CountryTaxResidence: data.CountryTaxResidence,
-            MobileNumber: data.MobileNumber,
-            AddressLine1: data.AddressLine1,
-            AddressLine2: data.AddressLine2,
-            Country: data.Country,
+            foreignTaxId: data.foreignTaxId,
+            countryTaxResidence: data.countryTaxResidence,
+            mobileNumber: data.mobileNumber,
+  Line1: data.addressLine1,
+            Line2: data.addressLine2,
+            country: data.country,
+
         }
         return Citizenship
     }
@@ -89,12 +91,15 @@ export class submissionHandler {
 
     private mapContactAddress(data: TFormRequest): Partial<ContactAddress> {
         const contactAddress: Partial<ContactAddress> = {
-            line1: data.line1,
-            line2: data.line2,
+            addressLine1: data.addressLine1,
+            addressLine2: data.addressLine2,
             city: data.city,
-            localGovt: data.localGovt,
+            streetAddress:data.streetAddress,
+            houseNumber:data.houseNumber,
+
+            localGovernment: data.localGovernment,
             country: data.country,
-            postalCode: data.postalCode || undefined,
+            zipCode: data.zipCode || undefined,
             state: data.state,
         }
         return contactAddress
@@ -203,8 +208,7 @@ export class submissionHandler {
             "city",
             "localGovt",
             "state",
-            "DOB",
-            
+            "dateOfBirth",
         ])
 
         this.prepareFormData(dataToSend)

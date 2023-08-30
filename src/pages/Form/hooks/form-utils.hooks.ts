@@ -28,35 +28,39 @@ export default function useFormUtils({ step }: { step: number }) {
                 RequestType: data?.RequestType,
                 title: data?.PersonalDetails?.title,
                 maritalStatus: data?.PersonalDetails?.maritalStatus,
-                localGovt: data?.contactAddress?.localGovt,
-                line1: data?.contactAddress?.line1,
-                line2: data?.contactAddress?.line2,
+          
+                zipCode: data?.contactAddress?.zipCode,
+
+                localGovernment: data?.contactAddress?.localGovernment,
+                houseNumber: data?.contactAddress?.houseNumber,
+                streetAddress: data?.contactAddress?.streetAddress,
+
                 FirstName: data?.PersonalDetails?.FirstName,
                 LastName: data?.PersonalDetails?.LastName,
                 MiddleName: data?.PersonalDetails?.MiddleName,
                 FullNameOfKin: data?.NextOfKin?.FullNameOfKin,
                 RelationshipOfKin:
                     data?.NextOfKin?.RelationshipOfKin,
-                    DobOfKin: data?.NextOfKin?.DobOfKin,
+                    dobOfKin: data?.NextOfKin?.dobOfKin,
                     PhoneNumberOfKin: data?.NextOfKin?.PhoneNumberOfKin,
                     HouseNumberOfKin: data?.NextOfKin?.HouseNumberOfKin,
                     StateOfKin: data?.NextOfKin?.StateOfKin,
                     PostalZipCodeOfKin: data?.NextOfKin?.PostalZipCodeOfKin,
                     StreetNameOfKin: data?.NextOfKin?.StreetNameOfKin,
                     LocalGovernmentOfKin: data?.NextOfKin?.LocalGovernmentOfKin,
-                    Status: data?.EmployeeStatus?.Status,
-                    EmployersName: data?.EmployeeStatus?.EmployersName,
-                    NatureOfBusiness: data?.EmployeeStatus?.NatureOfBusiness,
-                    NumberofYears:
-                    data?.EmployeeStatus?.NumberofYears,
-                    AnnualIncome:
-                    data?.EmployeeStatus?.AnnualIncome,
+                    status: data?.EmployeeStatus?.status,
+                    employersName: data?.EmployeeStatus?.employersName,
+                    natureOfBusiness: data?.EmployeeStatus?.natureOfBusiness,
+                    numberofYears:
+                    data?.EmployeeStatus?.numberofYears,
+                    annualIncome:
+                    data?.EmployeeStatus?.annualIncome,
                     
-                    ForeignTaxId: data?.Citizenship?.ForeignTaxId,
-                    MobileNumber: data?.Citizenship?.MobileNumber,
-                    AddressLine1: data?.Citizenship?.AddressLine1,
-                    AddressLine2: data?.Citizenship?.AddressLine2,
-                    CountryTaxResidence: data?.Citizenship?.Country,
+                    foreignTaxId: data?.Citizenship?.foreignTaxId,
+                    mobileNumber: data?.Citizenship?.MobileNumber,
+                    addressLine1: data?.Citizenship?.Line1,
+                    addressLine2: data?.Citizenship?.Line2,
+                    countryTaxResidence: data?.Citizenship?.countryTaxResidence,
 
                 motherMaidenName: data.PersonalDetails?.motherMaidenName,
                 country: data.contactAddress?.country ?? "",

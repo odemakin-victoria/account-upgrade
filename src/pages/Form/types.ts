@@ -2,6 +2,7 @@ export interface PersonalDetails {
     customerId?: string
     title: string
     maritalStatus: string
+    dateOfBirth:string
     motherMaidenName: string
     FirstName:string,
     LastName:string,
@@ -13,7 +14,7 @@ export interface PersonalDetails {
 export interface NextOfKin {
     FullNameOfKin: string
     RelationshipOfKin: string
-    DobOfKin: string
+    dobOfKin: string
     PhoneNumberOfKin: string
     HouseNumberOfKin: string
     StateOfKin: string
@@ -25,22 +26,21 @@ export interface NextOfKin {
     dateLastModified?: Date
 }
 export interface EmployeeStatus {
-    Status: string
-    EmployersName: string
-    NatureOfBusiness: string
-    NumberofYears: string
-    AnnualIncome: string
-
+    status: string
+    employersName: string
+    natureOfBusiness: string
+    numberofYears: string
+    annualIncome: string
     dateCreated?: Date
     dateLastModified?: Date
 }
 export interface Citizenship {
-    ForeignTaxId: string
-    CountryTaxResidence: string
-    MobileNumber: string
-    AddressLine1: string
-    AddressLine2: string
-    Country: string
+    foreignTaxId: string
+    countryTaxResidence: string
+    mobileNumber: string
+   Line1: string
+  Line2: string
+    country: string
     dateCreated?: Date
     dateLastModified?: Date
 }
@@ -49,20 +49,21 @@ export interface RequestType {
 }
 
 export interface ContactAddress {
-    postalCode: string
-    localGovt: string
+    zipCode: string
+    localGovernment: string
     state: string
-    line1: string
-    line2: string
+    addressLine1: string
+    addressLine2: string
     city: string
-    foreignTaxId: string
-    mobileNumber: string
-    TaxAddress1: string
-    TaxAddress2: string
-    secondCountry: string
+    houseNumber:string
+    streetAddress:string
+    country: string
+
+   
+   
     dateCreated: Date
     dateLastModified: Date
-    country: string
+ 
     requestId: string
 }
 export interface Document {
@@ -78,7 +79,7 @@ export interface AccountRequestResponse {
     bvn: string | null
     PersonalDetails: PersonalDetails
     NextOfKin:NextOfKin
-    EmployeeStatus:EmployeeStatus
+    employeeStatus:EmployeeStatus
     contactAddress: ContactAddress
     Documents: Document[]
 }

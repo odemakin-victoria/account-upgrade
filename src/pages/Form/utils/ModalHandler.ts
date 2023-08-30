@@ -22,7 +22,7 @@ type Action = {
 }
 
 export const formModalReducer = (state: State, action: Action): State => {
-    console.log(action)
+
     switch (action.type) {
         case "OPEN_VALIDATE_MODAL":
             return {

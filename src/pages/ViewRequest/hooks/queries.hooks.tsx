@@ -18,7 +18,7 @@ import { NotificationManager } from "@/utils/ResponseHandler.shared"
 // Mutations
 export const useFormRequest = () => {
     const onSubmit = async (values: FormData) => {
-        console.log(values, "form request")
+        
         const data = await axiosInstance.post(`/api/account-request`, values)
         return data.data
     }

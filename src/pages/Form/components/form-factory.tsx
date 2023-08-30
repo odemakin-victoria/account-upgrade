@@ -32,7 +32,7 @@ export default function FormFactory({ step }: { step: number }) {
               
 
               <FormControl
-                fieldName="DOB"
+                fieldName="dateOfBirth"
                 variant="DatePicker"
                 id="date-of-birth"
                 placeholder="Enter your Date of birth "

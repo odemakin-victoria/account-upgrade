@@ -24,7 +24,7 @@ export default function PersonalDetails({
         const LastName = getValues("LastName")
         const MiddleName = getValues("MiddleName")
         const motherMaidenName = getValues("motherMaidenName")
-        const DOB = getValues("DOB")
+        const dateOfBirth = getValues("dateOfBirth")
         const maritalStatus = getValues("maritalStatus")
 
         if (
@@ -32,7 +32,7 @@ export default function PersonalDetails({
             !LastName ||
             !MiddleName||
             !motherMaidenName ||
-            !DOB ||
+            !dateOfBirth ||
             !maritalStatus
         ) {
             // Set the error message and prevent moving to the next page
@@ -48,11 +48,11 @@ export default function PersonalDetails({
             LastName: LastName,
             maritalStatus: maritalStatus,
             motherMaidenName: motherMaidenName,
-            DOB: DOB,
+            dateOfBirth: dateOfBirth,
         }
         setCurrentPage()
         returnData && returnData(data)
-        console.log(data, "this is personal detail")
+    
     }
 
     const handleCloseError = () => {
@@ -172,7 +172,7 @@ export default function PersonalDetails({
                     </Label>
 
                     <FormControl
-                        fieldName="DOB"
+                        fieldName="dateOfBirth"
                         variant="AgeDatePicker"
                         id="date-of-birth"
                         placeholder="Enter your Next of Kin Date of birth "
