@@ -160,7 +160,7 @@ export default function ContactDetails() {
                     </div>
 
                     <div className="mb-10">
-                <Label labelName="number-of-years-in-employment" required>
+                <Label labelName="number-of-years-in-employment" >
                    Number of Years In Employment
                 </Label>
 
