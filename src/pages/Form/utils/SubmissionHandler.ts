@@ -5,7 +5,8 @@ import {
     NextOfKin,
     EmployeeStatus,
     Citizenship,
-    RequestType
+    RequestType,
+
 } from "../types"
 import { formUtils } from "./FormUtils"
 import { FileHandler } from "./FileHandler"
@@ -79,11 +80,9 @@ export class submissionHandler {
         const Citizenship: Citizenship = {
             foreignTaxId: data.foreignTaxId,
             countryTaxResidence: data.countryTaxResidence,
-            mobileNumber: data.mobileNumber,
-  Line1: data.addressLine1,
-            Line2: data.addressLine2,
-            country: data.country,
-
+            citizenshipAddressLine1: data.citizenshipAddressLine1,
+            citizenshipAddressLine2: data.citizenshipAddressLine2,
+           
         }
         return Citizenship
     }
@@ -203,12 +202,13 @@ export class submissionHandler {
             "LastName",
             "nextOfKinName",
             "nextOfKinPhone",
-            "line1",
-            "line2",
+            "citizenshipAddressLine1",
+            "citizenshipAddressLine2",
             "city",
             "localGovt",
             "state",
             "dateOfBirth",
+            "ChannelId"
         ])
 
         this.prepareFormData(dataToSend)
@@ -219,6 +219,7 @@ export class submissionHandler {
         const Citizenship = this.mapCitizenship(data)
         const contactAddress = this.mapContactAddress(data)
         const mapRequestType = this.mapRequestType(data)
+      
 
         this.appendObjectValuesToFormData(PersonalDetails, "PersonalDetails")
         this.appendObjectValuesToFormData(NextOfKin, "NextOfKin")
@@ -226,6 +227,7 @@ export class submissionHandler {
         this.appendObjectValuesToFormData(contactAddress, "ContactAddress")
         this.appendObjectValuesToFormData(Citizenship, "Citizenship")
         this.appendObjectValuesToFormData(mapRequestType, "RequestType")
+
         const Documents = this.prepareAccountDocuments(data)
         this.mapAccountDocuments(Documents)
 

@@ -5,12 +5,23 @@ import { FiTrash2 } from "react-icons/fi"
 import LabelDecor from "../components/label-decor"
 import SectionContainer from "../components/section"
 import SignatureCanvas from "./Signature"
+import { useState, ChangeEvent } from 'react';
+
 
 
 
 
 export default function MeansofIdentification() {
     const { setValue, watch, getValues } = useFormContext()
+    const [vnin, setVnin] = useState('');
+   
+    const handleVninChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const input = event.target.value;
+        if (/^\d{1,16}$/.test(input)) {
+          setVnin(input);
+        }
+      };
+
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
@@ -69,6 +80,9 @@ export default function MeansofIdentification() {
         setValue(`${fieldName}`, null)
     }
 
+
+ 
+
     return (
         <SectionContainer
             className="mb-4"
@@ -80,12 +94,12 @@ export default function MeansofIdentification() {
             </h2>
             {/* Upload ID */}
             <div className="mb-10">
-                <Label labelName="Upload-id" aria-describedby="label-hint">
-                    Upload National ID
+                <Label labelName="Upload-id" aria-describedby="label-hint" required>
+                    Upload Regulatory ID
                 </Label>
                 {watch("isDiaspora") === "no" ? (
                     <p id="label-hint" aria-hidden="true">
-                        Pleae upload your ID, PVC, International Passport,
+                        Pleae upload your National ID,NIN Slip, Permanent Voter's Card (PVC), International Passport,
                         Driver's License ( The maximum file size for each document upload is 2MB.)
                     </p>
                 ) : (
@@ -157,7 +171,7 @@ export default function MeansofIdentification() {
             {/* Upload NIN Slip */}
             <div className="mb-10">
                 <Label labelName="Upload-id" aria-describedby="label-hint">
-                    Uploaded your NIN Slip ?{" "}
+                    Uploaded your NIN Slip/ National ID ?{" "}
                 </Label>
                 {watch("isDiaspora") === "no" ? (
                     <p
@@ -234,6 +248,20 @@ export default function MeansofIdentification() {
                 </div>
             </div>
 
+            <div className="mb-10">
+        <Label labelName="bvn" >Virtual National Identification Number (VNIN)</Label>
+        <FormControl
+          fieldName="vnin"
+          variant="input"
+          id="vnin"
+          type="text"
+          placeholder="Enter your VNIN"
+          maxLength={16}
+          value={vnin}
+          onChange={handleVninChange}
+        />
+      </div>
+
             {/* Upload Utility bill */}
             <div className="mb-10">
                 <Label
@@ -241,7 +269,7 @@ export default function MeansofIdentification() {
                     aria-describedby="label-hint"
                     required
                 >
-                    Utility Bill/Proof of Address 
+                    Utility Bill/ Statement of Account/ Proof of Address 
                 </Label>
 
                 {watch("isDiaspora") === "no" ? (
@@ -316,7 +344,7 @@ export default function MeansofIdentification() {
             {/* Upload Passport  */}
             <div className="mb-10">
                 <Label labelName="Upload Photo" required>
-                    Capture Selfie/ Upload Passport Photo{" "}
+                    Capture Facial Selfie/ Upload Passport Photo{" "}
                 </Label>
 
                 <p> Any of the below is acceptable ( The maximum file size for each document upload is 2MB.)</p>

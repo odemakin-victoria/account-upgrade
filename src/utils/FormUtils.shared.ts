@@ -25,7 +25,10 @@ export default function useFormUtils({ step }: { step: number }) {
             methods.reset({
                 accountNumber: data?.accountNumber,
                 bvn: data?.bvn || "",
+                vnin:data?.vnin || " ",
                 RequestType: data?.RequestType,
+                channelId:data?.channelId,
+
                 title: data?.PersonalDetails?.title,
                 maritalStatus: data?.PersonalDetails?.maritalStatus,
                 FirstName: data?.PersonalDetails?.FirstName,
@@ -48,14 +51,13 @@ export default function useFormUtils({ step }: { step: number }) {
                     status: data?.EmployeeStatus?.status,
                     employersName: data?.EmployeeStatus?.employersName,
                     natureOfBusiness: data?.EmployeeStatus?.natureOfBusiness,
-                    numberofYears:
-                    data?.EmployeeStatus?.numberofYears,
-                    annualIncome:
-                    data?.EmployeeStatus?.annualIncome,
+                    numberofYears:data?.EmployeeStatus?.numberofYears,
+
+                    annualIncome:data?.EmployeeStatus?.annualIncome,
                     foreignTaxId: data?.Citizenship?.foreignTaxId,
-                    mobileNumber: data?.Citizenship?.mobileNumber,
-                    addressLine1: data?.Citizenship?.Line1,
-                    addressLine2: data?.Citizenship?.Line2,
+                    
+                    citizenshipAddressLine1: data?.Citizenship?.citizenshipAddressLine1,
+                    citizenshipAddressLine2: data?.Citizenship?.citizenshipAddressLine2,
                     countryTaxResidence: data?.Citizenship?.countryTaxResidence,
                   
 

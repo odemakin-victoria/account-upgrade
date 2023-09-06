@@ -13,8 +13,10 @@ export interface ApiResponse<T> {
 export interface AccountRequestResponse {
     accountNumber: string
     RequestType: string
+    channelId:string
     updateStatus: string
     bvn: string | null
+    vnin:string | null
     PersonalDetails: PersonalDetails
     NextOfKin: NextOfKin
     employeeStatus: EmployeeStatus
@@ -112,19 +114,18 @@ export interface NextOfKin {
 export interface EmployeeStatus {
     status: string
     employersName: string
-    NatureOfBusiness: string
-    NumberofYears: string
-    AnnualIncome: string
+    natureOfBusiness: string
+    numberofYears: string
+    annualIncome: string
     dateCreated?: Date
     dateLastModified?: Date
 }
 export interface Citizenship {
     foreignTaxId: string
     countryTaxResidence: string
-    mobileNumber: string
-Line1: string
-Line2: string
-    country: string
+    citizenshipAddressLine1: string
+    citizenshipAddressLine2: string
+  
     dateCreated?: Date
     dateLastModified?: Date
 }
@@ -138,6 +139,10 @@ export enum DocumentType {
     Proofofadress = "PROOFOFADRESS",
     Signature = "SIGNATURE",
     extraDocument = 'EXTRADOCUMENTS'
+}
+
+export interface ChannelId {
+    ChannelId:string
 }
 
 /**
@@ -192,9 +197,11 @@ export type TFormRequest = {
     acceptedTerms: boolean
     diasporaDocs: FileField[] | null
     accountNumber: string
+    channelId:string
     bvn: string
+    vnin:string
     title: string
-   
+    ChannelId:string
     maritalStatus: string
     motherMaidenName: string
     FullNameOfKin: string
@@ -207,6 +214,8 @@ export type TFormRequest = {
     LocalGovernmentOfKin: string
     PostalZipCodeOfKin: string
     RequestType: string
+   
+
     FirstName: string
     LastName: string
     MiddleName: string
@@ -218,12 +227,13 @@ export type TFormRequest = {
     countryOfTaxResidence: string
     foreignTaxId: string
     countryTaxResidence: string
-    mobileNumber: string
+  
     zipCode: string | null
     localGovernment: string
     addressLine1: string
     addressLine2: string
-  
+    citizenshipAddressLine1:string
+    citizenshipAddressLine2:string
     city: string
     houseNumber:string
     streetAddress:string

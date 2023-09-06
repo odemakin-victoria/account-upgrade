@@ -25,6 +25,8 @@ export default function AccountForm() {
         var formData = formHandler.createRequest({
             ...data,
             RequestType: "upgrade",
+            channelId: "01",
+            
         })
 
         form.mutate(formData)
@@ -54,6 +56,7 @@ export default function AccountForm() {
                     </p>
                 </div>
                 <section className="bg-white p-10 drop-shadow-xl">
+                 
                     <AccountDetails />
                     <PersonalDetails />
                     <ContactDetails />

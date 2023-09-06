@@ -159,37 +159,37 @@ export default function ContactDetails() {
                         />
                     </div>
 
-                    {/* Number of Years in Employment */}
                     <div className="mb-10">
-                        <Label labelName="number-of-years-in-employment">
-                            Number of Years in Employment{" "}
-                        </Label>
+                <Label labelName="number-of-years-in-employment" required>
+                   Number of Years In Employment
+                </Label>
 
-                        <FormControl
-                            fieldName="numberofYears"
-                            variant="select"
-                            options={[
-                                {
-                                    label: "Less than 1 year",
-                                    value: "Less than 1 year",
-                                },
-                                {
-                                    label: "1 to 5 years",
-                                    value: "1 to 5 years",
-                                },
-                                {
-                                    label: "Above 5 years to 10 years",
-                                    value: "Above 5 years to 10 years",
-                                },
-                                {
-                                    label: "Above 10 years",
-                                    value: "Above 10 years",
-                                },
-                            ]}
-                            id="number-of-years-in-employment"
-                            placeholder="Enter your number of years in Employment"
-                        />
-                    </div>
+                <FormControl
+                    fieldName="numberofYears"
+                    variant="select"
+                    options={[
+                        {
+                            label: "Less Than a year",
+                            value: "Less Than a year",
+                        },
+                        {
+                            label: "1 year to 5 years",
+                            value: "1 year to 5 years",
+                        },
+                        {
+                            label: "5 years to 10 years",
+                            value: "5 years to 10 years",
+                        },
+                        {
+                            label: "10 years and above",
+                            value: "10 years and above",
+                        }
+                       
+                    ]}
+                    id="Number-of-Years"
+                    placeholder="Enter your number of years in employment"
+                />
+            </div>
 
                     {/* Expected Annual Income */}
                     <div className="mb-10">
@@ -272,20 +272,11 @@ export default function ContactDetails() {
                     placeholder="Enter your Foreign Tax ID "
                 />
             </div>
+            
             <div className="mb-10">
-                <Label labelName="Mobile-Number">Mobile Number</Label>
+                <Label labelName="line1Address">Address Line 1</Label>
                 <FormControl
-                    fieldName="mobileNumber"
-                    variant="input"
-                    id="Mobile-Number"
-                    type="text"
-                    placeholder="Enter your Mobile Number"
-                />
-            </div>
-            <div className="mb-10">
-                <Label labelName="line2Address">Address Line 1</Label>
-                <FormControl
-                    fieldName="Line1"
+                    fieldName="citizenshipAddressLine1"
                     variant="input"
                     id="line2Address"
                     placeholder="Address line 2"
@@ -294,7 +285,7 @@ export default function ContactDetails() {
             <div className="mb-10">
                 <Label labelName="line2Address">Address Line 2</Label>
                 <FormControl
-                    fieldName="Line2"
+                    fieldName="citizenshipAddressLine2"
                     variant="input"
                     id="line2Address"
                     placeholder="Address line 2"

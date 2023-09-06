@@ -6,6 +6,7 @@ import SectionContainer from "../components/section";
 export default function AccountDetails() {
   const [accountNumber, setAccountNumber] = useState('');
   const [bvn, setBvn] = useState('');
+  
 
   const handleAccountNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
@@ -20,6 +21,7 @@ export default function AccountDetails() {
       setBvn(input);
     }
   };
+ 
 
   return (
     <SectionContainer>
@@ -44,7 +46,7 @@ export default function AccountDetails() {
       </div>
 
       <div className="mb-10">
-        <Label labelName="bvn">BVN</Label>
+        <Label labelName="bvn" required>BVN</Label>
         <FormControl
           fieldName="bvn"
           variant="input"
@@ -56,6 +58,7 @@ export default function AccountDetails() {
           onChange={handleBvnChange}
         />
       </div>
+   
     </SectionContainer>
   );
 }

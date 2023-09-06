@@ -9,6 +9,7 @@ import { Link } from "react-router-dom"
 import { CREATE_ACCOUNT_REQUEST } from "../routes-config"
 import { BsArrowRight } from "react-icons/bs"
 import { HiOutlineMenuAlt3 } from "react-icons/hi"
+import { HiOutlineX } from "react-icons/hi"
 import {
     Button,
     FormControl,
@@ -23,6 +24,7 @@ import {
     ActionType,
     formModalReducer,
     initialState,
+    
 } from "../Form/utils/ModalHandler"
 // import dayjs from "dayjs"
 import UsePageTitle from "@/utils/page-title.shared.hook"
@@ -89,7 +91,9 @@ export default function UpdateRequest() {
         if (response.isSuccess) {
             methods.reset({
                 accountNumber: data?.accountNumber,
+                channelId:data?.channelId,
                 bvn: data?.bvn ?? undefined,
+                vnin: data?.vnin?? undefined,
                 maritalStatus: data?.PersonalDetails?.maritalStatus,
                 localGovernment: data?.contactAddress?.localGovernment,
                 addressLine1: data?.contactAddress?.addressLine1 ?? undefined,
@@ -381,6 +385,12 @@ export function AccountOTPRequest({
                 },
             }}
         >
+            <HiOutlineX
+          size={24} // Adjust the size as needed
+          onClick={() => dispatch({ type: 'CLOSE', payload: false })}
+          style={{ cursor: 'pointer' }}
+          aria-label="Close Modal"
+        />
             <h1
                 className="font-bold text-2xl mt-6 mb-4"
                 aria-label="Modal title"
@@ -489,6 +499,8 @@ export function AccountOTPRequestValidation({
             var formData = formHandler.createRequest({
                 ...data,
                 RequestType: "update",
+                ChannelId:"01",
+
 
                 accountNumber: getValues("accountNumber"),
             })

@@ -37,16 +37,17 @@ export interface EmployeeStatus {
 export interface Citizenship {
     foreignTaxId: string
     countryTaxResidence: string
-    mobileNumber: string
-   Line1: string
-  Line2: string
-    country: string
+    citizenshipAddressLine1: string
+    citizenshipAddressLine2: string
+   
     dateCreated?: Date
     dateLastModified?: Date
 }
 export interface RequestType {
     RequestType:string
 }
+
+
 
 export interface ContactAddress {
     zipCode: string
@@ -75,8 +76,10 @@ export interface Document {
 export interface AccountRequestResponse {
     accountNumber: string
     RequestType:string
+    channelId:string
     updateStatus: string
     bvn: string | null
+    vnin:string | null
     PersonalDetails: PersonalDetails
     NextOfKin:NextOfKin
     employeeStatus:EmployeeStatus

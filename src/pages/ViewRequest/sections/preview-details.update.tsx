@@ -39,6 +39,7 @@ export type TFormRequest = {
     acceptedTerms: boolean
     diasporaDocs: FileField[] | null
     accountNumber: string
+    channelId:string
     bvn: string
     title: string
     maritalStatus: string
@@ -53,6 +54,8 @@ export type TFormRequest = {
     LocalGovernmentOfKin: string
     PostalZipCodeOfKin: string
     RequestType: string
+    ChannelId:string,
+
     FirstName: string
     LastName: string
     MiddleName: string

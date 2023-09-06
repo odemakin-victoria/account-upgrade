@@ -3,6 +3,8 @@ import { TFormRequest } from "@/shared/types"
 export const FormInitialState: TFormRequest = {
     accountNumber: "",
     bvn: "",
+    vnin:"",
+    channelId:"",
     state: "",
     zipCode: "",
     localGovernment: "",
@@ -23,6 +25,8 @@ export const FormInitialState: TFormRequest = {
     LocalGovernmentOfKin: "",
     PostalZipCodeOfKin: " ",
     RequestType: " ",
+    ChannelId:" ",
+
     FirstName: " ",
     LastName: " ",
     MiddleName: " ",
@@ -34,6 +38,8 @@ export const FormInitialState: TFormRequest = {
     addressLine1: "",
     addressLine2: "",
     dateOfBirth: "",
+    citizenshipAddressLine1:"",
+    citizenshipAddressLine2:"",
     proofOfNinImage: null,
     title: "",
     status: "",
@@ -43,7 +49,7 @@ export const FormInitialState: TFormRequest = {
     annualIncome: "",
     foreignTaxId: "",
     countryTaxResidence: "",
-    mobileNumber: " ",
+  
     streetAddress: "",
     extraDocument: null,
     countryOfTaxResidence: "",
