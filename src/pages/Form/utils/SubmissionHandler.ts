@@ -6,7 +6,6 @@ import {
     EmployeeStatus,
     Citizenship,
     RequestType,
-
 } from "../types"
 import { formUtils } from "./FormUtils"
 import { FileHandler } from "./FileHandler"
@@ -36,17 +35,18 @@ export class submissionHandler {
             maritalStatus: data.maritalStatus,
             motherMaidenName: data.motherMaidenName,
             FirstName: data.FirstName,
-            dateOfBirth:data.dateOfBirth,
+            dateOfBirth: String(data.dateOfBirth).replace(
+                "(West Africa Standard Time)",
+                ""
+            ),
             LastName: data.LastName,
-            MiddleName: data.MiddleName
-           
+            MiddleName: data.MiddleName,
         }
         return PersonalDetails
     }
     private mapRequestType(data: TFormRequest): RequestType {
         const RequestType: RequestType = {
-            RequestType: data.RequestType
-           
+            RequestType: data.RequestType,
         }
         return RequestType
     }
@@ -55,7 +55,10 @@ export class submissionHandler {
         const NextOfKin: NextOfKin = {
             FullNameOfKin: data.FullNameOfKin,
             RelationshipOfKin: data.RelationshipOfKin,
-            dobOfKin: data.dobOfKin,
+            dobOfKin: String(data.dobOfKin).replace(
+                "(West Africa Standard Time)",
+                ""
+            ),
             PhoneNumberOfKin: data.PhoneNumberOfKin,
             HouseNumberOfKin: data.HouseNumberOfKin,
             StateOfKin: data.StateOfKin,
@@ -82,19 +85,17 @@ export class submissionHandler {
             countryTaxResidence: data.countryTaxResidence,
             citizenshipAddressLine1: data.citizenshipAddressLine1,
             citizenshipAddressLine2: data.citizenshipAddressLine2,
-           
         }
         return Citizenship
     }
-
 
     private mapContactAddress(data: TFormRequest): Partial<ContactAddress> {
         const contactAddress: Partial<ContactAddress> = {
             addressLine1: data.addressLine1,
             addressLine2: data.addressLine2,
             city: data.city,
-            streetAddress:data.streetAddress,
-            houseNumber:data.houseNumber,
+            streetAddress: data.streetAddress,
+            houseNumber: data.houseNumber,
 
             localGovernment: data.localGovernment,
             country: data.country,
@@ -145,8 +146,6 @@ export class submissionHandler {
                 fileExt: FileHandler.getFileExtension(item?.file?.name),
             })
         })
-      
-
 
         data.diasporaDocs?.forEach((item) => {
             Documents.push({
@@ -208,7 +207,7 @@ export class submissionHandler {
             "localGovt",
             "state",
             "dateOfBirth",
-            "ChannelId"
+            "ChannelId",
         ])
 
         this.prepareFormData(dataToSend)
@@ -219,7 +218,6 @@ export class submissionHandler {
         const Citizenship = this.mapCitizenship(data)
         const contactAddress = this.mapContactAddress(data)
         const mapRequestType = this.mapRequestType(data)
-      
 
         this.appendObjectValuesToFormData(PersonalDetails, "PersonalDetails")
         this.appendObjectValuesToFormData(NextOfKin, "NextOfKin")

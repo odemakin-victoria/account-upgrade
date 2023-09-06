@@ -102,23 +102,7 @@ export default function useFormUtils({ step }: { step: number }) {
 }
 
 
-// import { ApiResponse } from "@/shared/types"
-// import { NotificationManager } from "@/utils/ResponseHandler.shared"
-// import { AxiosError } from "axios"
 
-// export function errorResponse<T>(error: unknown) {
-//     const errorResponse = error as AxiosError<ApiResponse<T>>
-
-//     NotificationManager.showErrorNotification(
-//         errorResponse.response?.data.responseMessage
-//     )
-
-//     return {
-//         responseCode: (error as ApiResponse<T>).responseCode,
-//         responseMessage:
-//             errorResponse.response?.data.responseMessage ?? "An Error occurred",
-//     }
-// }
 
 
 

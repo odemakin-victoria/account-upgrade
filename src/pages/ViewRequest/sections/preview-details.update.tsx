@@ -245,7 +245,7 @@ const PreviewPage: React.FC<{
                             )
                         )}
 
-                        {previewData.proofOfNinImage.map(
+                        {previewData.customerPhoto.map(
                             (
                                 item: { file: File; name: string },
                                 index: number
