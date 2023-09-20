@@ -1,8 +1,10 @@
 import ImageUpload from "@/pages/Form/components/image-upload"
-import { Input, Select } from "@/shared/components"
+import { Input, Select,  } from "@/shared/components"
 import { DatePickerInput } from "@mantine/dates"
 import { Controller, useFormContext } from "react-hook-form"
 import { IFormInputProps } from "./types"
+
+
 
 function TextInput({
     fieldName,
@@ -139,6 +141,60 @@ function FileInput({
     )
 }
 
+
+// function CheckboxInput({
+//     checked,
+//     className,
+//     fieldName,
+//     label, // Include the label prop
+//     onChange, // Include the onChange prop
+//     ...props
+// }: Omit<IFormInputProps, "onChange" | "onBlur" | "variant"> & {
+//     label: string;
+//     //onChange: (isChecked: boolean) => void;
+//     onChange : any;
+// }) {
+//     const { control } = useFormContext();
+  
+//     return (
+//       <div style={{ flex: 1 }}>
+//         <Controller
+//           control={control}
+//           render={({ field: { value, ...fieldProps }, fieldState }) => (
+//             <div className="flex flex-col">
+//               <Checkbox
+//                 fieldName={fieldName} // Pass the fieldName
+//                 {...props}
+//                 {...fieldProps}
+//                 checked={value}
+//                 label={label} // Pass the label
+//                 onChange={(isChecked: boolean) => {
+//                   fieldProps.onChange(isChecked);
+//                   onChange(isChecked);
+//                 }}
+//                 className={`text-sm mb-2 h-14 placeholder:text-gray-400 placeholder:font-normal transition-all ${className || ''} ${fieldState.error && fieldState.error.message
+//                   ? 'border border-red-400'
+//                   : ''}`} />
+  
+//               {fieldState.error && fieldState.error.message && (
+//                 <p className="text-red-400 text-base" aria-label="error message">
+//                   {fieldState.error.message}
+//                 </p>
+//               )}
+//             </div>
+//           )}
+//           name={fieldName}
+//         />
+//       </div>
+//     );
+//   }
+
+
+
+
+
+
+  
 function AgeDatePicker({
     fieldName,
     placeholder,
@@ -184,6 +240,9 @@ function AgeDatePicker({
         </div>
     )
 }
+
+
+
 function DatePicker({
     fieldName,
     placeholder,
@@ -278,4 +337,5 @@ export default function FormControl(props: IFormInputProps) {
             return null
     }
 }
+
 export { FormControl }

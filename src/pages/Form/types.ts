@@ -4,9 +4,32 @@ export interface PersonalDetails {
     maritalStatus: string
     dateOfBirth:string
     motherMaidenName: string
+    purposeOfAccount:string
+    otherReasons:string
     FirstName:string,
     LastName:string,
     MiddleName:string,
+    dateCreated?: Date
+    dateLastModified?: Date
+}
+export interface socialMedia {
+    customerId?: string
+    linkedIn: string
+    facebook: string
+    instagram:string
+    tiktok: string
+    twitter:string
+    thread:string,
+    dateCreated?: Date
+    dateLastModified?: Date
+}
+export interface idDetails {
+    customerId?: string
+    vnin: string
+    idNo: string
+    idType:string
+    issueDate: string
+    expiryDate:string
     dateCreated?: Date
     dateLastModified?: Date
 }
@@ -31,6 +54,8 @@ export interface EmployeeStatus {
     natureOfBusiness: string
     numberofYears: string
     annualIncome: string
+    sourceOfWealth:string
+    employersAddress:string
     dateCreated?: Date
     dateLastModified?: Date
 }
@@ -79,7 +104,9 @@ export interface AccountRequestResponse {
     channelId:string
     updateStatus: string
     bvn: string | null
-    vnin:string | null
+    notificationPreference:string
+    idDetails:idDetails
+    socialMedia:socialMedia
     PersonalDetails: PersonalDetails
     NextOfKin:NextOfKin
     employeeStatus:EmployeeStatus

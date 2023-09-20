@@ -16,9 +16,11 @@ export interface AccountRequestResponse {
     channelId:string
     updateStatus: string
     bvn: string | null
-    vnin:string | null
+    notificationPreference:string
+    socialMedia:socialMedia
     PersonalDetails: PersonalDetails
     NextOfKin: NextOfKin
+    idDetails:idDetails
     employeeStatus: EmployeeStatus
     contactAddress: ContactAddress
     citizenship:Citizenship
@@ -88,6 +90,8 @@ export interface PersonalDetails {
     title: string
     maritalStatus: string
     motherMaidenName: string
+    purposeOfAccount:string
+    otherReasons:string
     FirstName: string
     LastName: string
     MiddleName: string
@@ -117,6 +121,29 @@ export interface EmployeeStatus {
     natureOfBusiness: string
     numberofYears: string
     annualIncome: string
+    sourceOfWealth:string
+    employersAddress:string
+    dateCreated?: Date
+    dateLastModified?: Date
+}
+export interface socialMedia {
+    customerId?: string
+    linkedIn: string
+    facebook: string
+    instagram:string
+    tiktok: string
+    twitter:string
+    thread:string,
+    dateCreated?: Date
+    dateLastModified?: Date
+}
+export interface idDetails {
+    customerId?: string
+    vnin: string
+    idNo: string
+    idType:string
+    issueDate: string
+    expiryDate:string
     dateCreated?: Date
     dateLastModified?: Date
 }
@@ -176,6 +203,9 @@ export interface PreviewDataProps {
     isDiaspora: string
     country: string
     state: string
+    employersName:string
+    employersAddress:string
+    notificationPreference:string
     localGovernment: string
     city: string
     zipCode: string
@@ -188,6 +218,7 @@ export interface PreviewDataProps {
  * Represents the form request for submitting account information.
  */
 export type TFormRequest = {
+
     customerPhoto: FileField
     extraDocument:FileField
     proofOfIdentityImage: FileField[] | null
@@ -199,7 +230,9 @@ export type TFormRequest = {
     accountNumber: string
     channelId:string
     bvn: string
-    vnin:string
+    notificationPreference:string
+    employersAddress:string
+    sourceOfWealth:string
     title: string
     ChannelId:string
     maritalStatus: string
@@ -211,19 +244,32 @@ export type TFormRequest = {
     HouseNumberOfKin: string
     StateOfKin: string
     StreetNameOfKin: string
+    
     LocalGovernmentOfKin: string
     PostalZipCodeOfKin: string
     RequestType: string
-   
-
+    linkedIn: string
+    facebook: string
+    instagram:string
+    tiktok: string
+    twitter:string
+    thread:string
+    vnin: string
+    idNo: string
+    idType:string
+    issueDate: string
+    expiryDate:string
     FirstName: string
     LastName: string
     MiddleName: string
+    purposeOfAccount:string
+    otherReasons:string
     status: string
     employersName: string
     natureOfBusiness: string
     numberofYears: string
     annualIncome: string
+   
     countryOfTaxResidence: string
     foreignTaxId: string
     countryTaxResidence: string

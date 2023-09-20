@@ -6,9 +6,12 @@ import {
     EmployeeStatus,
     Citizenship,
     RequestType,
+    socialMedia,
+    idDetails
 } from "../types"
 import { formUtils } from "./FormUtils"
 import { FileHandler } from "./FileHandler"
+import dayjs from "dayjs"
 
 type Document = {
     documentType: string
@@ -16,6 +19,37 @@ type Document = {
     documentName: string | null
     fileExt: string
 }
+function caesarEncrypt(text: string, shift: number): string {
+    // Define the character set to include uppercase letters, lowercase letters, and digits
+    const characterSet: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    let encryptedText: string = "";
+
+    for (let i: number = 0; i < text.length; i++) {
+        const char: string = text[i];
+        if (characterSet.includes(char)) {
+            const currentIndex: number = characterSet.indexOf(char);
+            const newIndex: number = (currentIndex + shift) % characterSet.length; // Ensure the index wraps around
+            encryptedText += characterSet[newIndex];
+        } else {
+            // If the character is not in the character set, keep it unchanged
+            encryptedText += char;
+        }
+    }
+
+    return encryptedText;
+}
+
+// Example usage:
+const plaintext: string = "Hello123";
+const shift: number = 3;
+const encryptedText: string = caesarEncrypt(plaintext, shift);
+console.log(encryptedText); // Output: "Khoor123"
+
+
+
+
+  
 export class submissionHandler {
     private formData: FormData
 
@@ -31,77 +65,100 @@ export class submissionHandler {
 
     private mapCustomerDetails(data: TFormRequest): PersonalDetails {
         const PersonalDetails: PersonalDetails = {
-            title: data.title,
-            maritalStatus: data.maritalStatus,
-            motherMaidenName: data.motherMaidenName,
-            FirstName: data.FirstName,
-            dateOfBirth: String(data.dateOfBirth).replace(
-                "(West Africa Standard Time)",
-                ""
-            ),
-            LastName: data.LastName,
-            MiddleName: data.MiddleName,
-        }
+            title: caesarEncrypt(data.title, 3),
+            maritalStatus: caesarEncrypt(data.maritalStatus, 3),
+            motherMaidenName: caesarEncrypt(data.motherMaidenName, 3),
+            purposeOfAccount: caesarEncrypt(data.purposeOfAccount, 3),
+            otherReasons: caesarEncrypt(data.otherReasons, 3),
+            FirstName: caesarEncrypt(data.FirstName, 3),
+            dateOfBirth: caesarEncrypt(dayjs(data.dateOfBirth).format(), 3),
+            LastName: caesarEncrypt(data.LastName, 3),
+            MiddleName: caesarEncrypt(data.MiddleName, 3),
+        };
         return PersonalDetails
     }
+    private mapSocialMediaDetails(data: TFormRequest): socialMedia {
+        const socialMedia: socialMedia = {
+            linkedIn: caesarEncrypt(data.linkedIn, 3),
+            facebook: caesarEncrypt(data.facebook, 3),
+            instagram: caesarEncrypt(data.instagram, 3),
+            tiktok: caesarEncrypt(data.tiktok, 3),
+            twitter: caesarEncrypt(data.twitter, 3),
+            thread: caesarEncrypt(data.thread, 3),
+        };
+        return socialMedia
+    }
+    private mapidDetails(data: TFormRequest): idDetails {
+        const idDetails: idDetails = {
+            vnin: caesarEncrypt(data.vnin, 3),
+            idNo: caesarEncrypt(data.idNo, 3),
+            idType: caesarEncrypt(data.idType, 3),
+            issueDate: caesarEncrypt(dayjs(data.issueDate).format(), 3),
+            expiryDate: caesarEncrypt(dayjs(data.expiryDate).format(), 3),
+        };
+        return idDetails
+    }
+
     private mapRequestType(data: TFormRequest): RequestType {
         const RequestType: RequestType = {
-            RequestType: data.RequestType,
-        }
+            RequestType: caesarEncrypt(data.RequestType, 3),
+        };
         return RequestType
     }
 
     private mapNextOfKinDetails(data: TFormRequest): NextOfKin {
         const NextOfKin: NextOfKin = {
-            FullNameOfKin: data.FullNameOfKin,
-            RelationshipOfKin: data.RelationshipOfKin,
-            dobOfKin: String(data.dobOfKin).replace(
-                "(West Africa Standard Time)",
-                ""
-            ),
-            PhoneNumberOfKin: data.PhoneNumberOfKin,
-            HouseNumberOfKin: data.HouseNumberOfKin,
-            StateOfKin: data.StateOfKin,
-            StreetNameOfKin: data.StreetNameOfKin,
-            LocalGovernmentOfKin: data.LocalGovernmentOfKin,
-            PostalZipCodeOfKin: data.PostalZipCodeOfKin,
-        }
+            FullNameOfKin: caesarEncrypt(data.FullNameOfKin, 3),
+            RelationshipOfKin: caesarEncrypt(data.RelationshipOfKin, 3),
+            dobOfKin: caesarEncrypt(dayjs(data.dobOfKin).format(), 3),
+            PhoneNumberOfKin: caesarEncrypt(data.PhoneNumberOfKin, 3),
+            HouseNumberOfKin: caesarEncrypt(data.HouseNumberOfKin, 3),
+            StateOfKin: caesarEncrypt(data.StateOfKin, 3),
+            StreetNameOfKin: caesarEncrypt(data.StreetNameOfKin, 3),
+            LocalGovernmentOfKin: caesarEncrypt(data.LocalGovernmentOfKin, 3),
+            PostalZipCodeOfKin: caesarEncrypt(data.PostalZipCodeOfKin, 3),
+        };
+        
         return NextOfKin
     }
 
     private mapEmployeeStatus(data: TFormRequest): EmployeeStatus {
         const EmployeeStatus: EmployeeStatus = {
-            status: data.status,
-            employersName: data.employersName,
-            natureOfBusiness: data.natureOfBusiness,
-            numberofYears: data.numberofYears,
-            annualIncome: data.annualIncome,
-        }
+            status: caesarEncrypt(data.status, 3),
+            employersName: caesarEncrypt(data.employersName, 3),
+            natureOfBusiness: caesarEncrypt(data.natureOfBusiness, 3),
+            numberofYears: caesarEncrypt(data.numberofYears, 3),
+            employersAddress: caesarEncrypt(data.employersAddress, 3),
+            annualIncome: caesarEncrypt(data.annualIncome, 3),
+            sourceOfWealth: caesarEncrypt(data.sourceOfWealth, 3),
+        };
+        
         return EmployeeStatus
     }
     private mapCitizenship(data: TFormRequest): Citizenship {
         const Citizenship: Citizenship = {
-            foreignTaxId: data.foreignTaxId,
-            countryTaxResidence: data.countryTaxResidence,
-            citizenshipAddressLine1: data.citizenshipAddressLine1,
-            citizenshipAddressLine2: data.citizenshipAddressLine2,
-        }
+            foreignTaxId: caesarEncrypt(data.foreignTaxId, 3),
+            countryTaxResidence: caesarEncrypt(data.countryTaxResidence, 3),
+            citizenshipAddressLine1: caesarEncrypt(data.citizenshipAddressLine1, 3),
+            citizenshipAddressLine2: caesarEncrypt(data.citizenshipAddressLine2, 3),
+        };
+        
         return Citizenship
     }
 
     private mapContactAddress(data: TFormRequest): Partial<ContactAddress> {
         const contactAddress: Partial<ContactAddress> = {
-            addressLine1: data.addressLine1,
-            addressLine2: data.addressLine2,
-            city: data.city,
-            streetAddress: data.streetAddress,
-            houseNumber: data.houseNumber,
-
-            localGovernment: data.localGovernment,
-            country: data.country,
-            zipCode: data.zipCode || undefined,
-            state: data.state,
-        }
+            addressLine1: caesarEncrypt(data.addressLine1, 3),
+            addressLine2: caesarEncrypt(data.addressLine2, 3),
+            city: caesarEncrypt(data.city, 3),
+            streetAddress: caesarEncrypt(data.streetAddress, 3),
+            houseNumber: caesarEncrypt(data.houseNumber, 3),
+            localGovernment: caesarEncrypt(data.localGovernment, 3),
+            country: caesarEncrypt(data.country, 3),
+            zipCode: caesarEncrypt(data.zipCode || '', 3), // Use an empty string as the default value
+            state: caesarEncrypt(data.state, 3),
+        };
+        
         return contactAddress
     }
 
@@ -196,6 +253,8 @@ export class submissionHandler {
             "signature",
             "maritalStatus",
             "motherMaidenName",
+            "purposeOfAccount",
+            "otherReasons",
             "FirstName",
             "MiddleName",
             "LastName",
@@ -207,6 +266,8 @@ export class submissionHandler {
             "localGovt",
             "state",
             "dateOfBirth",
+            "issueDate",
+            "expiryDate",
             "ChannelId",
         ])
 
@@ -217,13 +278,20 @@ export class submissionHandler {
         const EmployeeStatus = this.mapEmployeeStatus(data)
         const Citizenship = this.mapCitizenship(data)
         const contactAddress = this.mapContactAddress(data)
+        const socialMedia = this.mapSocialMediaDetails(data)
+        const idDetails = this.mapidDetails(data)
         const mapRequestType = this.mapRequestType(data)
+
+
+
 
         this.appendObjectValuesToFormData(PersonalDetails, "PersonalDetails")
         this.appendObjectValuesToFormData(NextOfKin, "NextOfKin")
         this.appendObjectValuesToFormData(EmployeeStatus, "EmployeeStatus")
         this.appendObjectValuesToFormData(contactAddress, "ContactAddress")
         this.appendObjectValuesToFormData(Citizenship, "Citizenship")
+        this.appendObjectValuesToFormData(socialMedia, "socialMedia")
+        this.appendObjectValuesToFormData(idDetails, "idDetails")
         this.appendObjectValuesToFormData(mapRequestType, "RequestType")
 
         const Documents = this.prepareAccountDocuments(data)

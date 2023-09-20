@@ -25,7 +25,7 @@ export default function useFormUtils({ step }: { step: number }) {
             methods.reset({
                 accountNumber: data?.accountNumber,
                 bvn: data?.bvn || "",
-                vnin: data?.vnin || "",
+                notificationPreference:data?.notificationPreference,
                 RequestType: data?.RequestType,
                 channelId:data?.channelId,
                 title: data?.PersonalDetails?.title,
@@ -38,12 +38,26 @@ export default function useFormUtils({ step }: { step: number }) {
                 streetAddress: data?.contactAddress?.streetAddress,
 
                 FirstName: data?.PersonalDetails?.FirstName,
+                employersAddress:data?.EmployeeStatus?.employersAddress,
                 LastName: data?.PersonalDetails?.LastName,
                 MiddleName: data?.PersonalDetails?.MiddleName,
                 FullNameOfKin: data?.NextOfKin?.FullNameOfKin,
+                sourceOfWealth: data?.EmployeeStatus?.sourceOfWealth,
+
                 RelationshipOfKin:
                     data?.NextOfKin?.RelationshipOfKin,
                     dobOfKin: data?.NextOfKin?.dobOfKin,
+                    vnin: data?.idDetails?.vnin,
+                    idNo: data?.idDetails?.idNo,
+                    idType: data?.idDetails?.idType,
+                    issueDate: data?.idDetails?.issueDate,
+                    expiryDate: data?.idDetails?.expiryDate,
+                    linkedIn: data?.socialMedia?.linkedIn,
+                    facebook: data?.socialMedia?.facebook,
+                    instagram: data?.socialMedia?.instagram,
+                    tiktok: data?.socialMedia?.tiktok,
+                    twitter: data?.socialMedia?.twitter,
+                    thread: data?.socialMedia?.thread,
                     PhoneNumberOfKin: data?.NextOfKin?.PhoneNumberOfKin,
                     HouseNumberOfKin: data?.NextOfKin?.HouseNumberOfKin,
                     StateOfKin: data?.NextOfKin?.StateOfKin,
@@ -66,6 +80,8 @@ export default function useFormUtils({ step }: { step: number }) {
                     countryTaxResidence: data?.Citizenship?.countryTaxResidence,
 
                 motherMaidenName: data.PersonalDetails?.motherMaidenName,
+                purposeOfAccount:data.PersonalDetails?.purposeOfAccount,
+                otherReasons:data.PersonalDetails?.otherReasons,
                 country: data.contactAddress?.country ?? "",
                 isDiaspora:
                     data?.contactAddress!.country.toLowerCase() === "nigeria"

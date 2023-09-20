@@ -25,12 +25,16 @@ export default function useFormUtils({ step }: { step: number }) {
             methods.reset({
                 accountNumber: data?.accountNumber,
                 bvn: data?.bvn || "",
-                vnin:data?.vnin || " ",
+                notificationPreference:data?.notificationPreference,
+          
                 RequestType: data?.RequestType,
                 channelId:data?.channelId,
 
                 title: data?.PersonalDetails?.title,
                 maritalStatus: data?.PersonalDetails?.maritalStatus,
+                purposeOfAccount: data?.PersonalDetails?.purposeOfAccount,
+                otherReasons:   data?.PersonalDetails?.otherReasons,
+
                 FirstName: data?.PersonalDetails?.FirstName,
                 LastName: data?.PersonalDetails?.LastName,
                 MiddleName: data?.PersonalDetails?.MiddleName,
@@ -50,17 +54,29 @@ export default function useFormUtils({ step }: { step: number }) {
                     LocalGovernmentOfKin: data?.NextOfKin?.LocalGovernmentOfKin,
                     status: data?.EmployeeStatus?.status,
                     employersName: data?.EmployeeStatus?.employersName,
+                    sourceOfWealth: data?.EmployeeStatus?.sourceOfWealth,
                     natureOfBusiness: data?.EmployeeStatus?.natureOfBusiness,
                     numberofYears:data?.EmployeeStatus?.numberofYears,
-
+                    employersAddress:data?.EmployeeStatus?.employersAddress,
                     annualIncome:data?.EmployeeStatus?.annualIncome,
                     foreignTaxId: data?.Citizenship?.foreignTaxId,
                     
                     citizenshipAddressLine1: data?.Citizenship?.citizenshipAddressLine1,
                     citizenshipAddressLine2: data?.Citizenship?.citizenshipAddressLine2,
                     countryTaxResidence: data?.Citizenship?.countryTaxResidence,
-                  
+                    linkedIn: data?.socialMedia?.linkedIn,
+                    facebook: data?.socialMedia?.facebook,
+                    instagram: data?.socialMedia?.instagram,
+                    tiktok: data?.socialMedia?.tiktok,
+                    twitter: data?.socialMedia?.twitter,
+                    thread: data?.socialMedia?.thread,
 
+                    vnin: data?.idDetails?.vnin,
+                    idNo: data?.idDetails?.idNo,
+                    idType: data?.idDetails?.idType,
+                    issueDate: data?.idDetails?.issueDate,
+                    expiryDate: data?.idDetails?.expiryDate,
+                  
                 motherMaidenName: data.PersonalDetails?.motherMaidenName,
                 country: data.contactAddress?.country ?? "",
                 isDiaspora:

@@ -1,10 +1,10 @@
 import { FormControl, Label } from "@/shared/components"
-// import countries from "@/assets/data/countnries.json"
+import countries from "@/assets/data/countnries.json"
 import statesAndLga from "@/assets/data/statesAndLga.json"
 import { useFormContext } from "react-hook-form"
 import { Skeleton, Switch } from "@mantine/core"
-// import { useContactDetailsUpdate } from "../hooks/queries.hooks"
-import countries from "@/assets/data/countnries.json"
+import FileDownload from '../../../shared/components/FileDownload';
+
 
 type ContactDetailsProps = {
     isLoading: boolean
@@ -18,10 +18,14 @@ export default function ContactDetailsUpdate({
 }: ContactDetailsProps) {
     const { watch } = useFormContext()
 
+  
+
     const handleReturnData = (data: any) => {
         // Call the returnData function if provided
         returnData && returnData(data)
     }
+
+   
 
     switch (watch("isDiaspora")) {
         case "yes":
@@ -66,6 +70,9 @@ export function DiasporaFields({
             zipCode: getValues("zipCode"),
             addressLine1: getValues("addressLine1"),
             addressLine2: getValues("addressLine2"),
+            employersName: getValues("employersName"),
+            employersAddress: getValues("employersAddress"),
+            notificationPreference: getValues("notificationPreference"),
       
         }
         returnData && returnData(data)
@@ -75,7 +82,7 @@ export function DiasporaFields({
     return (
         <div className="bg-[#F8FAFB] w-full  h-fit">
             <div className="flex gap-6 justify-between p-6 md:items-center flex-col md:flex-row">
-                <p className="font-medium">Contact Details</p>
+                <p className="font-medium">Account Holder Details</p>
                 <div className="flex items-center gap-6">
                     <span>Nigeria</span>
                     <Switch
@@ -161,6 +168,34 @@ export function DiasporaFields({
                         placeholder="Address line 2"
                     />
                 </div>
+                  {/* Employer's Name */}
+            <div className="mb-10 w-full">
+                <Label labelName="Employer-Name" required>
+                    Employer's Name /School Name/Business Name
+                </Label>
+                <FormControl
+                    fieldName="employersName"
+                    variant="input"
+                    id="Employer-Name"
+                    type="text"
+                    placeholder="Enter your Employer's Name "
+                />
+            </div>
+            <div className="mb-10 w-full">
+                <Label labelName="Employer-Address" required>
+                    Employer's Address /School Address/Business Address
+                </Label>
+                <FormControl
+                    fieldName="employersAddress"
+                    variant="input"
+                    id="Employer-Address"
+                    type="text"
+                    placeholder="Enter your Employer's Address "
+                />
+            </div>
+
+            
+            <FileDownload />
             </div>
             <div className="flex gap-6 p-6 justify-end">
                 <button
@@ -185,6 +220,7 @@ export function NigerianFields({
     returnData?: (data: any) => void
 }) {
     const { getValues, watch, setValue } = useFormContext()
+ 
 
     function getLocalNames() {
         if (!watch("state")) return
@@ -201,16 +237,24 @@ export function NigerianFields({
             localGovernment: getValues("localGovernment"),
             streetAddress: getValues("streetAddress"),
             zipCode: getValues("zipCode"),
+            employersName: getValues("employersName"),
+            employersAddress: getValues("employersAddress"),
+            notificationPreference: getValues("notificationPreference"),
         }
         returnData && returnData(data)
 
         setCurrentPage()
     }
 
+
+
+
+
+
     return (
         <div className="bg-[#F8FAFB] w-full shadow-lg h-fit">
             <div className="flex gap-6 justify-between p-6 md:items-center flex-col md:flex-row">
-                <p className="font-medium">Contact Details</p>
+                <p className="font-medium">Account Holder Details</p>
                 <div className="flex items-center gap-6">
                     <span>Nigeria</span>
                     <Switch
@@ -292,6 +336,35 @@ export function NigerianFields({
                         />
                     </Skeleton>
                 </div>
+                  {/* Employer's Name */}
+            <div className="mb-10 w-full">
+                <Label labelName="Employer-Name" required>
+                    Employer's Name /School Name/Business Name
+                </Label>
+                <FormControl
+                    fieldName="employersName"
+                    variant="input"
+                    id="Employer-Name"
+                    type="text"
+                    placeholder="Enter your Employer's Name "
+                />
+            </div>
+
+            <div className="mb-10 w-full">
+                <Label labelName="Employer-Address" required>
+                    Employer's Address /School Address/Business Address
+                </Label>
+                <FormControl
+                    fieldName="employersAddress"
+                    variant="input"
+                    id="Employer-Address"
+                    type="text"
+                    placeholder="Enter your Employer's Address "
+                />
+            </div>
+        
+            <FileDownload />
+
             </div>
 
             <div className="flex gap-6 p-6 justify-end">

@@ -41,12 +41,24 @@ export type TFormRequest = {
     accountNumber: string
     channelId:string
     bvn: string
+    notificationPreference:string
     title: string
     maritalStatus: string
     motherMaidenName: string
     FullNameOfKin: string
     RelationshipOfKin: string
     dobOfKin: string
+    linkedIn: string
+    facebook: string
+    instagram:string
+    tiktok: string
+    twitter:string
+    thread:string
+    vnin: string
+    idNo: string
+    idType:string
+    issueDate: string
+    expiryDate:string
     PhoneNumberOfKin: string
     HouseNumberOfKin: string
     StateOfKin: string
@@ -60,7 +72,9 @@ export type TFormRequest = {
     LastName: string
     MiddleName: string
     status: string
-    employersName: string
+    employersName:string
+    employersAddress:string
+   
     natureOfBusiness: string
     numberofYears: string
     annualIncome: string
@@ -92,6 +106,9 @@ export interface PreviewDataProps {
     isDiaspora: "yes" | "no"
     country: string
     state: string
+    employersName:string
+    employersAddress:string
+    notificationPreference:string
     zipCode: string | null
     localGovernment: string
     addressLine1: string
@@ -154,7 +171,7 @@ const PreviewPage: React.FC<{
                     {/* Display Contact Details */}
                     {/* Display Contact Details */}
                     <h2 className="text-xl font-bold mt-6 mb-2">
-                        Contact Details:
+                    Account Holder Details:
                     </h2>
                     {previewData.isDiaspora === "no" ? (
     // Show specific contact details when isDiaspora is "no"
@@ -177,6 +194,21 @@ const PreviewPage: React.FC<{
         {previewData.zipCode && (
             <p className="mb-2 pb-2 border-b border-gray-200">
                 Postal Code: {previewData.zipCode}
+            </p>
+        )}
+         {previewData.zipCode && (
+            <p className="mb-2 pb-2 border-b border-gray-200">
+                employersName: {previewData.employersName}
+            </p>
+        )}
+         {previewData.zipCode && (
+            <p className="mb-2 pb-2 border-b border-gray-200">
+                employersAddress: {previewData.employersAddress}
+            </p>
+        )}
+         {previewData.zipCode && (
+            <p className="mb-2 pb-2 border-b border-gray-200">
+                notificationPreference: {previewData.notificationPreference}
             </p>
         )}
     </>
@@ -223,6 +255,21 @@ const PreviewPage: React.FC<{
                 Address Line 2: {previewData.addressLine2}
             </p>
         )}
+          {previewData.zipCode && (
+            <p className="mb-2 pb-2 border-b border-gray-200">
+                employersName: {previewData.employersName}
+            </p>
+        )}
+         {previewData.zipCode && (
+            <p className="mb-2 pb-2 border-b border-gray-200">
+                employersAddress: {previewData.employersAddress}
+            </p>
+        )}
+         {previewData.zipCode && (
+            <p className="mb-2 pb-2 border-b border-gray-200">
+                notificationPreference: {previewData.notificationPreference}
+            </p>
+        )}
     </>
 )}
                     
@@ -244,21 +291,15 @@ const PreviewPage: React.FC<{
                                 </div>
                             )
                         )}
-
-                        {previewData.customerPhoto.map(
-                            (
-                                item: { file: File; name: string },
-                                index: number
-                            ) => (
-                                <div key={index} className="mb-4">
-                                    <p className="font-semibold pb-2 border-b border-gray-200">
-                                        Document Type: Birth Certificate/
-                                        Affidavit
-                                    </p>
-                                    <p>File Name: {item.name}</p>
-                                </div>
-                            )
-                        )}
+{previewData.customerPhoto && (
+  <div className="mb-4">
+    <p className="font-semibold pb-2 border-b border-gray-200">
+      Document Type: Birth Certificate/Affidavit
+    </p>
+    <p>File Name: {previewData.customerPhoto.name}</p>
+    {/* Add additional details here if needed */}
+  </div>
+)}
 
                         {previewData.proofOfAddressImage.map(
                             (

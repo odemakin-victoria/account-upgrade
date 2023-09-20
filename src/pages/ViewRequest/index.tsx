@@ -93,12 +93,16 @@ export default function UpdateRequest() {
                 accountNumber: data?.accountNumber,
                 channelId:data?.channelId,
                 bvn: data?.bvn ?? undefined,
-                vnin: data?.vnin?? undefined,
+                notificationPreference:data?.notificationPreference,
+                
                 maritalStatus: data?.PersonalDetails?.maritalStatus,
                 localGovernment: data?.contactAddress?.localGovernment,
                 addressLine1: data?.contactAddress?.addressLine1 ?? undefined,
                 addressLine2: data?.contactAddress?.addressLine2 ?? undefined,
                 FirstName: data?.PersonalDetails?.FirstName,
+                employersAddress:data?.EmployeeStatus?.employersAddress,
+                employersName: data?.EmployeeStatus?.employersName,
+
                 LastName: data?.PersonalDetails?.LastName,
                 MiddleName: data?.PersonalDetails?.MiddleName,
                 dateOfBirth: data?.PersonalDetails?.dateOfBirth,
@@ -239,7 +243,7 @@ export default function UpdateRequest() {
                                                 : "text-gray-900"
                                         }`}
                                     >
-                                        Contact Details
+                                     Account Holder Details
                                     </p>
                                     <p
                                         onClick={() =>
@@ -499,8 +503,7 @@ export function AccountOTPRequestValidation({
             var formData = formHandler.createRequest({
                 ...data,
                 RequestType: "update",
-                ChannelId:"01",
-
+                channelId: "01",
 
                 accountNumber: getValues("accountNumber"),
             })

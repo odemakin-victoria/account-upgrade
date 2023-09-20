@@ -3,7 +3,12 @@ export interface CustomerUpdateRequest {
     title:string
     maritalStatus: string
     motherMaidenName: string
+    purposeOfAccount:string
+    otherReasons:string
     FirstName: string
+    notificationPreference:string
+    employersAddress:string
+    employersName:string
     LastName:string
     MiddleName:string
     dateOfBirth:string

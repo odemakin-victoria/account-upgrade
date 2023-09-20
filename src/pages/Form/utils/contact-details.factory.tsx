@@ -18,8 +18,14 @@ export default function ContactDetailsFactory() {
 
 export function DiasporaFields() {
     return (
-        <>
-            <div className="mb-10">
+        <><div className="relative sm:py-4 ">
+              <span className="absolute sm:top-[-20px]  ">
+                        (Non-Resident Nigerian)
+                        </span> 
+        </div>
+        <div className="md:flex justify-between">
+
+            <div className="mb-10 w-full mr-10">
                 <Label labelName="country" required>
                     Country
                 </Label>
@@ -39,7 +45,7 @@ export function DiasporaFields() {
                 />
             </div>
 
-            <div className="mb-10">
+            <div className="mb-10 w-full">
                 <Label labelName="state" required>
                     State
                 </Label>
@@ -51,8 +57,10 @@ export function DiasporaFields() {
                     placeholder="Enter your State"
                 />
             </div>
+        </div>
+            <div className="md:flex justify-between">
 
-            <div className="mb-10">
+            <div className="mb-10 w-full mr-10">
                 <Label labelName="city" required>
                     City
                 </Label>
@@ -64,7 +72,7 @@ export function DiasporaFields() {
                 />
             </div>
 
-            <div className="mb-10">
+            <div className="mb-10 w-full">
                 <Label labelName="line2Address" required>
                     Address Line 1
                 </Label>
@@ -75,7 +83,10 @@ export function DiasporaFields() {
                     placeholder="Address line 2"
                 />
             </div>
-            <div className="mb-10">
+</div>
+            <div className="md:flex justify-between">
+
+            <div className="mb-10 w-full mr-10">
                 <Label labelName="line2Address">Address Line 2</Label>
                 <FormControl
                     fieldName="addressLine2"
@@ -85,7 +96,7 @@ export function DiasporaFields() {
                 />
             </div>
 
-            <div className="mb-10">
+            <div className="mb-10 w-full">
                 <Label labelName="postalCode" required>
                     Zip Code
                 </Label>
@@ -96,6 +107,7 @@ export function DiasporaFields() {
                     placeholder="Enter your location zipcode"
                 />
             </div>
+</div>
         </>
     )
 }
@@ -112,7 +124,9 @@ export function NigerianFields() {
     }
     return (
         <>
-            <div className="mb-10">
+         <div className="md:flex justify-between">
+
+            <div className="mb-10 w-full mr-10">
                 <Label labelName="state" required>
                     State
                 </Label>
@@ -131,7 +145,7 @@ export function NigerianFields() {
                 />
             </div>
 
-            <div className="mb-10">
+            <div className="mb-10 w-full">
                 <Label labelName="local-government" required>
                     Local Government
                 </Label>
@@ -148,17 +162,21 @@ export function NigerianFields() {
                     type="text"
                 />
             </div>
-
-            <div className="mb-10">
-                <Label labelName="house-number">House Number</Label>
+</div>
+            <div className="md:flex justify-between">
+            <div className="mb-10 w-full mr-10">
+                <Label labelName="post-code">Area</Label>
                 <FormControl
-                    fieldName="houseNumber"
+                    fieldName="zipCode"
                     variant="input"
-                    id="house-number"
-                    placeholder="Enter house number"
+                    id="post-code"
+                    type="text"
+                    placeholder="Enter your current Area"
                 />
             </div>
-            <div className="mb-6 ">
+
+
+            <div className="mb-6 w-full ">
                 <Label labelName="street-address">Street Name</Label>
                 <FormControl
                     fieldName="streetAddress"
@@ -167,17 +185,18 @@ export function NigerianFields() {
                     placeholder="Enter street name."
                 />
             </div>
-
-            <div className="mb-10">
-                <Label labelName="post-code">Postal Zip Code</Label>
+</div>
+<div className="mb-10 w-3/6 mr-10">
+                <Label labelName="house-number">House Number</Label>
                 <FormControl
-                    fieldName="zipCode"
+                    fieldName="houseNumber"
                     variant="input"
-                    id="post-code"
-                    type="text"
-                    placeholder="Enter your Post code"
+                    id="house-number"
+                    placeholder="Enter house number"
                 />
             </div>
+
+           
         </>
     )
 }

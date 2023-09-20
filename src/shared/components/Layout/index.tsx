@@ -1,7 +1,7 @@
-import { UPDATE_ACCOUNT_REQUEST } from "@/pages/routes-config"
+// import { UPDATE_ACCOUNT_REQUEST } from "@/pages/routes-config"
 import { useClickOutside } from "@mantine/hooks"
 import { ReactNode, useState } from "react"
-import { BsArrowRight } from "react-icons/bs"
+// import { BsArrowRight } from "react-icons/bs"
 import { HiOutlineMenuAlt3 } from "react-icons/hi"
 import { Link } from "react-router-dom"
 import headerOptimusLogo from "@/shared/assets/images/Optimus_Logo.svg";
@@ -48,16 +48,16 @@ export default function Layout({ children }: { children: ReactNode }) {
                     >
                         <span>Home</span>
                     </Link>
-                    <Link
+                    {/* <Link
                         to={UPDATE_ACCOUNT_REQUEST}
                         className="transition-all p-4 rounded hover:bg-blue-500 hover:text-white inline-flex items-center justify-center "
                     >
                         <span>Update Account Request</span>{" "}
                         <BsArrowRight className="ml-4" />
-                    </Link>
+                    </Link> */}
                 </div>
             </header>
-            <main className="lg:px-96 lg:mt-56 mt-24">{children}</main>
+            <main className="lg:px-40 lg:mt-56 mt-24">{children}</main>
         </div>
     )
 }
