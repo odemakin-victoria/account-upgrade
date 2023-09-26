@@ -24,6 +24,7 @@ import { useEffect } from "react"
 import { ROOT_ROUTE } from "../routes-config"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs"
 
 
 export default function AccountForm() {
@@ -63,16 +64,74 @@ export default function AccountForm() {
     }
     const handleSubmit = async (data: TFormRequest) => {
         const encryptedRequestType = caesarEncrypt("upgrade", 3); // Encrypt "upgrade" with shift 3
-        const encryptedChannelId = caesarEncrypt("01", 3); // Encrypt "01" with shift 3
+
         var formHandler = new submissionHandler()
         var formData = formHandler.createRequest({
             ...data,
+            accountNumber: caesarEncrypt(data.accountNumber, 3),
+            bvn: caesarEncrypt(data.bvn, 3),
             RequestType: encryptedRequestType,
-            channelId: encryptedChannelId,
+            channelId: "01",
+            title: caesarEncrypt(data.title, 3),
+            maritalStatus: caesarEncrypt(data.maritalStatus, 3),
+            motherMaidenName: caesarEncrypt(data.motherMaidenName, 3),
+            purposeOfAccount: caesarEncrypt(data.purposeOfAccount, 3),
+            otherReasons: caesarEncrypt(data.otherReasons, 3),
+            FirstName: caesarEncrypt(data.FirstName, 3),
+            dateOfBirth: dayjs(data.dateOfBirth).format(),
+            LastName: caesarEncrypt(data.LastName, 3),
+            MiddleName: caesarEncrypt(data.MiddleName, 3),
+            linkedIn: caesarEncrypt(data.linkedIn, 3),
+            facebook: caesarEncrypt(data.facebook, 3),
+            instagram: caesarEncrypt(data.instagram, 3),
+            tiktok: caesarEncrypt(data.tiktok, 3),
+            twitter: caesarEncrypt(data.twitter, 3),
+            thread: caesarEncrypt(data.thread, 3),
+            vnin: caesarEncrypt(data.vnin, 3),
+            idNo: caesarEncrypt(data.idNo, 3),
+            idType: caesarEncrypt(data.idType, 3),
+            issueDate: caesarEncrypt(dayjs(data.issueDate).format(), 3),
+            expiryDate: caesarEncrypt(dayjs(data.expiryDate).format(), 3),
+            FullNameOfKin: caesarEncrypt(data.FullNameOfKin, 3),
+            RelationshipOfKin: caesarEncrypt(data.RelationshipOfKin, 3),
+            dobOfKin: caesarEncrypt(dayjs(data.dobOfKin).format(), 3),
+            PhoneNumberOfKin: caesarEncrypt(data.PhoneNumberOfKin, 3),
+            HouseNumberOfKin: caesarEncrypt(data.HouseNumberOfKin, 3),
+            StateOfKin: caesarEncrypt(data.StateOfKin, 3),
+            StreetNameOfKin: caesarEncrypt(data.StreetNameOfKin, 3),
+            LocalGovernmentOfKin: caesarEncrypt(data.LocalGovernmentOfKin, 3),
+            PostalZipCodeOfKin: caesarEncrypt(data.PostalZipCodeOfKin, 3),
+            status: caesarEncrypt(data.status, 3),
+            employersName: caesarEncrypt(data.employersName, 3),
+            natureOfBusiness: caesarEncrypt(data.natureOfBusiness, 3),
+            numberofYears: caesarEncrypt(data.numberofYears, 3),
+            employersAddress: caesarEncrypt(data.employersAddress, 3),
+            annualIncome: caesarEncrypt(data.annualIncome, 3),
+            sourceOfWealth: caesarEncrypt(data.sourceOfWealth, 3),
+            foreignTaxId: caesarEncrypt(data.foreignTaxId, 3),
+            countryTaxResidence: caesarEncrypt(data.countryTaxResidence, 3),
+            citizenshipAddressLine1: caesarEncrypt(
+                data.citizenshipAddressLine1,
+                3
+            ),
+            citizenshipAddressLine2: caesarEncrypt(
+                data.citizenshipAddressLine2,
+                3
+            ),
+            addressLine1: caesarEncrypt(data.addressLine1, 3),
+            addressLine2: caesarEncrypt(data.addressLine2, 3),
+            city: caesarEncrypt(data.city, 3),
+            streetAddress: caesarEncrypt(data.streetAddress, 3),
+            houseNumber: caesarEncrypt(data.houseNumber, 3),
+            localGovernment: caesarEncrypt(data.localGovernment, 3),
+            country: caesarEncrypt(data.country, 3),
+            zipCode: caesarEncrypt(data.zipCode || "", 3),
+            state: caesarEncrypt(data.state, 3),
+           
         })
         form.mutate(formData)
 console.log(data)
-        navigate(ROOT_ROUTE);
+        // navigate(ROOT_ROUTE);
 
     }
 

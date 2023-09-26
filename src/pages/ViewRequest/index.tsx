@@ -481,7 +481,29 @@ export function AccountOTPRequestValidation({
     const { getValues, reset } = useFormContext()
     const form = useFormRequest()
     const [otp, setOtp] = useState<Object | null>(null)
+    function caesarEncrypt(text: string, shift: number): string {
+        // Define the character set to include uppercase letters, lowercase letters, and digits
+        const characterSet: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    
+        let encryptedText: string = "";
+    
+        for (let i: number = 0; i < text.length; i++) {
+            const char: string = text[i];
+            if (characterSet.includes(char)) {
+                const currentIndex: number = characterSet.indexOf(char);
+                const newIndex: number = (currentIndex + shift) % characterSet.length; // Ensure the index wraps around
+                encryptedText += characterSet[newIndex];
+            } else {
+                // If the character is not in the character set, keep it unchanged
+                encryptedText += char;
+            }
+        }
+    
+        return encryptedText;
+    }
 
+    const encryptedRequestUpdateType = caesarEncrypt("update", 3); // Encrypt "upgrade" with shift 3
+    const encryptedChannelId = caesarEncrypt("01", 3); // Encrypt "01" with shift 3
     const handleOTPValidation = async () => {
         if (!otp) {
             NotificationManager.showErrorNotification("Please enter an OTP")
@@ -502,8 +524,9 @@ export function AccountOTPRequestValidation({
             var formHandler = new submissionHandler()
             var formData = formHandler.createRequest({
                 ...data,
-                RequestType: "update",
-                channelId: "01",
+
+                RequestType: encryptedRequestUpdateType,
+                channelId: encryptedChannelId,
 
                 accountNumber: getValues("accountNumber"),
             })

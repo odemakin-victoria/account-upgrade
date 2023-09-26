@@ -7,7 +7,7 @@ import {
     Citizenship,
     RequestType,
     socialMedia,
-    idDetails
+    idDetails,
 } from "../types"
 import { formUtils } from "./FormUtils"
 import { FileHandler } from "./FileHandler"
@@ -20,36 +20,25 @@ type Document = {
     fileExt: string
 }
 function caesarEncrypt(text: string, shift: number): string {
-    // Define the character set to include uppercase letters, lowercase letters, and digits
-    const characterSet: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    let encryptedText: string = "";
-
-    for (let i: number = 0; i < text.length; i++) {
-        const char: string = text[i];
-        if (characterSet.includes(char)) {
-            const currentIndex: number = characterSet.indexOf(char);
-            const newIndex: number = (currentIndex + shift) % characterSet.length; // Ensure the index wraps around
-            encryptedText += characterSet[newIndex];
-        } else {
-            // If the character is not in the character set, keep it unchanged
-            encryptedText += char;
+    let result = ""
+    for (let i = 0; i < text.length; i++) {
+        let char = text[i]
+        if (char.match(/[a-z]/i)) {
+            const code = text.charCodeAt(i)
+            if (code >= 65 && code <= 90) {
+                char = String.fromCharCode(((code - 65 + shift) % 26) + 65)
+            } else if (code >= 97 && code <= 122) {
+                char = String.fromCharCode(((code - 97 + shift) % 26) + 97)
+            }
         }
+        result += char
     }
-
-    return encryptedText;
+    return result
 }
 
 // Example usage:
-const plaintext: string = "Hello123";
-const shift: number = 3;
-const encryptedText: string = caesarEncrypt(plaintext, shift);
-console.log(encryptedText); // Output: "Khoor123"
 
 
-
-
-  
 export class submissionHandler {
     private formData: FormData
 
@@ -57,6 +46,7 @@ export class submissionHandler {
         this.formData = new FormData()
     }
 
+    
     private prepareFormData(dataToSend: Record<string, keyof TFormRequest>) {
         for (let val in dataToSend) {
             this.formData.append(val, dataToSend[`${val}`])
@@ -71,10 +61,10 @@ export class submissionHandler {
             purposeOfAccount: caesarEncrypt(data.purposeOfAccount, 3),
             otherReasons: caesarEncrypt(data.otherReasons, 3),
             FirstName: caesarEncrypt(data.FirstName, 3),
-            dateOfBirth: caesarEncrypt(dayjs(data.dateOfBirth).format(), 3),
+            dateOfBirth: dayjs(data.dateOfBirth).format(),
             LastName: caesarEncrypt(data.LastName, 3),
             MiddleName: caesarEncrypt(data.MiddleName, 3),
-        };
+        }
         return PersonalDetails
     }
     private mapSocialMediaDetails(data: TFormRequest): socialMedia {
@@ -85,7 +75,7 @@ export class submissionHandler {
             tiktok: caesarEncrypt(data.tiktok, 3),
             twitter: caesarEncrypt(data.twitter, 3),
             thread: caesarEncrypt(data.thread, 3),
-        };
+        }
         return socialMedia
     }
     private mapidDetails(data: TFormRequest): idDetails {
@@ -95,14 +85,14 @@ export class submissionHandler {
             idType: caesarEncrypt(data.idType, 3),
             issueDate: caesarEncrypt(dayjs(data.issueDate).format(), 3),
             expiryDate: caesarEncrypt(dayjs(data.expiryDate).format(), 3),
-        };
+        }
         return idDetails
     }
 
     private mapRequestType(data: TFormRequest): RequestType {
         const RequestType: RequestType = {
             RequestType: caesarEncrypt(data.RequestType, 3),
-        };
+        }
         return RequestType
     }
 
@@ -117,8 +107,8 @@ export class submissionHandler {
             StreetNameOfKin: caesarEncrypt(data.StreetNameOfKin, 3),
             LocalGovernmentOfKin: caesarEncrypt(data.LocalGovernmentOfKin, 3),
             PostalZipCodeOfKin: caesarEncrypt(data.PostalZipCodeOfKin, 3),
-        };
-        
+        }
+
         return NextOfKin
     }
 
@@ -131,18 +121,24 @@ export class submissionHandler {
             employersAddress: caesarEncrypt(data.employersAddress, 3),
             annualIncome: caesarEncrypt(data.annualIncome, 3),
             sourceOfWealth: caesarEncrypt(data.sourceOfWealth, 3),
-        };
-        
+        }
+
         return EmployeeStatus
     }
     private mapCitizenship(data: TFormRequest): Citizenship {
         const Citizenship: Citizenship = {
             foreignTaxId: caesarEncrypt(data.foreignTaxId, 3),
             countryTaxResidence: caesarEncrypt(data.countryTaxResidence, 3),
-            citizenshipAddressLine1: caesarEncrypt(data.citizenshipAddressLine1, 3),
-            citizenshipAddressLine2: caesarEncrypt(data.citizenshipAddressLine2, 3),
-        };
-        
+            citizenshipAddressLine1: caesarEncrypt(
+                data.citizenshipAddressLine1,
+                3
+            ),
+            citizenshipAddressLine2: caesarEncrypt(
+                data.citizenshipAddressLine2,
+                3
+            ),
+        }
+
         return Citizenship
     }
 
@@ -155,19 +151,21 @@ export class submissionHandler {
             houseNumber: caesarEncrypt(data.houseNumber, 3),
             localGovernment: caesarEncrypt(data.localGovernment, 3),
             country: caesarEncrypt(data.country, 3),
-            zipCode: caesarEncrypt(data.zipCode || '', 3), // Use an empty string as the default value
+            zipCode: caesarEncrypt(data.zipCode || "", 3), // Use an empty string as the default value
             state: caesarEncrypt(data.state, 3),
-        };
-        
+        }
+
         return contactAddress
     }
 
     private appendObjectValuesToFormData(
         obj: Record<string, any>,
+
         prefix: string
     ) {
         Object.keys(obj).forEach((key) => {
             // @ts-ignore
+
             this.formData.append(`${prefix}.${key}`, obj[key])
         })
     }
@@ -176,13 +174,17 @@ export class submissionHandler {
         const Documents: Document[] = []
 
         formUtils.addIfNotNull(Documents, data, "customerPhoto")
+
         formUtils.addIfNotNull(Documents, data, "signature")
 
         data.proofOfAddressImage?.forEach((item) => {
             Documents.push({
                 documentType: "PROOFOFADDRESS",
+
                 document: item?.file ?? null,
+
                 documentName: item?.name ?? null,
+
                 fileExt: FileHandler.getFileExtension(item?.file?.name),
             })
         })
@@ -190,16 +192,23 @@ export class submissionHandler {
         data.proofOfIdentityImage?.forEach((item) => {
             Documents.push({
                 documentType: "IDENTIFICATION",
+
                 document: item?.file ?? null,
+
                 documentName: item?.name ?? null,
+
                 fileExt: FileHandler.getFileExtension(item?.file?.name),
             })
         })
+
         data.proofOfNinImage?.forEach((item) => {
             Documents.push({
                 documentType: "IDENTIFICATION",
+
                 document: item?.file ?? null,
+
                 documentName: item?.name ?? null,
+
                 fileExt: FileHandler.getFileExtension(item?.file?.name),
             })
         })
@@ -207,8 +216,11 @@ export class submissionHandler {
         data.diasporaDocs?.forEach((item) => {
             Documents.push({
                 documentType: "DIASPORA",
+
                 document: item?.file ?? null,
+
                 documentName: item?.name ?? null,
+
                 fileExt: FileHandler.getFileExtension(item?.file?.name),
             })
         })
@@ -220,23 +232,31 @@ export class submissionHandler {
         Documents.forEach((document, index) => {
             this.formData.append(
                 `Documents[${index}].DocumentType`,
+
                 document.documentType.toUpperCase() ?? ""
             )
+
             this.formData.append(
                 `Documents[${index}].document`,
+
                 document.document as File
             )
+
             this.formData.append(
                 `Documents[${index}].documentName`,
+
                 (document.documentName as string) || "unknown"
             )
 
             this.formData.append(
                 `Documents[${index}].FileExtension`,
+
                 (document.fileExt as string) || "unknown"
             )
         })
+
         // Display the key/value pairs
+
         for (const pair of this.formData.entries()) {
             console.log(`${pair[0]}, ${pair[1]}`)
         }
@@ -282,9 +302,6 @@ export class submissionHandler {
         const idDetails = this.mapidDetails(data)
         const mapRequestType = this.mapRequestType(data)
 
-
-
-
         this.appendObjectValuesToFormData(PersonalDetails, "PersonalDetails")
         this.appendObjectValuesToFormData(NextOfKin, "NextOfKin")
         this.appendObjectValuesToFormData(EmployeeStatus, "EmployeeStatus")
@@ -296,6 +313,13 @@ export class submissionHandler {
 
         const Documents = this.prepareAccountDocuments(data)
         this.mapAccountDocuments(Documents)
+
+        const encryptedData = caesarEncrypt(JSON.stringify(data), 3)
+
+        // Convert the encrypted data to bytes (UTF-8 encoding)
+
+        // Add the encrypted data to the FormData object
+        this.formData.append("EncryptedData", encryptedData)
 
         return this.formData
     }

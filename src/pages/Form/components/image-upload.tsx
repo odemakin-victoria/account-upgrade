@@ -1,24 +1,40 @@
 import { Label } from "@/shared/components";
-import React from "react";
+import React, { useState } from "react";
 
-/**
- * Used in uploading documents or images within the project
- * @param {Boolean, string, string}
- * @returns Jsx.Element
- */
 export default function ImageUpload({
   multiple,
-  accept,
   name = "image-upload",
   handleChange,
-  onBlur
+  accept,
+  onBlur,
 }: {
   multiple?: boolean;
   accept?: string;
   name?: string;
-  handleChange: (e:React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?:()=>void
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
 }) {
+  const [error, setError] = useState<string | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = e.target.files;
+
+    if (selectedFiles) {
+      const allowedExtensions = [".pdf", ".jpg", ".jpeg", ".png"];
+      const invalidFiles = Array.from(selectedFiles).filter(
+        (file) =>
+          !allowedExtensions.some((ext) => file.name.toLowerCase().endsWith(ext))
+      );
+
+      if (invalidFiles.length > 0) {
+        setError("File must be either .pdf, .jpg, .jpeg, or .png.");
+      } else {
+        setError(null);
+        handleChange(e); // Pass the event to the parent component
+      }
+    }
+  };
+
   return (
     <div className="w-full border border-dashed border-gray-800">
       <Label
@@ -34,9 +50,10 @@ export default function ImageUpload({
         multiple={multiple}
         accept={accept}
         name={name}
-        onChange={handleChange}
+        onChange={handleFileChange}
         onBlur={onBlur}
       />
+      {error && <div className="text-red-500">{error}</div>}
     </div>
   );
 }
