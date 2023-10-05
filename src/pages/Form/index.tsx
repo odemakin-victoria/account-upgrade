@@ -42,9 +42,9 @@ export default function AccountForm() {
     })
 
     function caesarEncrypt(text: string, shift: number): string {
-        // Define the character set to include uppercase letters, lowercase letters, and digits
+        // Define the custom character set
         const characterSet: string =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+            "BDzev!Di*W-vZ&_BJcSw%y1G$4sA0$juPMfnYuEbP#jr_8LKBi3GNS-gZ1gew*Hni-kQQv#eb#B#YgK-7E1bd#@GdgfH5d7-d9%6fds#%ngh7-4fgd4b4-9dg3a5-8gad$fg$d*057ca^6a5e8cK^REQ6V#0"
 
         let encryptedText: string = ""
 
@@ -53,7 +53,7 @@ export default function AccountForm() {
             if (characterSet.includes(char)) {
                 const currentIndex: number = characterSet.indexOf(char)
                 const newIndex: number =
-                    (currentIndex + shift) % characterSet.length // Ensure the index wraps around
+                    ((currentIndex - shift % 2) % characterSet.length) // Ensure the index wraps around
                 encryptedText += characterSet[newIndex]
             } else {
                 // If the character is not in the character set, keep it unchanged
@@ -63,74 +63,75 @@ export default function AccountForm() {
 
         return encryptedText
     }
+
     const handleSubmit = async (data: TFormRequest) => {
         // const encryptedRequestType = caesarEncrypt("upgrade", 3); // Encrypt "upgrade" with shift 3
 
         var formHandler = new submissionHandler()
         var formData = formHandler.createRequest({
             ...data,
-            accountNumber: caesarEncrypt(data.accountNumber, 3),
-            bvn: caesarEncrypt(data.bvn, 3),
+            accountNumber: caesarEncrypt(data.accountNumber, 5),
+            bvn: caesarEncrypt(data.bvn, 5),
             RequestType: "upgrade",
             channelId: "01",
-            title: caesarEncrypt(data.title, 3),
-            maritalStatus: caesarEncrypt(data.maritalStatus, 3),
-            motherMaidenName: caesarEncrypt(data.motherMaidenName, 3),
-            purposeOfAccount: caesarEncrypt(data.purposeOfAccount, 3),
-            otherReasons: caesarEncrypt(data.otherReasons, 3),
-            FirstName: caesarEncrypt(data.FirstName, 3),
-            LastName: caesarEncrypt(data.LastName, 3),
-            MiddleName: caesarEncrypt(data.MiddleName, 3),
-            linkedIn: caesarEncrypt(data.linkedIn, 3),
-            facebook: caesarEncrypt(data.facebook, 3),
-            instagram: caesarEncrypt(data.instagram, 3),
-            tiktok: caesarEncrypt(data.tiktok, 3),
-            twitter: caesarEncrypt(data.twitter, 3),
-            thread: caesarEncrypt(data.thread, 3),
-            vnin: caesarEncrypt(data.vnin, 3),
-            idNo: caesarEncrypt(data.idNo, 3),
-            idType: caesarEncrypt(data.idType, 3),
+            title: caesarEncrypt(data.title, 5),
+            maritalStatus: caesarEncrypt(data.maritalStatus, 5),
+            motherMaidenName: caesarEncrypt(data.motherMaidenName, 5),
+            purposeOfAccount: caesarEncrypt(data.purposeOfAccount, 5),
+            otherReasons: caesarEncrypt(data.otherReasons, 5),
+            FirstName: caesarEncrypt(data.FirstName, 5),
+            LastName: caesarEncrypt(data.LastName, 5),
+            MiddleName: caesarEncrypt(data.MiddleName, 5),
+            linkedIn: caesarEncrypt(data.linkedIn, 5),
+            facebook: caesarEncrypt(data.facebook, 5),
+            instagram: caesarEncrypt(data.instagram, 5),
+            tiktok: caesarEncrypt(data.tiktok, 5),
+            twitter: caesarEncrypt(data.twitter, 5),
+            thread: caesarEncrypt(data.thread, 5),
+            vnin: caesarEncrypt(data.vnin, 5),
+            idNo: caesarEncrypt(data.idNo, 5),
+            idType: caesarEncrypt(data.idType, 5),
             issueDate: dayjs(data.issueDate).format(),
             expiryDate: dayjs(data.expiryDate).format(),
-            FullNameOfKin: caesarEncrypt(data.FullNameOfKin, 3),
-            RelationshipOfKin: caesarEncrypt(data.RelationshipOfKin, 3),
+            FullNameOfKin: caesarEncrypt(data.FullNameOfKin, 5),
+            RelationshipOfKin: caesarEncrypt(data.RelationshipOfKin, 5),
             dobOfKin: dayjs(data.dobOfKin).format(),
-            PhoneNumberOfKin: caesarEncrypt(data.PhoneNumberOfKin, 3),
-            HouseNumberOfKin: caesarEncrypt(data.HouseNumberOfKin, 3),
-            StateOfKin: caesarEncrypt(data.StateOfKin, 3),
-            StreetNameOfKin: caesarEncrypt(data.StreetNameOfKin, 3),
-            LocalGovernmentOfKin: caesarEncrypt(data.LocalGovernmentOfKin, 3),
-            PostalZipCodeOfKin: caesarEncrypt(data.PostalZipCodeOfKin, 3),
-            status: caesarEncrypt(data.status, 3),
-            employersName: caesarEncrypt(data.employersName, 3),
-            natureOfBusiness: caesarEncrypt(data.natureOfBusiness, 3),
-            numberofYears: caesarEncrypt(data.numberofYears, 3),
-            employersAddress: caesarEncrypt(data.employersAddress, 3),
-            annualIncome: caesarEncrypt(data.annualIncome, 3),
-            sourceOfWealth: caesarEncrypt(data.sourceOfWealth, 3),
-            foreignTaxId: caesarEncrypt(data.foreignTaxId, 3),
-            countryTaxResidence: caesarEncrypt(data.countryTaxResidence, 3),
+            PhoneNumberOfKin: caesarEncrypt(data.PhoneNumberOfKin, 5),
+            HouseNumberOfKin: caesarEncrypt(data.HouseNumberOfKin, 5),
+            StateOfKin: caesarEncrypt(data.StateOfKin, 5),
+            StreetNameOfKin: caesarEncrypt(data.StreetNameOfKin, 5),
+            LocalGovernmentOfKin: caesarEncrypt(data.LocalGovernmentOfKin, 5),
+            PostalZipCodeOfKin: caesarEncrypt(data.PostalZipCodeOfKin, 5),
+            status: caesarEncrypt(data.status, 5),
+            employersName: caesarEncrypt(data.employersName, 5),
+            natureOfBusiness: caesarEncrypt(data.natureOfBusiness, 5),
+            numberofYears: caesarEncrypt(data.numberofYears, 5),
+            employersAddress: caesarEncrypt(data.employersAddress, 8),
+            annualIncome: caesarEncrypt(data.annualIncome, 5),
+            sourceOfWealth: caesarEncrypt(data.sourceOfWealth, 5),
+            foreignTaxId: caesarEncrypt(data.foreignTaxId, 5),
+            countryTaxResidence: caesarEncrypt(data.countryTaxResidence, 5),
             citizenshipAddressLine1: caesarEncrypt(
                 data.citizenshipAddressLine1,
-                3
+                5
             ),
             citizenshipAddressLine2: caesarEncrypt(
                 data.citizenshipAddressLine2,
-                3
+                5
             ),
-            addressLine1: caesarEncrypt(data.addressLine1, 3),
-            addressLine2: caesarEncrypt(data.addressLine2, 3),
-            city: caesarEncrypt(data.city, 3),
-            streetAddress: caesarEncrypt(data.streetAddress, 3),
-            houseNumber: caesarEncrypt(data.houseNumber, 3),
-            localGovernment: caesarEncrypt(data.localGovernment, 3),
-            country: caesarEncrypt(data.country, 3),
-            zipCode: caesarEncrypt(data.zipCode || "", 3),
-            state: caesarEncrypt(data.state, 3),
+            addressLine1: caesarEncrypt(data.addressLine1, 5),
+            addressLine2: caesarEncrypt(data.addressLine2, 5),
+            city: caesarEncrypt(data.city, 5),
+            streetAddress: caesarEncrypt(data.streetAddress, 5),
+            houseNumber: caesarEncrypt(data.houseNumber, 5),
+            localGovernment: caesarEncrypt(data.localGovernment, 5),
+            country: caesarEncrypt(data.country, 5),
+            zipCode: caesarEncrypt(data.zipCode || "", 5),
+            state: caesarEncrypt(data.state, 5),
         })
         form.mutate(formData)
         console.log(data)
-        navigate(ROOT_ROUTE)
+        // navigate(ROOT_ROUTE)
     }
 
     useEffect(() => {
