@@ -23,13 +23,12 @@ import { useFormRequest } from "./hooks/queries.hooks"
 import { useEffect } from "react"
 import { ROOT_ROUTE } from "../routes-config"
 import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import dayjs from "dayjs"
-
 
 export default function AccountForm() {
     UsePageTitle("Account Upgrade form | Optimus Bank")
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const form = useFormRequest()
     const [activeTab, setActiveTab] = useState("account")
@@ -41,36 +40,38 @@ export default function AccountForm() {
         defaultValues: FormInitialState,
         resolver: yupResolver(formValidationSchema),
     })
-    
+
     function caesarEncrypt(text: string, shift: number): string {
         // Define the character set to include uppercase letters, lowercase letters, and digits
-        const characterSet: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    
-        let encryptedText: string = "";
-    
+        const characterSet: string =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+        let encryptedText: string = ""
+
         for (let i: number = 0; i < text.length; i++) {
-            const char: string = text[i];
+            const char: string = text[i]
             if (characterSet.includes(char)) {
-                const currentIndex: number = characterSet.indexOf(char);
-                const newIndex: number = (currentIndex + shift) % characterSet.length; // Ensure the index wraps around
-                encryptedText += characterSet[newIndex];
+                const currentIndex: number = characterSet.indexOf(char)
+                const newIndex: number =
+                    (currentIndex + shift) % characterSet.length // Ensure the index wraps around
+                encryptedText += characterSet[newIndex]
             } else {
                 // If the character is not in the character set, keep it unchanged
-                encryptedText += char;
+                encryptedText += char
             }
         }
-    
-        return encryptedText;
+
+        return encryptedText
     }
     const handleSubmit = async (data: TFormRequest) => {
-        const encryptedRequestType = caesarEncrypt("upgrade", 3); // Encrypt "upgrade" with shift 3
+        // const encryptedRequestType = caesarEncrypt("upgrade", 3); // Encrypt "upgrade" with shift 3
 
         var formHandler = new submissionHandler()
         var formData = formHandler.createRequest({
             ...data,
             accountNumber: caesarEncrypt(data.accountNumber, 3),
             bvn: caesarEncrypt(data.bvn, 3),
-            RequestType: encryptedRequestType,
+            RequestType: "upgrade",
             channelId: "01",
             title: caesarEncrypt(data.title, 3),
             maritalStatus: caesarEncrypt(data.maritalStatus, 3),
@@ -78,7 +79,6 @@ export default function AccountForm() {
             purposeOfAccount: caesarEncrypt(data.purposeOfAccount, 3),
             otherReasons: caesarEncrypt(data.otherReasons, 3),
             FirstName: caesarEncrypt(data.FirstName, 3),
-            dateOfBirth: dayjs(data.dateOfBirth).format(),
             LastName: caesarEncrypt(data.LastName, 3),
             MiddleName: caesarEncrypt(data.MiddleName, 3),
             linkedIn: caesarEncrypt(data.linkedIn, 3),
@@ -90,11 +90,11 @@ export default function AccountForm() {
             vnin: caesarEncrypt(data.vnin, 3),
             idNo: caesarEncrypt(data.idNo, 3),
             idType: caesarEncrypt(data.idType, 3),
-            issueDate: caesarEncrypt(dayjs(data.issueDate).format(), 3),
-            expiryDate: caesarEncrypt(dayjs(data.expiryDate).format(), 3),
+            issueDate: dayjs(data.issueDate).format(),
+            expiryDate: dayjs(data.expiryDate).format(),
             FullNameOfKin: caesarEncrypt(data.FullNameOfKin, 3),
             RelationshipOfKin: caesarEncrypt(data.RelationshipOfKin, 3),
-            dobOfKin: caesarEncrypt(dayjs(data.dobOfKin).format(), 3),
+            dobOfKin: dayjs(data.dobOfKin).format(),
             PhoneNumberOfKin: caesarEncrypt(data.PhoneNumberOfKin, 3),
             HouseNumberOfKin: caesarEncrypt(data.HouseNumberOfKin, 3),
             StateOfKin: caesarEncrypt(data.StateOfKin, 3),
@@ -127,12 +127,10 @@ export default function AccountForm() {
             country: caesarEncrypt(data.country, 3),
             zipCode: caesarEncrypt(data.zipCode || "", 3),
             state: caesarEncrypt(data.state, 3),
-           
         })
         form.mutate(formData)
-console.log(data)
-        // navigate(ROOT_ROUTE);
-
+        console.log(data)
+        navigate(ROOT_ROUTE)
     }
 
     useEffect(() => {
@@ -340,40 +338,37 @@ console.log(data)
                                             Object.keys(
                                                 methods.formState.errors
                                             ).length > 0 && (
-
                                                 <div className="relative top-[-30px] left-[-10px] bg-red-500 text-white p-2 font-bold rounded-lg z-50 w-full h-16">
-  <p
-                                                    className="text-white text-base mt-4"
-                                                    aria-label="error message"
-                                                >
-                                                    Please fill in all the
-                                                    required fields.
-                                                </p>
+                                                    <p
+                                                        className="text-white text-base mt-4"
+                                                        aria-label="error message"
+                                                    >
+                                                        Please fill in all the
+                                                        required fields.
+                                                    </p>
                                                 </div>
-                                              
                                             )}
-                                       
-                                        <div>
-                                        <Link to={ROOT_ROUTE}>
-                                            <button
-                                                type="button"
-                                                className="bg-blue-500 text-white p-4 rounded-lg px-8 w-full lg:w-fit mt-6"
-                                                disabled={
-                                                    form.isLoading ||
-                                                    !methods.watch(
-                                                        "acceptedTerms"
-                                                    )
-                                                }
-                                                onClick={methods.handleSubmit(
-                                                    handleSubmit
-                                                )}
-                                            >
-                                                {form.isLoading
-                                                    ? "Please wait..."
-                                                    : "Submit"}
-                                            </button>
-                                            </Link>
 
+                                        <div>
+                                            <Link to={ROOT_ROUTE}>
+                                                <button
+                                                    type="button"
+                                                    className="bg-blue-500 text-white p-4 rounded-lg px-8 w-full lg:w-fit mt-6"
+                                                    disabled={
+                                                        form.isLoading ||
+                                                        !methods.watch(
+                                                            "acceptedTerms"
+                                                        )
+                                                    }
+                                                    onClick={methods.handleSubmit(
+                                                        handleSubmit
+                                                    )}
+                                                >
+                                                    {form.isLoading
+                                                        ? "Please wait..."
+                                                        : "Submit"}
+                                                </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 )}

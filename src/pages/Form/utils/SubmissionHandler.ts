@@ -312,12 +312,12 @@ export class submissionHandler {
         const Documents = this.prepareAccountDocuments(data)
         this.mapAccountDocuments(Documents)
 
-        const encryptedData = caesarEncrypt(JSON.stringify(data), 3)
+        // const encryptedData = caesarEncrypt(JSON.stringify(data), 3)
 
-        // Convert the encrypted data to bytes (UTF-8 encoding)
+        // // Convert the encrypted data to bytes (UTF-8 encoding)
 
-        // Add the encrypted data to the FormData object
-        this.formData.append("EncryptedData", encryptedData)
+        // // Add the encrypted data to the FormData object
+        // this.formData.append("EncryptedData", encryptedData)
 
         return this.formData
     }
