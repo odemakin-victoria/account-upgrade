@@ -4,6 +4,8 @@ export const formValidationSchema = yup.object().shape({
     accountNumber: yup
       .string()
       .required("Account Number is required") // Add error message
+      .matches(/^[0-9]+$/, "Account Number must contain only numbers")
+
       .min(5, "Invalid Account Number")
       .test(
         "accountNumberLength",
@@ -43,20 +45,20 @@ export const formValidationSchema = yup.object().shape({
     purposeOfAccount:yup.string().required("Purpose Of Account is required"),
     title:yup.string().required("Title is required"),
     state:yup.string().required("state is required"),
-    localGovernment:yup.string().required("Local Government is required"),
     RelationshipOfKin:yup.string().required("Relationship Of Kin is required"),
     dobOfKin:yup.string().required("Date Of Birth Of Kin is required"),
     status:yup.string().required("Employment Status is required"),
     employersName:yup.string().required("Employer's Name is required"),
+    
     employersAddress:yup.string().required("Employer's Address is required"),
-
-   
-   
     idType:yup.string().required("Identification Card is required"),
     idNo:yup.string().required("Identification Number is required"),
     motherMaidenName: yup.string().required("Mother's Maiden Name is required"), // Add error message
     FullNameOfKin: yup.string().required("Full Name of Kin is required"), // Add error message
-    PhoneNumberOfKin: yup.string().required("Phone Number of Kin is required"), // Add error message
+    PhoneNumberOfKin: yup
+    .string()
+    .required("Phone Number of Kin is required")
+    .matches(/^[0-9]+$/, "Phone Number must contain only numbers"),
     signature: yup.mixed().required("Signature is required"), // Add error message
     proofOfIdentityImage:yup.mixed().required("Upload Regulatory ID is required"), 
     customerPhoto: yup.mixed().required("Customer Photo is required"), // Add error message

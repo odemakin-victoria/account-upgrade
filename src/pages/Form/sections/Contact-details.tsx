@@ -1,4 +1,4 @@
-import { useEffect, useState,ChangeEvent } from "react"
+import { useEffect, useState, ChangeEvent } from "react"
 import { useFormContext } from "react-hook-form"
 import LabelDecor from "../components/label-decor"
 import SectionContainer from "../components/section"
@@ -7,11 +7,11 @@ import SocialMediaFactory from "../utils/social-media-details.factory"
 import { Label, FormControl } from "@/shared/components"
 import countries from "@/assets/data/countnries.json"
 import statesAndLga from "@/assets/data/statesAndLga.json"
+import { Controller } from "react-hook-form";
 
 
 export default function ContactDetails() {
     const { setValue, watch, getValues } = useFormContext()
-
 
     const [isGrayedOut, setIsGrayedOut] = useState<boolean>(false)
 
@@ -106,10 +106,8 @@ export default function ContactDetails() {
                                     : ""
                             }`}
                         >
-                            Outside Nigeria 
-                          
+                            Outside Nigeria
                         </span>
-                     
                     </label>
                 </div>
             </div>
@@ -129,7 +127,6 @@ export default function ContactDetails() {
                             An alternate contact person in case you are
                             unreachable or unavailable.
                         </p>
-                      
                     </div>
                     <FormControl
                         fieldName="FullNameOfKin"
@@ -138,14 +135,10 @@ export default function ContactDetails() {
                         type="text"
                         placeholder="Enter your next of Kin's Name"
                     />
-                      <div className="flex justify-between w-64">
-                        <p className="text-xs text-gray-500 mb-2">
-                           First Name
-                        </p>
-                        <p className="text-xs text-gray-500 mb-2">
-                           Last Name
-                        </p>
-                        </div>
+                    <div className="flex justify-between w-64">
+                        <p className="text-xs text-gray-500 mb-2">First Name</p>
+                        <p className="text-xs text-gray-500 mb-2">Last Name</p>
+                    </div>
                 </div>
                 {/* Relationship with Next of Kin  */}
                 <div className="mb-10 w-full">
@@ -198,6 +191,10 @@ export default function ContactDetails() {
                                 value: "Nephew",
                             },
                             {
+                                label: "Spouse",
+                                value: "Spouse",
+                            },
+                            {
                                 label: "Partner",
                                 value: "Partner",
                             },
@@ -235,16 +232,40 @@ export default function ContactDetails() {
                 </div>
                 {/* Next of kin Phone Number */}
                 <div className="mb-10 w-full">
-                    <Label labelName="Phone-number-of-Next-of-Kin" required>
-                        Phone number of Next of Kin
-                    </Label>
-                    <FormControl
-                        fieldName="PhoneNumberOfKin"
-                        variant="input"
-                        id="Phone-number-of-Next-of-Kin"
-                        type="text"
-                        placeholder="Enter your Phone No. of Next of Kin "
-                    />
+                <Controller
+    name="PhoneNumberOfKin"
+    render={({ field, fieldState }) => (
+        <div className="mb-6 mr-10 w-full">
+            <Label
+                labelName="Phone-number-of-Next-of-Kin"
+                required
+            >
+                Phone number of Next of Kin
+            </Label>
+            <FormControl
+                fieldName={"PhoneNumberOfKin"} variant="input"
+                id="Phone-number-of-Next-of-Kin"
+                placeholder="Enter your Phone No. of Next of Kin"
+                {...field}
+                onInput={(e) => {
+                    // Use the onInput event handler to restrict input to numbers
+                    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, "")
+                } }            />
+            {fieldState.invalid && (
+                <p className="text-red-500">{fieldState.error?.message}</p>
+            )}
+        </div>
+    )}
+    rules={{
+        required: "Phone number of Next of Kin is required",
+        validate: (value) => {
+            if (value.length < 11) {
+                return "Phone number of Next of Kin must have 11 digits.";
+            }
+            return true;
+        },
+    }}
+/>
                 </div>
             </div>
             {/* Address of Next of Kin */}
@@ -285,10 +306,9 @@ export default function ContactDetails() {
                         />
                     </div>
                 )}
-             
             </div>
             <div className="md:flex justify-between">
-            {!isGrayedOut && (
+                {!isGrayedOut && (
                     <div className="mb-10 w-full mr-10">
                         <Label labelName="next-of-kin-local-government">
                             Local Government
@@ -307,7 +327,7 @@ export default function ContactDetails() {
                         />
                     </div>
                 )}
-                  {!isGrayedOut && (
+                {!isGrayedOut && (
                     <div className="mb-10 w-full">
                         <Label labelName="next-of-kin-postal-zip-code">
                             Area
@@ -320,11 +340,9 @@ export default function ContactDetails() {
                         />
                     </div>
                 )}
-               
-               
             </div>
             <div className="md:flex justify-between">
-            {!isGrayedOut && (
+                {!isGrayedOut && (
                     <div className="mb-10 w-full mr-10">
                         <Label labelName="next-of-kin-street-name">
                             Street Name
@@ -337,8 +355,8 @@ export default function ContactDetails() {
                         />
                     </div>
                 )}
-                
-   {!isGrayedOut && (
+
+                {!isGrayedOut && (
                     <div className="mb-10 w-full">
                         <Label labelName="next-of-kin-house-number">
                             House Number
@@ -351,12 +369,11 @@ export default function ContactDetails() {
                         />
                     </div>
                 )}
-              
             </div>
 
             {/* Employment status */}
             <h2 className="text-lg mb-8 heading">
-                <LabelDecor text="5" /> Social Media  Details
+                <LabelDecor text="5" /> Social Media Details
             </h2>
             <SocialMediaFactory />
 
@@ -364,307 +381,339 @@ export default function ContactDetails() {
                 <LabelDecor text="6" /> Employment Details
             </h2>
             <div className="md:flex justify-between">
+                <div className="mb-6 w-full mr-10">
+                    <Label labelName="marital-status" required>
+                        Employment Status
+                    </Label>
 
-            <div className="mb-6 w-full mr-10">
-                <Label labelName="marital-status" required>
-                    Employment Status
-                </Label>
+                    <FormControl
+                        fieldName="status"
+                        variant="select"
+                        options={[
+                            {
+                                label: "Paid Employment",
+                                value: "Paid Employment",
+                            },
+                            {
+                                label: "Self Employed",
+                                value: "Self Employed",
+                            },
+                            {
+                                label: "Unemployed",
+                                value: "Unemployed",
+                            },
+                            {
+                                label: "Retired",
+                                value: "Retired",
+                            },
+                            {
+                                label: "Student",
+                                value: "Student",
+                            },
+                        ]}
+                        id="employment-status"
+                        placeholder="Enter your Employment Status"
+                    />
+                </div>
 
-                <FormControl
-                    fieldName="status"
-                    variant="select"
-                    options={[
-                        {
-                            label: "Paid Employment",
-                            value: "Paid Employment",
-                        },
-                        {
-                            label: "Self Employed",
-                            value: "Self Employed",
-                        },
-                        {
-                            label: "Unemployed",
-                            value: "Unemployed",
-                        },
-                        {
-                            label: "Retired",
-                            value: "Retired",
-                        },
-                        {
-                            label: "Student",
-                            value: "Student",
-                        },
-                    ]}
-                    id="employment-status"
-                    placeholder="Enter your Employment Status"
-                />
-            </div>
-
-            {/* Employer's Name */}
-            <div className="mb-10 w-full">
-                <Label labelName="Employer-Name" required>
-                    Employer's Name /School Name/Business Name
-                </Label>
-                <FormControl
-                    fieldName="employersName"
-                    variant="input"
-                    id="Employer-Name"
-                    type="text"
-                    placeholder="Enter your Employer's Name "
-                />
-            </div>
+                {/* Employer's Name */}
+                <div className="mb-10 w-full">
+                    <Label labelName="Employer-Name" required>
+                        Employer's Name /School Name/Business Name
+                    </Label>
+                    <FormControl
+                        fieldName="employersName"
+                        variant="input"
+                        id="Employer-Name"
+                        type="text"
+                        placeholder="Enter your Employer's Name "
+                    />
+                </div>
             </div>
 
             <div className="md:flex justify-between">
-
-            <div className="mb-10 w-3/6">
-                <Label labelName="Employer-Address" required>
-                    Employer's Address /School Address/Business Address
-                </Label>
-                <FormControl
-                    fieldName="employersAddress"
-                    variant="input"
-                    id="Employer-Address"
-                    type="text"
-                    placeholder="Enter your Employer's Address "
-                />
+                <div className="mb-10 w-3/6">
+                    <Label labelName="Employer-Address" required>
+                        Employer's Address /School Address/Business Address
+                    </Label>
+                    <FormControl
+                        fieldName="employersAddress"
+                        variant="input"
+                        id="Employer-Address"
+                        type="text"
+                        placeholder="Enter your Employer's Address "
+                    />
+                </div>
             </div>
-
-         
-</div>
             {/* Employer Address */}
             {!isStudent && (
                 <>
-                <div className="md:flex justify-between">
-
-                    <div className="mb-10 w-full mr-10">
-                        <Label labelName="Nature-of-Business">
-                            Nature of Business/ Occupation
-                        </Label>
-                        <FormControl
-                            fieldName="natureOfBusiness"
-                            variant="input"
-                            id="Nature-of-Business"
-                            type="text"
-                            placeholder="Enter your Nature of Business "
-                        />
-                    </div>
-                    <div className="mb-10 w-full">
-                        <Label labelName="Source-of-Wealth ">
-                           Source of Funds/Wealth
-                        </Label>
-                        <FormControl
-                            fieldName="sourceOfWealth"
-                            variant="input"
-                            id="source-Of-Wealth"
-                            type="text"
-                            placeholder="Enter your Source of Wealth "
-                        />
-                    </div>
-                </div>
-             
                     <div className="md:flex justify-between">
-
-                    <div className="mb-10 w-full mr-10">
-                <Label labelName="number-of-years-in-employment" >
-                   Number of Years In Employment
-                </Label>
-
-                <FormControl
-                    fieldName="numberofYears"
-                    variant="select"
-                    options={[
-                        {
-                            label: "Less Than a year",
-                            value: "Less Than a year",
-                        },
-                        {
-                            label: "1 year to 5 years",
-                            value: "1 year to 5 years",
-                        },
-                        {
-                            label: "5 years to 10 years",
-                            value: "5 years to 10 years",
-                        },
-                        {
-                            label: "10 years and above",
-                            value: "10 years and above",
-                        }
-                       
-                    ]}
-                    id="Number-of-Years"
-                    placeholder="Enter your number of years in employment"
-                />
-            </div>
-
-                    {/* Expected Annual Income */}
-                    <div className="mb-10 w-full">
-                        <Label labelName="expected-annual-income">
-                            Expected Annual Income
-                        </Label>
-
-                        <FormControl
-                            fieldName="annualIncome"
-                            variant="select"
-                            options={[
-                                {
-                                    label: "Less than 50,000",
-                                    value: "Less than 50,000",
-                                },
-                                {
-                                    label: "50,000 to 250,000",
-                                    value: "50,000 to 250,000",
-                                },
-                                {
-                                    label: "250,000  to 500,000",
-                                    value: "250000  to 500,000",
-                                },
-                                {
-                                    label: "500,000 to 1,000,000",
-                                    value: "500,000 to 1,000,000",
-                                },
-                                {
-                                    label: "1,000,000 To less Than 5,000,000",
-                                    value: "Above 10 years",
-                                },
-                                {
-                                    label: "5,000,000 to 10,000,000",
-                                    value: "5,000,000 to 10,000,000",
-                                },
-                                {
-                                    label: "10,000,000 to 20,000,000",
-                                    value: "10,000,000 to 20,000,000",
-                                },
-                                {
-                                    label: "20,000,000 and  Above",
-                                    value: "20,000,000 and  Above",
-                                },
-                            ]}
-                            id="expected-annual-income"
-                            placeholder="Enter your expected annual Income"
-                        />
+                        <div className="mb-10 w-full mr-10">
+                            <Label labelName="Nature-of-Business">
+                                Nature of Business/ Occupation
+                            </Label>
+                            <FormControl
+                                fieldName="natureOfBusiness"
+                                variant="input"
+                                id="Nature-of-Business"
+                                type="text"
+                                placeholder="Enter your Nature of Business "
+                            />
+                        </div>
+                        <div className="mb-10 w-full">
+                            <Label labelName="Source-of-Wealth ">
+                                Source of Funds/Wealth
+                            </Label>
+                            <FormControl
+                                fieldName="sourceOfWealth"
+                                variant="input"
+                                id="source-Of-Wealth"
+                                type="text"
+                                placeholder="Enter your Source of Wealth "
+                            />
+                        </div>
                     </div>
-</div>
+
+                    <div className="md:flex justify-between">
+                        <div className="mb-10 w-full mr-10">
+                            <Label labelName="number-of-years-in-employment">
+                                Number of Years In Employment
+                            </Label>
+
+                            <FormControl
+                                fieldName="numberofYears"
+                                variant="select"
+                                options={[
+                                    {
+                                        label: "Less Than a year",
+                                        value: "Less Than a year",
+                                    },
+                                    {
+                                        label: "1 year to 5 years",
+                                        value: "1 year to 5 years",
+                                    },
+                                    {
+                                        label: "5 years to 10 years",
+                                        value: "5 years to 10 years",
+                                    },
+                                    {
+                                        label: "10 years and above",
+                                        value: "10 years and above",
+                                    },
+                                ]}
+                                id="Number-of-Years"
+                                placeholder="Enter your number of years in employment"
+                            />
+                        </div>
+
+                        {/* Expected Annual Income */}
+                        <div className="mb-10 w-full">
+                            <Label labelName="expected-annual-income">
+                                Expected Annual Income
+                            </Label>
+
+                            <FormControl
+                                fieldName="annualIncome"
+                                variant="select"
+                                options={[
+                                    {
+                                        label: "Less than 50,000",
+                                        value: "Less than 50,000",
+                                    },
+                                    {
+                                        label: "50,000 to 250,000",
+                                        value: "50,000 to 250,000",
+                                    },
+                                    {
+                                        label: "250,000  to 500,000",
+                                        value: "250000  to 500,000",
+                                    },
+                                    {
+                                        label: "500,000 to 1,000,000",
+                                        value: "500,000 to 1,000,000",
+                                    },
+                                    {
+                                        label: "1,000,000 To less Than 5,000,000",
+                                        value: "Above 10 years",
+                                    },
+                                    {
+                                        label: "5,000,000 to 10,000,000",
+                                        value: "5,000,000 to 10,000,000",
+                                    },
+                                    {
+                                        label: "10,000,000 to 20,000,000",
+                                        value: "10,000,000 to 20,000,000",
+                                    },
+                                    {
+                                        label: "20,000,000 and  Above",
+                                        value: "20,000,000 and  Above",
+                                    },
+                                ]}
+                                id="expected-annual-income"
+                                placeholder="Enter your expected annual Income"
+                            />
+                        </div>
+                    </div>
                 </>
             )}
 
-
             {/* Citizenship */}
-            
-            
+            <h2 className="text-lg mb-8 heading">
+                <LabelDecor text="7" /> FATCA / CRS
+            </h2>
             {isDiaspora === "no" && (
                 <>
                     {/* Citizenship */}
                     <div className="mb-10 w-full">
                         <Label labelName="" className="text-sm font-semibold">
-                            Please fill this section if you hold any other citizenship
-                            aside from Nigerian nationality
+                            (Please fill this section if you hold any other
+                            citizenship aside from Nigerian nationality)
                         </Label>
                     </div>
+                    <div className="mb-10 w-full" >
+                        <p>Kindly complete the table below indicating (a) the jurisdiction of residence where the account holder is a resident for tax purposes and (b) the account holder's TIN for each jurisdiction. Please note thaT, this is not restricted to two (2), additional information should be completed on a separate sheet. (See “TIN” in appendix of Key Terms).
+                            <br />
+If o TIN is unovoiloble, kindly provide the appropriate reoson A, B or C: <br />
+
+Reason A — The jurisdiction where the account holder is a resident for tax purposes does not issue TIN to its residents. Reason B — The account holder is unable to obtain a TIN. Please provide the reason why TIN could not be obtained. Reason C — TIN is not required (i.e. the authorities of the jurisdiction of residence do not require the TIN to be disclosed.)</p>
+                    </div>
                     <div className="md:flex justify-between">
-                    <div className="mb-10 w-full mr-10">
-                <Label labelName="Foreign-Tax-Id">Foreign Tax ID </Label>
-                <FormControl
-                    fieldName="foreignTaxId"
-                    variant="input"
-                    id="Foreign-Tax-Id"
-                    type="text"
-                    placeholder="Enter your Foreign Tax ID "
-                />
-            </div>
-                   
-                    <div className="mb-10 w-full">
-                <Label labelName="Country-of-Tax-Residence"> Country of Tax Residence{" "}</Label>
-                <FormControl
-                    fieldName="countryTaxResidence"
-                    variant="select"
-                    id="Country-of-Tax-Residence"
-                    placeholder="Enter your Country of Tax Residence "
-                    options={countries
-                        ?.filter((item) => item.name !== "Nigeria")
-                        .map((item) => {
-                            return {
-                                label: item.name,
-                                value: item.name,
-                            }
-                        })}
-                    type="text"
-                />
-            </div>
-                </div>
+                        <div className="mb-10 w-full mr-10">
+                            <Label labelName="Foreign-Tax-Id">
+                               TIN
+                            </Label>
+                            <FormControl
+                                fieldName="foreignTaxId"
+                                variant="input"
+                                id="Foreign-Tax-Id"
+                                type="text"
+                                placeholder="Enter your Foreign Tax ID "
+                            />
+                        </div>
 
-            <div className="md:flex justify-between">
-            <div className="mb-10 w-full mr-10">
-                <Label labelName="line2Address">Address Line 2</Label>
-                <FormControl
-                    fieldName="citizenshipAddressLine2"
-                    variant="input"
-                    id="line2Address"
-                    placeholder="Address line 2"
-                />
-            </div>
-                 
-            
-            
-            <div className="mb-10 w-full">
-                <Label labelName="line1Address">Address Line 1</Label>
-                <FormControl
-                    fieldName="citizenshipAddressLine1"
-                    variant="input"
-                    id="line2Address"
-                    placeholder="Address line 2"
-                />
-            </div>
-                </div>
+                        <div className="mb-10 w-full">
+                            <Label labelName="Country-of-Tax-Residence">
+                                {" "}
+                                Country /Jurisdiction of Tax Residence{" "}
+                            </Label>
+                            <FormControl
+                                fieldName="countryTaxResidence"
+                                variant="select"
+                                id="Country-of-Tax-Residence"
+                                placeholder="Enter your Country of Tax Residence "
+                                options={countries
+                                    ?.filter((item) => item.name !== "Nigeria")
+                                    .map((item) => {
+                                        return {
+                                            label: item.name,
+                                            value: item.name,
+                                        }
+                                    })}
+                                type="text"
+                            />
+                        </div>
+                    </div>
+<div className="md:flex justify-between">
+<div className="mb-10 w-full mr-10">
+                            <Label labelName="Foreign-Tax-Id">
+                            If no TIN available,Please input Reason	 A, B or C
+                            </Label>
+                            <FormControl
+                                fieldName="foreignTaxId"
+                                variant="input"
+                                id="Foreign-Tax-Id"
+                                type="text"
+                                placeholder="Enter your Foreign Tax ID "
+                            />
+                        </div>
+                        <div className="mb-10 w-full">
+                            <Label labelName="Foreign-Tax-Id">
+                            Explain the reason for not being able to obtain a a TIN Reason B only                           </Label>
+                            <FormControl
+                                fieldName="foreignTaxId"
+                                variant="input"
+                                id="Foreign-Tax-Id"
+                                type="text"
+                                placeholder="Enter your Foreign Tax ID "
+                            />
+                        </div>
+</div>
 
-         
+
+                    <div className="md:flex justify-between">
+                        <div className="mb-10 w-full mr-10">
+                            <Label labelName="line2Address">
+                                Address Line 2
+                            </Label>
+                            <FormControl
+                                fieldName="citizenshipAddressLine2"
+                                variant="input"
+                                id="line2Address"
+                                placeholder="Address line 2"
+                            />
+                        </div>
+
+                        <div className="mb-10 w-full">
+                            <Label labelName="line1Address">
+                                Address Line 1
+                            </Label>
+                            <FormControl
+                                fieldName="citizenshipAddressLine1"
+                                variant="input"
+                                id="line2Address"
+                                placeholder="Address line 2"
+                            />
+                        </div>
+                    </div>
                 </>
             )}
 
             {isDiaspora === "yes" && (
                 <div className="mb-10">
                     <div className="mb-10">
-                <Label labelName="" className="text-sm font-semibold">
-                    Please fill this section if you hold any other citizenship
-                    asides Nigerian nationality
-                </Label>
-            </div>
-            <div className="md:flex justify-between">
-
-                   <div className="mb-10 w-full">
-                <Label labelName="Country-of-Tax-Residence"> Country of Tax Residence{" "}</Label>
-                <FormControl
-                    fieldName="countryTaxResidence"
-                    variant="select"
-                    id="Country-of-Tax-Residence"
-                    placeholder="Enter your Country of Tax Residence "
-                    options={countries
-                        ?.filter((item) => item.name !== "Nigeria")
-                        .map((item) => {
-                            return {
-                                label: item.name,
-                                value: item.name,
-                            }
-                        })}
-                    type="text"
-                />
-            </div>
-            <div className="mb-10 w-full">
-                <Label labelName="Foreign-Tax-Id">Foreign Tax ID </Label>
-                <FormControl
-                    fieldName="foreignTaxId"
-                    variant="input"
-                    id="Foreign-Tax-Id"
-                    type="text"
-                    placeholder="Enter your Foreign Tax ID "
-                />
-            </div>
-            </div>
-            
-           
+                        <Label labelName="" className="text-sm font-semibold">
+                            (Please fill this section if you hold any other
+                            citizenship asides Nigerian nationality)
+                        </Label>
+                    </div>
+                    <div className="md:flex justify-between">
+                        <div className="mb-10 w-full">
+                            <Label labelName="Country-of-Tax-Residence">
+                                {" "}
+                                Country of Tax Residence{" "}
+                            </Label>
+                            <FormControl
+                                fieldName="countryTaxResidence"
+                                variant="select"
+                                id="Country-of-Tax-Residence"
+                                placeholder="Enter your Country of Tax Residence "
+                                options={countries
+                                    ?.filter((item) => item.name !== "Nigeria")
+                                    .map((item) => {
+                                        return {
+                                            label: item.name,
+                                            value: item.name,
+                                        }
+                                    })}
+                                type="text"
+                            />
+                        </div>
+                        <div className="mb-10 w-full">
+                            <Label labelName="Foreign-Tax-Id">
+                                Foreign Tax ID{" "}
+                            </Label>
+                            <FormControl
+                                fieldName="foreignTaxId"
+                                variant="input"
+                                id="Foreign-Tax-Id"
+                                type="text"
+                                placeholder="Enter your Foreign Tax ID "
+                            />
+                        </div>
+                    </div>
                 </div>
             )}
-          
         </SectionContainer>
     )
 }

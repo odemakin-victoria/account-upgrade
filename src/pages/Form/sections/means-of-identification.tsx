@@ -106,7 +106,7 @@ export default function MeansofIdentification() {
             aria-labelledby="means-of-identification"
         >
             <h2 className="text-lg mb-8 heading" id="means-of-identification">
-                <LabelDecor text="6" />
+                <LabelDecor text="8" />
                 Means of Identification
             </h2>
 
@@ -283,7 +283,7 @@ export default function MeansofIdentification() {
                 </Label>
                 {watch("isDiaspora") === "no" ? (
                     <p id="label-hint" aria-hidden="true">
-                        Pleae upload your National ID,NIN Slip, Permanent
+                        Please upload your National ID,NIN Slip, Permanent
                         Voter's Card (PVC), International Passport, Driver's
                         License ( The maximum file size for each document upload
                         is 2MB.)

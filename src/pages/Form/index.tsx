@@ -32,36 +32,63 @@ export default function AccountForm() {
 
     const form = useFormRequest()
     const [activeTab, setActiveTab] = useState("account")
-    const handleTabChange = (tabName: string) => {
-        setActiveTab(tabName)
-    }
 
+
+ 
     const methods = useForm<TFormRequest>({
-        defaultValues: FormInitialState,
+        defaultValues: {
+            ...FormInitialState,
+            purposeOfAccount: "",
+            employersAddress: "",
+        },
         resolver: yupResolver(formValidationSchema),
     })
-
-    function caesarEncrypt(text: string, shift: number): string {
-        // Define the custom character set
-        const characterSet: string =
-            "BDzev!Di*W-vZ&_BJcSw%y1G$4sA0$juPMfnYuEbP#jr_8LKBi3GNS-gZ1gew*Hni-kQQv#eb#B#YgK-7E1bd#@GdgfH5d7-d9%6fds#%ngh7-4fgd4b4-9dg3a5-8gad$fg$d*057ca^6a5e8cK^REQ6V#0"
-
-        let encryptedText: string = ""
-
-        for (let i: number = 0; i < text.length; i++) {
-            const char: string = text[i]
-            if (characterSet.includes(char)) {
-                const currentIndex: number = characterSet.indexOf(char)
-                const newIndex: number =
-                    ((currentIndex - shift % 2) % characterSet.length) // Ensure the index wraps around
-                encryptedText += characterSet[newIndex]
-            } else {
-                // If the character is not in the character set, keep it unchanged
-                encryptedText += char
-            }
+    const requiredFields: { [key: string]: string[] } = {
+        account: ["accountNumber", "bvn"],
+        personal: ["title", "purposeOfAccount","motherMaidenName", "maritalStatus"],
+        contact: ["state","FullNameOfKin","RelationshipOfKin", "dobOfKin","PhoneNumberOfKin","status", "employersName","employersAddress" ],
+        identification: ["idNo", "idType",],
+      };
+      
+      
+      const isCurrentTabValid = () => {
+        const requiredFieldsForTab = requiredFields[activeTab];
+        return requiredFieldsForTab.every((field: any) => !!methods.watch(field));
+      };
+    
+      const handleTabChange = (tabName: string) => {
+        if (tabName !== activeTab) {
+          if (isCurrentTabValid()) {
+            setActiveTab(tabName);
+          }
         }
+      };
+    class CaesarCipher {
+        public static CaesarEncrypt(
+            input: string,
+            key: number,
+            rounds: number,
+            _customAlphabet: string | null = null
+        ): string {
+            const DefaultAlphabet =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=}{][~`>,?"
+            let alphabet = DefaultAlphabet
+            const encryptedText = input.split("")
 
-        return encryptedText
+            for (let round = 0; round < rounds; round++) {
+                for (let i = 0; i < encryptedText.length; i++) {
+                    const originalChar = encryptedText[i]
+                    if (alphabet.includes(originalChar)) {
+                        const originalIndex = alphabet.indexOf(originalChar)
+                        const newIndex = (originalIndex + key) % alphabet.length
+                        const newChar = alphabet[newIndex]
+                        encryptedText[i] = newChar
+                    }
+                }
+            }
+
+            return encryptedText.join("")
+        }
     }
 
     const handleSubmit = async (data: TFormRequest) => {
@@ -70,68 +97,126 @@ export default function AccountForm() {
         var formHandler = new submissionHandler()
         var formData = formHandler.createRequest({
             ...data,
-            accountNumber: caesarEncrypt(data.accountNumber, 5),
-            bvn: caesarEncrypt(data.bvn, 5),
+            accountNumber: CaesarCipher.CaesarEncrypt(data.accountNumber, 5, 3),
+            bvn: CaesarCipher.CaesarEncrypt(data.bvn, 5, 3),
             RequestType: "upgrade",
             channelId: "01",
-            title: caesarEncrypt(data.title, 5),
-            maritalStatus: caesarEncrypt(data.maritalStatus, 5),
-            motherMaidenName: caesarEncrypt(data.motherMaidenName, 5),
-            purposeOfAccount: caesarEncrypt(data.purposeOfAccount, 5),
-            otherReasons: caesarEncrypt(data.otherReasons, 5),
-            FirstName: caesarEncrypt(data.FirstName, 5),
-            LastName: caesarEncrypt(data.LastName, 5),
-            MiddleName: caesarEncrypt(data.MiddleName, 5),
-            linkedIn: caesarEncrypt(data.linkedIn, 5),
-            facebook: caesarEncrypt(data.facebook, 5),
-            instagram: caesarEncrypt(data.instagram, 5),
-            tiktok: caesarEncrypt(data.tiktok, 5),
-            twitter: caesarEncrypt(data.twitter, 5),
-            thread: caesarEncrypt(data.thread, 5),
-            vnin: caesarEncrypt(data.vnin, 5),
-            idNo: caesarEncrypt(data.idNo, 5),
-            idType: caesarEncrypt(data.idType, 5),
+            title: CaesarCipher.CaesarEncrypt(data.title, 5, 3),
+            maritalStatus: CaesarCipher.CaesarEncrypt(data.maritalStatus, 5, 3),
+            motherMaidenName: CaesarCipher.CaesarEncrypt(
+                data.motherMaidenName,
+                5,
+                3
+            ),
+            purposeOfAccount: CaesarCipher.CaesarEncrypt(
+                data.purposeOfAccount,
+                5,
+                3
+            ),
+            otherReasons: CaesarCipher.CaesarEncrypt(data.otherReasons, 5, 3),
+            FirstName: CaesarCipher.CaesarEncrypt(data.FirstName, 5, 3),
+            LastName: CaesarCipher.CaesarEncrypt(data.LastName, 5, 3),
+            MiddleName: CaesarCipher.CaesarEncrypt(data.MiddleName, 5, 3),
+            linkedIn: CaesarCipher.CaesarEncrypt(data.linkedIn, 5, 3),
+            facebook: CaesarCipher.CaesarEncrypt(data.facebook, 5, 3),
+            instagram: CaesarCipher.CaesarEncrypt(data.instagram, 5, 3),
+            tiktok: CaesarCipher.CaesarEncrypt(data.tiktok, 5, 3),
+            twitter: CaesarCipher.CaesarEncrypt(data.twitter, 5, 3),
+            thread: CaesarCipher.CaesarEncrypt(data.thread, 5, 3),
+            vnin: CaesarCipher.CaesarEncrypt(data.vnin, 5, 3),
+            idNo: CaesarCipher.CaesarEncrypt(data.idNo, 5, 3),
+            idType: CaesarCipher.CaesarEncrypt(data.idType, 5, 3),
             issueDate: dayjs(data.issueDate).format(),
+
             expiryDate: dayjs(data.expiryDate).format(),
-            FullNameOfKin: caesarEncrypt(data.FullNameOfKin, 5),
-            RelationshipOfKin: caesarEncrypt(data.RelationshipOfKin, 5),
+
+            FullNameOfKin: CaesarCipher.CaesarEncrypt(data.FullNameOfKin, 5, 3),
+            RelationshipOfKin: CaesarCipher.CaesarEncrypt(
+                data.RelationshipOfKin,
+                5,
+                3
+            ),
             dobOfKin: dayjs(data.dobOfKin).format(),
-            PhoneNumberOfKin: caesarEncrypt(data.PhoneNumberOfKin, 5),
-            HouseNumberOfKin: caesarEncrypt(data.HouseNumberOfKin, 5),
-            StateOfKin: caesarEncrypt(data.StateOfKin, 5),
-            StreetNameOfKin: caesarEncrypt(data.StreetNameOfKin, 5),
-            LocalGovernmentOfKin: caesarEncrypt(data.LocalGovernmentOfKin, 5),
-            PostalZipCodeOfKin: caesarEncrypt(data.PostalZipCodeOfKin, 5),
-            status: caesarEncrypt(data.status, 5),
-            employersName: caesarEncrypt(data.employersName, 5),
-            natureOfBusiness: caesarEncrypt(data.natureOfBusiness, 5),
-            numberofYears: caesarEncrypt(data.numberofYears, 5),
-            employersAddress: caesarEncrypt(data.employersAddress, 8),
-            annualIncome: caesarEncrypt(data.annualIncome, 5),
-            sourceOfWealth: caesarEncrypt(data.sourceOfWealth, 5),
-            foreignTaxId: caesarEncrypt(data.foreignTaxId, 5),
-            countryTaxResidence: caesarEncrypt(data.countryTaxResidence, 5),
-            citizenshipAddressLine1: caesarEncrypt(
+
+            PhoneNumberOfKin: CaesarCipher.CaesarEncrypt(
+                data.PhoneNumberOfKin,
+                5,
+                3
+            ),
+            HouseNumberOfKin: CaesarCipher.CaesarEncrypt(
+                data.HouseNumberOfKin,
+                5,
+                3
+            ),
+            StateOfKin: CaesarCipher.CaesarEncrypt(data.StateOfKin, 5, 3),
+            StreetNameOfKin: CaesarCipher.CaesarEncrypt(
+                data.StreetNameOfKin,
+                5,
+                3
+            ),
+            LocalGovernmentOfKin: CaesarCipher.CaesarEncrypt(
+                data.LocalGovernmentOfKin,
+                5,
+                3
+            ),
+            PostalZipCodeOfKin: CaesarCipher.CaesarEncrypt(
+                data.PostalZipCodeOfKin,
+                5,
+                3
+            ),
+            status: CaesarCipher.CaesarEncrypt(data.status, 5, 3),
+            employersName: CaesarCipher.CaesarEncrypt(data.employersName, 5, 3),
+            natureOfBusiness: CaesarCipher.CaesarEncrypt(
+                data.natureOfBusiness,
+                5,
+                3
+            ),
+            numberofYears: CaesarCipher.CaesarEncrypt(data.numberofYears, 5, 3),
+            employersAddress: CaesarCipher.CaesarEncrypt(
+                data.employersAddress,
+                5,
+                3
+            ),
+            annualIncome: CaesarCipher.CaesarEncrypt(data.annualIncome, 5, 3),
+            sourceOfWealth: CaesarCipher.CaesarEncrypt(
+                data.sourceOfWealth,
+                5,
+                3
+            ),
+            foreignTaxId: CaesarCipher.CaesarEncrypt(data.foreignTaxId, 5, 3),
+            countryTaxResidence: CaesarCipher.CaesarEncrypt(
+                data.countryTaxResidence,
+                5,
+                3
+            ),
+            citizenshipAddressLine1: CaesarCipher.CaesarEncrypt(
                 data.citizenshipAddressLine1,
-                5
+                5,
+                3
             ),
-            citizenshipAddressLine2: caesarEncrypt(
+            citizenshipAddressLine2: CaesarCipher.CaesarEncrypt(
                 data.citizenshipAddressLine2,
-                5
+                5,
+                3
             ),
-            addressLine1: caesarEncrypt(data.addressLine1, 5),
-            addressLine2: caesarEncrypt(data.addressLine2, 5),
-            city: caesarEncrypt(data.city, 5),
-            streetAddress: caesarEncrypt(data.streetAddress, 5),
-            houseNumber: caesarEncrypt(data.houseNumber, 5),
-            localGovernment: caesarEncrypt(data.localGovernment, 5),
-            country: caesarEncrypt(data.country, 5),
-            zipCode: caesarEncrypt(data.zipCode || "", 5),
-            state: caesarEncrypt(data.state, 5),
+            addressLine1: CaesarCipher.CaesarEncrypt(data.addressLine1, 5, 3),
+            addressLine2: CaesarCipher.CaesarEncrypt(data.addressLine2, 5, 3),
+            city: CaesarCipher.CaesarEncrypt(data.city, 5, 3),
+            streetAddress: CaesarCipher.CaesarEncrypt(data.streetAddress, 5, 3),
+            houseNumber: CaesarCipher.CaesarEncrypt(data.houseNumber, 5, 3),
+            localGovernment: CaesarCipher.CaesarEncrypt(
+                data.localGovernment,
+                5,
+                3
+            ),
+            country: CaesarCipher.CaesarEncrypt(data.country, 5, 3),
+            zipCode: CaesarCipher.CaesarEncrypt(data.zipCode || "", 5, 3),
+            state: CaesarCipher.CaesarEncrypt(data.state, 5, 3),
         })
+
         form.mutate(formData)
         console.log(data)
-        // navigate(ROOT_ROUTE)
+        navigate(ROOT_ROUTE)
     }
 
     useEffect(() => {
@@ -147,28 +232,22 @@ export default function AccountForm() {
         identification: <MeansofIdentification />,
     }
 
-    const isLastTab = activeTab === "identification"
 
-    const handleNext = () => {
-        if (isLastTab) {
-            // Submit the form on the last tab
-            handleSubmit(methods.getValues())
-        } else {
-            // Go to the next tab
-            const tabsInOrder = [
-                "account",
-                "personal",
-                "contact",
-                "identification",
-            ]
-            const currentIndex = tabsInOrder.indexOf(activeTab)
-            if (currentIndex !== -1 && currentIndex < tabsInOrder.length - 1) {
-                const nextTab = tabsInOrder[currentIndex + 1]
-                handleTabChange(nextTab)
+
+    const handleNext = (nextTab: string) => {
+        const tabsInOrder = ["account", "personal", "contact", "identification"];
+        const currentIndex = tabsInOrder.indexOf(activeTab);
+
+        if (nextTab === "previous" || nextTab === "next") {
+            if (nextTab === "next" && currentIndex < tabsInOrder.length - 1) {
+                const nextTab = tabsInOrder[currentIndex + 1];
+                setActiveTab(nextTab);
+            } else if (nextTab === "previous" && currentIndex > 0) {
+                const previousTab = tabsInOrder[currentIndex - 1];
+                setActiveTab(previousTab);
             }
         }
-    }
-
+    };
     return (
         <FormProvider {...methods}>
             <Layout>
@@ -357,6 +436,7 @@ export default function AccountForm() {
                                                     className="bg-blue-500 text-white p-4 rounded-lg px-8 w-full lg:w-fit mt-6"
                                                     disabled={
                                                         form.isLoading ||
+                                                       
                                                         !methods.watch(
                                                             "acceptedTerms"
                                                         )
@@ -382,22 +462,26 @@ export default function AccountForm() {
                             <button
                                 type="button"
                                 className="bg-[#0DDE65] text-white p-4 rounded-lg px-4 w-full lg:w-fit lg:mt-3 lg:mr-64"
-                                onClick={() => handleTabChange("account")}
-                            >
+                                
+                               
+                                onClick={() => handleNext("previous")} // Go to the previous tab
+                                >
                                 Previous
                             </button>
                         )}
                         {activeTab !== "identification" && (
                             <div className="mt- mb-4">
-                                <button
-                                    type="button"
-                                    className="bg-blue-500 text-white p-4 rounded-lg px-10 w-full lg:w-fit mt-8 ml-20"
-                                    disabled={
-                                        form.isLoading ||
-                                        (activeTab === "identification" &&
-                                            !methods.watch("acceptedTerms"))
-                                    }
-                                    onClick={handleNext}
+                                  <button
+                                type="button"
+                                className="bg-blue-500 text-white p-4 rounded-lg px-10 w-full lg:w-fit mt-8 ml-20"
+                 
+
+                                disabled={
+                                    form.isLoading || !isCurrentTabValid() ||                                   
+                                    (activeTab === "identification" &&
+                                        !methods.watch("acceptedTerms"))
+                                }
+                                onClick={() => handleNext("next")} // Go to the next tab
                                 >
                                     {activeTab === "identification"
                                         ? "Submit"
@@ -409,5 +493,6 @@ export default function AccountForm() {
                 </div>
             </Layout>
         </FormProvider>
+        
     )
 }

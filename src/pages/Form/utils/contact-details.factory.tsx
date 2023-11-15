@@ -165,7 +165,7 @@ export function NigerianFields() {
 </div>
             <div className="md:flex justify-between">
             <div className="mb-10 w-full mr-10">
-                <Label labelName="post-code">Area</Label>
+                <Label labelName="post-code" required>Area</Label>
                 <FormControl
                     fieldName="zipCode"
                     variant="input"
@@ -177,7 +177,7 @@ export function NigerianFields() {
 
 
             <div className="mb-6 w-full ">
-                <Label labelName="street-address">Street Name</Label>
+                <Label labelName="street-address " required>Street Name</Label>
                 <FormControl
                     fieldName="streetAddress"
                     variant="input"
@@ -187,7 +187,7 @@ export function NigerianFields() {
             </div>
 </div>
 <div className="mb-10 w-3/6 mr-10">
-                <Label labelName="house-number">House Number</Label>
+                <Label labelName="house-number" required >House Number</Label>
                 <FormControl
                     fieldName="houseNumber"
                     variant="input"

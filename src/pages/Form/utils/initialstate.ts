@@ -2,6 +2,7 @@ import { TFormRequest } from "@/shared/types"
 
 export const FormInitialState: TFormRequest = {
     accountNumber: "",
+    purposeOfAccount:"",
     bvn: "",
     notificationPreference:"",
     vnin: "",
@@ -16,7 +17,6 @@ export const FormInitialState: TFormRequest = {
     signature: null,
     maritalStatus: "",
     motherMaidenName: "",
-    purposeOfAccount: " ",
     otherReasons:" ",
     FullNameOfKin: "",
     PhoneNumberOfKin: "",
